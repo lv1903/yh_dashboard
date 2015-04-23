@@ -1,0 +1,14 @@
+[
+  {
+    "stylers": [
+      { "visibility": "off" }
+    ]
+  },{
+  "featureType": "landscape",
+  "stylers": [
+    { "visibility": "on" },
+    { "color": "#ffffff" }
+  ]
+},{
+}
+]

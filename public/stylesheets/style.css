@@ -1,0 +1,86 @@
+body {
+    /*font-family: Interstate;*/
+    background-color: white;
+    color: black;
+}
+
+.navbar{
+    background-color: white;
+    height: 100px
+}
+
+#headerContainer{
+    background-color: white;
+    color: black;
+}
+
+.h1{
+    color: black;
+    padding-left: 20px;
+}
+
+#mapContainer{
+    padding: 90px 0px 0px 0px;
+    margin: 0px 0px 0px 100px;
+    width: 98%;
+    height: 100%;
+}
+
+
+.mapCanvas {
+    position: absolute;
+    top: 90px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    /*background-color: #D14414;*/
+    background-color: orange;
+}
+
+#activeData{
+    /*background-color: black;*/
+    /*color: #D14414;*/
+    /*color: orange;*/
+    /*padding: 0px 10px 4px 10px;*/
+}
+
+/*.black {*/
+    /*background-color: black;*/
+    /*color: #D14414;*/
+    /*color: white;*/
+    /*border-radius: 0;*/
+    /*border-color: white;*/
+    /*font-size: large;*/
+
+    /*-webkit-appearance: none;*/
+    /*-moz-appearance: none;*/
+    /*appearance: none;*/
+
+/*}*/
+
+#yearSelect{
+    /*padding: 0px;*/
+    /*width: 60px;*/
+}
+
+
+#quarterSelect{
+    /*padding: 0px;*/
+    /*width: 40px;*/
+}
+
+/*#unemploymentDurationSelect{*/
+    /*padding-left: 0px;*/
+    /*padding-right: 0px;*/
+    /*width: 80px;*/
+    /*height: 39px;*/
+    /*text-align: center;*/
+/*}*/
+
+button {
+    /*margin: 10px*/
+}
+
+.top-buffer {
+    margin-top:20px;
+}

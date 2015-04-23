@@ -1,0 +1,66 @@
+extends layout
+
+block content
+    .container#mapContainer
+        .mapCanvas
+
+        .row.top-buffer
+            .col-sm-3
+            .col-sm-4
+                span#activeData.h2 statutory youth homelessness
+
+        .row#dateRow.top-buffer
+            .col-sm-2
+                form.form-inline
+                    .form-group
+                        select#yearSelect.form-control
+                                option 2014
+                                option 2013
+                                option 2012
+                        select#quarterSelect.form-control
+                            option Q4
+                            option Q3
+                            option Q2
+                            option Q1
+
+        .row.top-buffer
+            .col-sm-4
+                .input-group
+                    span.input-group-btn
+                        button#btn_P1E.btn.btn-default.btn.datatype(type='submit') statutory youth homelessness
+                    select#p1eSelect.form-control
+                        option percent
+                        option count
+                        option reported
+        .row
+            .col-sm-3
+                .input-group
+                    span.input-group-btn
+                        button#btn_Unemployment.btn.btn-default.btn.datatype(type='submit') youth unemployment
+                    select#unemploymentDurationSelect.form-control
+                        option total
+                        option over12m
+                        option 6-12m
+                        option 0-6m
+
+        .row
+            .col-sm-2
+                button#btn_Education_lv3.btn.btn-default.btn.datatype(type='submit') education
+        .row
+            .col-sm-2
+                button#btn_Education_AG.btn.btn-default.btn.datatype(type='submit') attainment gap
+        .row
+            .col-sm-3
+                .input-group
+                    span.input-group-btn
+                        button#btn_Apprenticeship.btn.btn-default.btn.datatype(type='submit') apprenticeship starts
+                    select#apprenticeshipSelect.form-control
+                        option percent
+                        option count
+        .row
+            .col-sm-2
+                button#btn_Deprivation.btn.btn-default.btn.datatype(type='submit') deprivation
+        .row
+            .col-sm-2
+                button#btn_Prevention.btn.btn-default.btn.datatype(type='submit') prevention and relief
+
