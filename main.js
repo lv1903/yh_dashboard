@@ -9,7 +9,10 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json({limit: (5*1024*1000) }));
 
 var cradle = require("cradle");
-var connection = new(cradle.Connection)('http://localhost:5984/', 443);
+var connection = new(cradle.Connection)('http://dev1.ubiapps.com', 5984, {
+    auth: { username: 'admin', password: 'Monkey15' }
+});
+
 var dbP1E = connection.database("yh_p1e");
 var dbUnemp = connection.database("yh_unemployment");
 var dbEd = connection.database("yh_education");
@@ -67,11 +70,8 @@ function getP1E_quarter_type(Q, T, callback){
 
 function countMissing(index, aVals){
     if(index < aVals.length){
-
-
-        if(isNaN(aVals[index]) && aVals[index] != "-"){
-            console.log(aVals[index])
-            countMissing(index + 1, aVals)
+        if(isNaN(aVals[index].split("|")[1]) && aVals[index].split("|")[1] != "-"){
+            index = countMissing(index + 1, aVals)
         }
     }
     return index
@@ -79,25 +79,21 @@ function countMissing(index, aVals){
 
 function getP1E_reporting(callback){
     dbP1E.view('all_docs/all_docs', function(err, docs){
-
+        var oMissing = {}
         for(var doc_index = 0; doc_index < docs.length; doc_index++){
-            var aVals = []
+            var aVals = [];
             for(quarter in docs[doc_index].value.data.quarterly_data){
-                aVals.push(quarter + " : " + docs[doc_index].value.data.quarterly_data[quarter].val_count)
+                aVals.push(quarter + "|" + docs[doc_index].value.data.quarterly_data[quarter].val_count)
             }
-            aVals.sort().reverse()
-
-            var missing_count = countMissing(0, aVals)
-            console.log(missing_count)
-
+            aVals.sort().reverse();
+            var missing_count = countMissing(0, aVals);
+            oMissing[docs[doc_index].id] = missing_count;
         }
-
-        callback("done")
+        var aBuckets = [.9, 1.9, 2.9]
+        callback([oMissing, aBuckets]);
     })
-
 }
 
-getP1E_reporting(function(data){console.log(data)})
 
 function getUnemployment_quarter_duration(Q, D, callback){
 
@@ -107,7 +103,7 @@ function getUnemployment_quarter_duration(Q, D, callback){
         endkey:  [valD, Q + ",{}'"]
     }
 
-    dbUnemp.view('claimant_quarter/claimant_quarter', opts, function (err, docs) {
+    dbUnemp.view('unemployment_quarter/unemployment_quarter', opts, function (err, docs) {
         if (err) {console.log(err.message)};
         callback(getValues(docs))
     });
@@ -146,10 +142,12 @@ function getApprenticeship_annual_type(Y, T, callback){
 
     dbApr.view('apprenticeship_annual/apprenticeship_annual', opts, function (err, docs) {
         if (err) {console.log(err.message)}
+        //console.log(docs)
         callback(getValues(docs))
     });
 }
 
+//getApprenticeship_annual_type("2014", "count", function(data){console.log(data)})
 
 
 function getDeprivation_type(T, callback){
@@ -198,13 +196,13 @@ app.get('/P1E/:YYYYQX/:Type', function(req, res){
     getP1E_quarter_type(sQuarter, sType, function(data){
       res.json(data);
     })
-})
+});
 
-app.get('P1E_Reporting', function(req, res){
+app.get('/P1E_Reporting', function(req, res){
     getP1E_reporting(function(data){
         res.json(data);
     })
-})
+});
 
 app.get('/Unemployment/:YYYYQX/:Duration', function(req, res){
     //console.log(req.params);
@@ -213,7 +211,7 @@ app.get('/Unemployment/:YYYYQX/:Duration', function(req, res){
     getUnemployment_quarter_duration(sQuarter, sDuration, function(data){
         res.json(data);
     })
-})
+});
 
 app.get('/Education_lv3/:YYYY/:Type', function(req, res){
     //console.log(req.params);
@@ -222,7 +220,7 @@ app.get('/Education_lv3/:YYYY/:Type', function(req, res){
     getEducation_lv3_annual_type(sYear, sType, function (data) {
         res.json(data);
     })
-})
+});
 
 app.get('/Education_AG/:YYYY/:Type', function(req, res){
     //console.log(req.params);
@@ -231,7 +229,7 @@ app.get('/Education_AG/:YYYY/:Type', function(req, res){
     getEducation_AG_annual_type(sYear, sType, function (data) {
         res.json(data);
     })
-})
+});
 
 app.get('/Apprenticeship/:YYYY/:Type', function(req, res){
     //console.log(req.params);
@@ -240,14 +238,14 @@ app.get('/Apprenticeship/:YYYY/:Type', function(req, res){
     getApprenticeship_annual_type(sYear, sType, function (data) {
         res.json(data);
     })
-})
+});
 
 app.get('/Deprivation/:Type', function(req, res){
     var sType = req.params["Type"];
     getDeprivation_type(sType, function (data) {
         res.json(data);
     })
-})
+});
 
 
 app.get('/Prevention/:YYYY', function(req, res){
@@ -256,7 +254,7 @@ app.get('/Prevention/:YYYY', function(req, res){
     getPrevention_annual(sYear, function (data) {
         res.json(data);
     })
-})
+});
 
 
 app.listen(3003);

@@ -4,14 +4,16 @@ function HSLAer(n, aBuckets){
     //bad = orange = hsla(36, 100%, 50%, 1)
     //good = white = hsla(36, 100%, 100%, 1)
 
-    var lightness_max = 100;
-    var lightness_min = 50;
+    //var lightness_max = 100;
+    //var lightness_min = 50;
 
     if(n <= aBuckets[0]){lightness = 100}
     else if(n > aBuckets[0] && n <= aBuckets[1]){lightness = 83}
     else if(n > aBuckets[1] && n <= aBuckets[2]){lightness = 67}
     else if(n > aBuckets[2]){lightness = 50}
     else { console.log("error n = " + n)}
+
+    //console.log(n + " : " + lightness)
 
     //var lightness = ((n - goodbad[0])/(goodbad[1] - goodbad[0])) * (100 - 50) + 50
     return "hsla(15, 83%, "+ lightness +"%, 1)"
@@ -34,13 +36,16 @@ function selectcolor(n, aBuckets, dict){
 
 
 function addcolors(data, dict){
+    //console.log(data)
     var aBuckets = data[1]
-    console.log(aBuckets)
+    //console.log(aBuckets)
     map.data.setStyle(function(feature) {
         var id = feature.getProperty('geo_code');
         var n = data[0][id];
-        //console.log(n)
+        //if(id == "E07000168"){console.log(n)}
+        //console.log(id)
         var color = selectcolor(n, aBuckets, dict);
+        if(id == "E07000168"){console.log(color)}
         return {
             fillColor: color,
             fillOpacity: 1,
@@ -56,7 +61,7 @@ function getData(){
     var year = $("#yearSelect").val();
     var quarter = $("#quarterSelect").val();
     var p1e_type = $("#p1eSelect").val();
-    var apprenticeship_type = $("#apprenticeship_select").val();
+    var apprenticeship_type = $("#apprenticeshipSelect").val();
     var duration = $("#unemploymentDurationSelect").val();
 
     if(sActive == $("#btn_P1E").html()){
@@ -97,6 +102,7 @@ function getData(){
 
     if(sActive == $("#btn_Apprenticeship").html()){
         $.ajax("/Apprenticeship/" + year + "/" + apprenticeship_type).done(function (data) {
+            console.log(data)
             dict = {}
             addcolors(data, dict)
         })
@@ -128,8 +134,20 @@ $(function () { //change data list
         getData()
     })
 
+    $("#p1eSelect").change(function(){
+        var sActive = $("#btn_P1E").html()
+        $("#activeData").html(sActive)
+        getData()
+    });
+
     $("#unemploymentDurationSelect").change(function(){
         var sActive = $("#btn_Unemployment").html()
+        $("#activeData").html(sActive)
+        getData()
+    });
+
+    $("#apprenticeshipSelect").change(function(){
+        var sActive = $("#btn_Apprenticeship").html()
         $("#activeData").html(sActive)
         getData()
     });
