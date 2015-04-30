@@ -1,10 +1,24 @@
 
 
 var map;
+var oGeoLa = topojson.feature(oLaTopo, oLaTopo.objects.collection);
+var oGeoRegion = topojson.feature(oRegionTopo, oRegionTopo.objects.collection);
+
+function getIdList(oGeo){
+    var aList = [];
+    for(var index = 0; index < oGeo.features.length; index++){
+        aList.push(oGeo.features[index].properties.geo_code)
+    }
+    return aList
+}
+
+var aLaList = getIdList(oGeoLa);
+var aRegionList = getIdList(oGeoRegion);
+//console.log(aLaList)
 
 function initialize() {
 
-    var latlng = new google.maps.LatLng(53.5,.5);
+    var latlng = new google.maps.LatLng(53.5,-3.5);
     var mapOptions = {
         zoom: 6,
         center: latlng,
@@ -18,8 +32,8 @@ function initialize() {
     };
     map = new google.maps.Map($(".mapCanvas")[0], mapOptions);
 
-    oGeo = topojson.feature(oTopo, oTopo.objects.collection)
-    map.data.addGeoJson(oGeo);
+    map.data.addGeoJson(oGeoLa);
+    map.data.addGeoJson(oGeoRegion);
 
     var infowindow = new google.maps.InfoWindow();
 

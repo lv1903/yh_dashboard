@@ -19,9 +19,11 @@ var dbEd = connection.database("yh_education");
 var dbApr = connection.database("yh_apprenticeship");
 var dbDep = connection.database("yh_deprivation");
 var dbPre = connection.database("yh_prevention");
+var dbCore = connection.database("yh_core");
 
 var mapStyle = require("./data/styledmap.json");
-var oTopo = require("./data/yhTopo.json");
+var oLaTopo = require("./data/yhLaTopo.json");
+var oRegionTopo = require("./data/yhRegionTopo.json");
 var sQuarter = "2014Q4";
 var sType = "percent"
 
@@ -51,6 +53,30 @@ function getValues(docs){
     aBucket[1] = aX[Math.round(aX.length/100*bucket1)]
     aBucket[2] = aX[Math.round(aX.length/100*bucket2)]
     obj["buckets"] = aBucket
+    //console.log(aBucket)
+    return [obj, aBucket]
+}
+
+function getValuesRegions(docs){
+
+    var obj = {};
+    var aX = []
+    for (var index = 0; index < docs.length; index++) {
+        var val = docs[index]["value"];
+        if(val == "0"){val = "NA"}
+        var x = Number(val);
+        if(isNaN(x) == false){
+            aX.push(x)
+        }
+        obj[docs[index]["id"]] = val;
+    }
+    aX.sort(sortNumber)
+    var aBucket = []
+    aBucket[0] = aX[0]
+    aBucket[1] = aX[5]
+    aBucket[2] = aX[7]
+    obj["buckets"] = aBucket
+    //console.log(aBucket)
     return [obj, aBucket]
 }
 
@@ -174,7 +200,18 @@ function getPrevention_annual(Y, callback){
     });
 }
 
+function  getCore_annual_class_type(Q, C, T, callback){
+    var opts = {
+        startkey: [T, C, Q],
+        endkey: [T, C, Q + ",{}"]
+    };
+    dbCore.view('core_quarter/core_quarter', opts, function(err, docs) {
+        if(err){console.log(err.message)}
+        callback(getValuesRegions(docs))
+    });
+}
 
+//getCore_annual_class_type("2013Q4", "non_stat", "count", function(data){console.log(data)})
 
 
 app.get('/', function(req, res){
@@ -183,7 +220,8 @@ app.get('/', function(req, res){
                             quarter: sQuarter,
                             type: sType,
                             mapStyle: mapStyle,
-                            topo: oTopo,
+                            topoLa: oLaTopo,
+                            topoRegion: oRegionTopo,
                             p1eData: data
                             }
         );
@@ -255,6 +293,17 @@ app.get('/Prevention/:YYYY', function(req, res){
         res.json(data);
     })
 });
+
+app.get('/Core/:YYYYQX/:Class/:Type', function(req, res){
+    var sQuarter = req.params["YYYYQX"];
+    var sClass = req.params["Class"];
+    var sType = req.params["Type"];
+    getCore_annual_class_type(sQuarter, sClass, sType, function(data){
+        //console.log(data)
+        //console.log([sQuarter, sClass, sType])
+        res.json(data);
+    })
+})
 
 
 app.listen(3003);

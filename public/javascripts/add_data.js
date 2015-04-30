@@ -1,17 +1,26 @@
 
-function HSLAer(n, aBuckets){
+function HSLAer(n, aBuckets, up){
     // centerpoint orange hsla(15, 83%, 49%, 1
     //bad = orange = hsla(36, 100%, 50%, 1)
     //good = white = hsla(36, 100%, 100%, 1)
 
     //var lightness_max = 100;
     //var lightness_min = 50;
+    if(up == true){
+        if(n <= aBuckets[0]){lightness = 100}
+        else if(n > aBuckets[0] && n <= aBuckets[1]){lightness = 83}
+        else if(n > aBuckets[1] && n <= aBuckets[2]){lightness = 67}
+        else if(n > aBuckets[2]){lightness = 50}
+        else { console.log("error n = " + n)}
+    } else {
+        if(n >= aBuckets[2]){lightness = 100}
+        else if(n < aBuckets[2] && n >= aBuckets[1]){lightness = 83}
+        else if(n < aBuckets[1] && n >= aBuckets[0]){lightness = 67}
+        else if(n < aBuckets[0]){lightness = 50}
+        else { console.log("error n = " + n)}
+    }
 
-    if(n <= aBuckets[0]){lightness = 100}
-    else if(n > aBuckets[0] && n <= aBuckets[1]){lightness = 83}
-    else if(n > aBuckets[1] && n <= aBuckets[2]){lightness = 67}
-    else if(n > aBuckets[2]){lightness = 50}
-    else { console.log("error n = " + n)}
+
 
     //console.log(n + " : " + lightness)
 
@@ -19,39 +28,44 @@ function HSLAer(n, aBuckets){
     return "hsla(15, 83%, "+ lightness +"%, 1)"
 }
 
-function selectcolor(n, aBuckets, dict){
+function selectcolor(n, aBuckets, up, dict){
     if(isNaN(n)){
         if(dict.hasOwnProperty(n)){
             if(isNaN(dict[n])){
                 return "grey"; //"hsla(0, 0%, 0%, 1)"
             } else {
-                return HSLAer(dict[n], aBuckets);
+                return HSLAer(dict[n], aBuckets, up);
             }
         }
         return "grey"; //"hsla(0, 0%, 0%, 1)";
     }else{
-        return HSLAer(n, aBuckets);
+        return HSLAer(n, aBuckets, up);
     }
 }
 
 
-function addcolors(data, dict){
-    //console.log(data)
-    var aBuckets = data[1]
-    //console.log(aBuckets)
+function addcolors(data, up, onoffList, dict){
+    var aBuckets = data[1];
+    aOn = onoffList[0];
+
     map.data.setStyle(function(feature) {
         var id = feature.getProperty('geo_code');
-        var n = data[0][id];
-        //if(id == "E07000168"){console.log(n)}
-        //console.log(id)
-        var color = selectcolor(n, aBuckets, dict);
-        if(id == "E07000168"){console.log(color)}
-        return {
-            fillColor: color,
-            fillOpacity: 1,
-            strokeWeight: 0.5,
-            strokeOpacity: 1,
-            strokeColor: "black"        }
+        if(aOn.indexOf(id) > -1) {
+            var n = data[0][id];
+            var color = selectcolor(n, aBuckets, up, dict);
+            return {
+                fillColor: color,
+                fillOpacity: 1,
+                strokeWeight: 0.5,
+                strokeOpacity: 1,
+                strokeColor: "black"
+            }
+        } else {
+            return {
+                fillOpacity: 0,
+                strokeOpacity: 0
+            }
+        }
     })
 }
 
@@ -60,70 +74,98 @@ function getData(){
     var sActive = $("#activeData").html();
     var year = $("#yearSelect").val();
     var quarter = $("#quarterSelect").val();
-    var p1e_type = $("#p1eSelect").val();
-    var apprenticeship_type = $("#apprenticeshipSelect").val();
+    var type = $("#percentcountSelect").val();
     var duration = $("#unemploymentDurationSelect").val();
+    var classification = $("#coreSelect").val();
+    if(classification == "statutory homeless and owed a duty"){classification = "stat_owed"}
+    if(classification == "statutory homeless and not owed a duty"){classification = "stat_not_owed"}
+    if(classification == "not statutory homeless but considered homeless"){classification = "non_stat"}
+    console.log(classification)
 
     if(sActive == $("#btn_P1E").html()){
-        if(p1e_type == "percent" || p1e_type == "count") {
-            $.ajax("/P1E/" + year + quarter + "/" + p1e_type).done(function (data) {
-                dict = {"..": "NA", ".": "NA", "-": "2.5"}
-                addcolors(data, dict)
-            })
-        } else {
-            $.ajax("/P1E_Reporting").done(function (data) {
-                dict = {"..": "NA", ".": "NA", "-": "2.5"}
-                addcolors(data, dict)
-            })
+        $.ajax("/P1E/" + year + quarter + "/" + type).done(function (data) {
+            dict = {"..": "NA", ".": "NA", "-": "2.5"};
+            var up = true //good is low, bad is high
+            var onoffList = [aLaList, aRegionList];
+            addcolors(data, up, onoffList, dict);
+        })
+    }
 
-        }
+    if(sActive == $("#btn_P1E_reporting").html()){
+        $.ajax("/P1E_Reporting").done(function (data) {
+            dict = {"..": "NA", ".": "NA", "-": "2.5"}
+            var up = true; //good is low
+            var onoffList = [aLaList, aRegionList];
+            addcolors(data, up, onoffList, dict);
+        })
     }
 
     if(sActive == $("#btn_Unemployment").html()){
         $.ajax("/Unemployment/" + year + quarter + "/" + duration).done(function (data) {
             dict = {}
-            addcolors(data, dict)
+            var up = true; //good is low
+            var onoffList = [aLaList, aRegionList];
+            addcolors(data, up, onoffList, dict);
         })
     }
 
     if(sActive == $("#btn_Education_lv3").html()){
         $.ajax("/Education_lv3/" + year + "/percent").done(function (data) {
-            dict = {}
-            addcolors(data, dict)
+            dict = {};
+            var up = false; //good is high
+            var onoffList = [aLaList, aRegionList];
+            addcolors(data, up, onoffList, dict);
         })
     }
 
     if(sActive == $("#btn_Education_AG").html()){
         $.ajax("/Education_lv3/" + year + "/attainment_gap").done(function (data) {
-            dict = {}
-            addcolors(data, dict)
+            dict = {};
+            var up = true; //good is low
+            var onoffList = [aLaList, aRegionList];
+            addcolors(data, up, onoffList, dict);
         })
     }
 
     if(sActive == $("#btn_Apprenticeship").html()){
-        $.ajax("/Apprenticeship/" + year + "/" + apprenticeship_type).done(function (data) {
+        $.ajax("/Apprenticeship/" + year + "/" + type).done(function (data) {
             console.log(data)
-            dict = {}
-            addcolors(data, dict)
+            dict = {};
+            var up = false; //good is high
+            var onoffList = [aLaList, aRegionList];
+            addcolors(data, up, onoffList, dict);
         })
     }
 
     if(sActive == $("#btn_Deprivation").html()){
         $.ajax("/Deprivation/Rank_of_Local_Concentration").done(function (data) {
-            dict = {}
-            addcolors(data, dict)
+            dict = {};
+            var up = false; //good is high
+            var onoffList = [aLaList, aRegionList];
+            addcolors(data, up, onoffList, dict);
         })
     }
 
     if(sActive == $("#btn_Prevention").html()){
         $.ajax("/Prevention/" + year ).done(function (data) {
-            dict = {}
-            addcolors(data, dict)
+            dict = {};
+            var up = true; //good is high ??
+            var onoffList = [aLaList, aRegionList];
+            addcolors(data, up, onoffList, dict);
+        })
+    }
+
+    if(sActive == $("#btn_Core").html()){
+        $.ajax("/Core/"  + year + quarter +  "/" + classification + "/" + type ).done(function(data){
+            console.log(data)
+            dict = {};
+            var up = true; //good is low
+            var onoffList = [aRegionList, aLaList];
+            addcolors(data, up, onoffList, dict);
         })
     }
 
 }
-
 
 
 $(function () { //change data list
@@ -134,11 +176,11 @@ $(function () { //change data list
         getData()
     })
 
-    $("#p1eSelect").change(function(){
-        var sActive = $("#btn_P1E").html()
-        $("#activeData").html(sActive)
-        getData()
-    });
+    //$("#p1eSelect").change(function(){
+    //    var sActive = $("#btn_P1E").html()
+    //    $("#activeData").html(sActive)
+    //    getData()
+    //});
 
     $("#unemploymentDurationSelect").change(function(){
         var sActive = $("#btn_Unemployment").html()
@@ -146,12 +188,18 @@ $(function () { //change data list
         getData()
     });
 
-    $("#apprenticeshipSelect").change(function(){
-        var sActive = $("#btn_Apprenticeship").html()
+    $("#coreSelect").change(function(){
+        var sActive = $("#btn_Core").html()
         $("#activeData").html(sActive)
         getData()
     });
 
+    //$("#apprenticeshipSelect").change(function(){
+    //    var sActive = $("#btn_Apprenticeship").html()
+    //    $("#activeData").html(sActive)
+    //    getData()
+    //});
+
     $("#yearSelect").change(function(){
         getData()
     });
@@ -160,154 +208,11 @@ $(function () { //change data list
         getData()
     });
 
-});
-
-
-
-
-
-
-/*
-var oBucket = {}
-oBucket["total"] = [3, 5];
-oBucket["0-6m"] =[1, 2];
-oBucket["6-12m"] = [.5,1];
-oBucket["over12m"] = [.5, 1];
-oBucket["percent"] = [55, 40]
-oBucket["attainment_gap"] = [20, 35]
-
-function getData(){
-
-    console.log("get data called")
-    var datatype = $("#dataTypeSelect").val();
-    var Y = $("#yearSelect").val();
-    var Q = $("#quarterSelect").val();
-    var D = $("#unemploymentDurationSelect").val();
-    var E = $("#educationTypeSelect").val();
-
-    if(datatype == "P1E"){
-        $.ajax("/P1E/" + Y + Q).done(function (data) {
-            addP1Ecolors((data))
-        })
-    }
-
-    if(datatype == "Unemployment"){
-        $.ajax("/Unemployment/" + Y + Q + "/" + D).done(function (data) {
-            //console.log(data)
-            add3colors(data, oBucket[D])
-        })
-    }
-
-    if(datatype == "Education"){
-        $.ajax("/Education/" + Y + "/" + E).done(function (data) {
-            console.log(oBucket)
-            console.log(oBucket[E])
-            console.log(E)
-            add3colors(data, oBucket[E])
-        })
-    }
-
-
-}
-
-$(function () { //change data list
-    $("#dataTypeSelect").change(function(){
+    $("#percentcountSelect").change(function(){
         getData()
-    });
-});
-
-$(function () { //change data list
-    $("#yearSelect").change(function(){
-        getData()
-    });
-});
-
-$(function () { //change data list
-    $("#quarterSelect").change(function(){
-        getData()
-    });
-});
-
-
-$(function () { //change data list
-    $("#unemploymentDurationSelect").change(function(){
-        getData()
-    });
-});
-
-$(function () { //change data list
-    $("#educationTypeSelect").change(function(){
-        getData()
-    });
-});
-
-//------------------
-function selectP1EKeyColor(n){
-    if(n == ".."){return "grey"}
-    if(n == "."){return "grey"}
-    if(n == "-"){return "green"}
-    if(n <= 10){return "green"}
-    if(n > 10 && n <=50){return "orange"}
-    if(n > 50){return "red"}
-}
-
-function addP1Ecolors(data){
-    map.data.setStyle(function(feature) {
-
-        var id = feature.getProperty('geo_code');
-        var n = data[id];
-        var color = selectP1EKeyColor(n);
-        return {
-            fillColor: color,
-            fillOpacity: 0.7,
-            strokeWeight: 0.5,
-            strokeOpacity: 0.7,
-            strokeColor: "black"
-        }
     })
-}
-//------------------------
-function select3KeyColor(n, aBucket){
 
-    if(aBucket[0] < aBucket[1]) {
-        //console.log(aBucket)
-        if (n <= aBucket[0]) {
-            return "green"
-        }
-        if (n > aBucket[0] && n <= aBucket[1]) {
-            return "orange"
-        }
-        if (n > aBucket[1]) {
-            return "red"
-        }
-    } else {
-        //console.log(aBucket)
-        if (n >= aBucket[0]) {
-            return "green"
-        }
-        if (n < aBucket[0] && n >= aBucket[1]) {
-            return "orange"
-        }
-        if (n < aBucket[1]) {
-            return "red"
-        }
-    }
-}
+});
 
-function add3colors(data, aBucket){
-    map.data.setStyle(function(feature) {
 
-        var id = feature.getProperty('geo_code');
-        var n = data[id];
-        var color = select3KeyColor(n, aBucket);
-        return {
-            fillColor: color,
-            fillOpacity: 0.7,
-            strokeWeight: 0.5,
-            strokeOpacity: 0.7,
-            strokeColor: "black"
-        }
-    })
-}
-//---------------------------
-*/
+

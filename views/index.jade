@@ -10,7 +10,7 @@ block content
                 span#activeData.h2 statutory youth homelessness
 
         .row#dateRow.top-buffer
-            .col-sm-2
+            .col-sm-3
                 form.form-inline
                     .form-group
                         select#yearSelect.form-control
@@ -22,16 +22,17 @@ block content
                             option Q3
                             option Q2
                             option Q1
+                        select#percentcountSelect.form-control
+                            option percent
+                            option count
 
         .row.top-buffer
             .col-sm-4
-                .input-group
-                    span.input-group-btn
-                        button#btn_P1E.btn.btn-default.btn.datatype(type='submit') statutory youth homelessness
-                    select#p1eSelect.form-control
-                        option percent
-                        option count
-                        option reported
+                button#btn_P1E.btn.btn-default.btn.datatype(type='submit') statutory youth homelessness
+
+        .row
+            .col-sm-4
+                button#btn_P1E_reporting.btn.btn-default.btn.datatype(type='submit') statutory youth homelessness missing data
         .row
             .col-sm-3
                 .input-group
@@ -54,13 +55,21 @@ block content
                 .input-group
                     span.input-group-btn
                         button#btn_Apprenticeship.btn.btn-default.btn.datatype(type='submit') apprenticeship starts
-                    select#apprenticeshipSelect.form-control
-                        option percent
-                        option count
+
         .row
             .col-sm-2
                 button#btn_Deprivation.btn.btn-default.btn.datatype(type='submit') deprivation
         .row
             .col-sm-2
                 button#btn_Prevention.btn.btn-default.btn.datatype(type='submit') prevention and relief
+
+        .row
+           .col-sm-5
+               .input-group
+                   span.input-group-btn
+                        button#btn_Core.btn.btn-default.btn.datatype(type='submit') housing association lets
+                   select#coreSelect.form-control
+                       option statutory homeless and owed a duty
+                       option statutory homeless and not owed a duty
+                       option not statutory homeless but considered homeless
 
