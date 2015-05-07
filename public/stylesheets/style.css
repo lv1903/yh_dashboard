@@ -1,86 +1,148 @@
 body {
     /*font-family: Interstate;*/
-    background-color: white;
-    color: black;
+    padding-top: 110px;
+    /*background-color: white;*/
+    /*color: black;*/
 }
 
 .navbar{
     background-color: white;
-    height: 100px
+    min-height: 110px;
+}
+
+#brandText {
+    margin-left: 30px;
 }
 
 #headerContainer{
     background-color: white;
-    color: black;
-}
-
-.h1{
-    color: black;
-    padding-left: 20px;
-}
-
-#mapContainer{
-    padding: 90px 0px 0px 0px;
-    margin: 0px 0px 0px 100px;
-    width: 98%;
-    height: 100%;
+    /*color: black;*/
 }
 
 
-.mapCanvas {
-    position: absolute;
-    top: 90px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    /*background-color: #D14414;*/
-    background-color: orange;
+#colLeft{
+    background-color: white;
+}
+
+.datatype, .riskfactortype{
+    margin: 2px 2px 2px 0px;
+    background-color: white;
+    color: #535353;
+    text-align: left;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 1;
+    /*border-color: white;*/
+    font-weight: bold;
 }
 
 #activeData{
-    /*background-color: black;*/
-    /*color: #D14414;*/
-    /*color: orange;*/
-    /*padding: 0px 10px 4px 10px;*/
+    text-align: center;
+    color: hsla(10, 90%, 15%, 1);
+
 }
 
-/*.black {*/
-    /*background-color: black;*/
-    /*color: #D14414;*/
-    /*color: white;*/
-    /*border-radius: 0;*/
-    /*border-color: white;*/
-    /*font-size: large;*/
+#colRight{
+    position: relative;
+    background-color: white;
+    /*height: 500px;*/
+}
 
-    /*-webkit-appearance: none;*/
-    /*-moz-appearance: none;*/
-    /*appearance: none;*/
+#mapSide{
+    position: relative;
+    width: 500px
+}
 
+/*#mapContainer{*/
+    /*padding: 90px 0px 0px 0px;*/
+    /*margin: 0px 0px 0px 100px;*/
+    /*width: 98%;*/
+    /*height: 500px;*/
 /*}*/
 
-#yearSelect{
-    /*padding: 0px;*/
-    /*width: 60px;*/
-}
 
-
-#quarterSelect{
-    /*padding: 0px;*/
-    /*width: 40px;*/
-}
-
-/*#unemploymentDurationSelect{*/
-    /*padding-left: 0px;*/
-    /*padding-right: 0px;*/
-    /*width: 80px;*/
-    /*height: 39px;*/
-    /*text-align: center;*/
+/*.mapContainer{*/
+    /*height: 450px;*/
 /*}*/
 
-button {
-    /*margin: 10px*/
+.mapCanvas {
+    /*position: absolute;*/
+    /*top: 50px;*/
+    /*left: 0px;*/
+    /*right: 0px;*/
+    /*bottom: 0px;*/
+    /*background-color: #D14414;*/
+    /*background-color: orange;*/
+    height: 450px
 }
+
 
 .top-buffer {
-    margin-top:20px;
+    margin-top:45px;
+}
+
+
+#findAddress{
+    margin: 5px 5px 5px 5px;
+    background-color: white;
+    padding-left: 10px;
+
+    margin-top: 30px;
+    width: 262px;
+    z-index: 11;
+
+}
+
+#searchText{
+    /*border-color: #ffffff;*/
+    border-radius: 2;
+}
+
+#searchIcon{
+    top: 0px;
+    /*padding-bottom: 20px;*/
+}
+
+#keyContainer{
+    position: absolute;
+    top: 0;
+    z-index:19
+}
+
+#keyCanvas{
+    postion: relative;
+    /*background-color: red;*/
+    z-index: 20;
+}
+
+#featureIdTitle{
+    text-align: left;
+}
+
+
+#ex1Slider .slider-selection {
+    background: #BABABA;
+}
+
+
+.modal.fade:not(.in).left .modal-dialog {
+    -webkit-transform: translate3d(-25%, 0, 0);
+    transform: translate3d(-25%, 0, 0);
+}
+
+/*.riskFactorModal{*/
+    /*margin: 10px;*/
+    /*poistion: fixed;*/
+
+    /*left:0;*/
+    /*outline: none;*/
+/*}*/
+
+#riskDialog{
+    margin-top: 120px;
+    margin-right: 55%;
+}
+
+.modal-backdrop, .modal-backdrop.fade.in {
+    opacity: 0;
 }

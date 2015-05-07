@@ -7,35 +7,36 @@ html
         meta(name='viewport', content='width=device-width, initial-scale=1')
         meta(name='description', content='')
         meta(name='author', content='')
+
         link(rel='shortcut icon', href='/favicon.ico')
         link(href='/libs/bootstrap/css/bootstrap.min.css', rel='stylesheet')
 
         //link(rel='stylesheet', type='text/css', href='http://fonts.googleapis.com/css?family=Interstate')
         link(rel='stylesheet', href='/stylesheets/style.css')
-        //link(rel='stylesheet', href='/stylesheets/popPyramid.css')
-        script(src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true")
-        //script(src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry")
+
+        script(src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=false")
         script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js")
         script(src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js")
-        //script(src='/libs/markerclusterer.js')
-        //script(src="/js/addKey.js")
-        //script(src="/js/infoBox.js")
-        //script(src="/js/buttons.js")
-        //script(src="/js/maps.js")
+
         script(src="http://d3js.org/topojson.v1.min.js")
         script(src="http://d3js.org/d3.v3.min.js")
 
+        link(href='/libs/bootstrap-slider/bootstrap-slider.min.css', rel='stylesheet')
+        script(src="/libs/bootstrap-slider/bootstrap-slider.min.js")
+        //script(type='text/javascript', src='bower_components/modernizr/modernizr.js')
+
         script.
             var sQuarter = !{JSON.stringify(quarter)}
-            var sType = !{JSON.stringify(type)}
             var oLaTopo = !{JSON.stringify(topoLa)}
-            var oRegionTopo = !{JSON.stringify(topoRegion)}
             var mapStyle = !{JSON.stringify(mapStyle)}
-            var p1eData = !{JSON.stringify(p1eData)}
+            var oEntities = !{JSON.stringify(entities)}
+            var oNational = !{JSON.stringify(national)}
+
 
         script(src="/javascripts/add_data.js")
         script(src="/javascripts/main_map.js")
-
+        script(src="/javascripts/search_address.js")
+        script(src="/javascripts/add_modal.js")
 
 
     body
@@ -49,7 +50,7 @@ html
                         span.icon-bar
                     a.navbar-brand(href='/', style="position:fixed;")
                         img#brandImage(src="/images/logo.png")
-                        span.h1#brandText youth homelessness dashboard
+                        span.h1#brandText Youth Homelessness
                 //#navbar-main.navbar-collapse.collapse
                 //    ul#navigate.nav.navbar-nav.navbar-right
                 //        li

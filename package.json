@@ -14,7 +14,9 @@
     "morgan": "~1.5.1",
     "serve-favicon": "~2.2.0",
     "d3": "*",
-    "cradle": "*"
+    "cradle": "*",
+    "bootstrap-slider": "*"	
+
 
 
   }

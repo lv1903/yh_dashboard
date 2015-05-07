@@ -1,218 +1,323 @@
 
-function HSLAer(n, aBuckets, up){
-    // centerpoint orange hsla(15, 83%, 49%, 1
-    //bad = orange = hsla(36, 100%, 50%, 1)
-    //good = white = hsla(36, 100%, 100%, 1)
+function addKey(aKeyValues, aLightnessValues){
 
-    //var lightness_max = 100;
-    //var lightness_min = 50;
-    if(up == true){
-        if(n <= aBuckets[0]){lightness = 100}
-        else if(n > aBuckets[0] && n <= aBuckets[1]){lightness = 83}
-        else if(n > aBuckets[1] && n <= aBuckets[2]){lightness = 67}
-        else if(n > aBuckets[2]){lightness = 50}
-        else { console.log("error n = " + n)}
+    if($("#keyContainer") != null) {
+        $("#keyContainer").remove();
+    }
+
+    var h = 450;
+    var w = 200;
+
+    var svg = d3.select("#mapSide")//(".mapCanvas")
+        .append("div")
+        .classed("svg-container", true)
+        .attr("id", "keyContainer")
+        .append("svg")
+        .attr("id", "keyCanvas")
+        .attr("height", h)
+        .attr("width", w)
+
+
+
+    var ystart = 20;
+    var r = 20;
+    var circlepadding = 5;
+
+    svg.selectAll("rect")
+        .data(aKeyValues)
+        .enter()
+        .append("rect")
+        .attr("x", 0)
+        .attr("y", function(d, i){
+            return ystart + 10 + i * (2 * (r + circlepadding));
+        })
+        .attr("height", r )
+        .attr("width", 150 - r)
+        .attr("fill", "white")
+    //.attr("rx", r)
+    //.attr("ry", r)
+
+    svg.selectAll("circle")
+        .data(aKeyValues)
+        .enter()
+        .append("circle")
+        .attr("cx", 130)
+        .attr("cy", function(d, i) {
+            return ystart + i * (2 * (r + circlepadding)) + r;
+        })
+        .attr("r", r)
+        //.attr("fill", "white")
+        .attr("fill", function(d, i){
+            var lightness = aLightnessValues[i]
+            return "hsla(10, 90%, "+ lightness +"%, 1)"
+        })
+        //.attr("border", 1)
+        .attr("stroke-width", 2)
+        .attr("stroke", "hsla(10, 90%, "+ aLightnessValues[0] +"%, 1)")
+
+    var fontsize = 15
+    svg.selectAll("text")
+        .data(aKeyValues)
+        .enter()
+        .append("text")
+        .text(function(d) {
+            return d;
+        })
+        //.attr("text-anchor", "middle")
+        .attr("x", 0)
+        .attr("y", function(d, i) {
+            return ystart + 5 + i * (2 * (r + circlepadding)) + r;
+            //return i * (h / aKeyValues.length) + boxh / 2 + fontSize / 3;
+        })
+        .attr("font-size", fontsize + "px")
+
+}
+
+
+
+function jsonPath(index, aPath, parent_obj){
+    if(index < aPath.length - 1){
+        var obj = parent_obj[aPath[index]];
+        var value = jsonPath(index + 1, aPath, obj)
     } else {
-        if(n >= aBuckets[2]){lightness = 100}
-        else if(n < aBuckets[2] && n >= aBuckets[1]){lightness = 83}
-        else if(n < aBuckets[1] && n >= aBuckets[0]){lightness = 67}
-        else if(n < aBuckets[0]){lightness = 50}
-        else { console.log("error n = " + n)}
+        var value = parent_obj[aPath[index]];
     }
-
-
-
-    //console.log(n + " : " + lightness)
-
-    //var lightness = ((n - goodbad[0])/(goodbad[1] - goodbad[0])) * (100 - 50) + 50
-    return "hsla(15, 83%, "+ lightness +"%, 1)"
+    return value;
 }
 
-function selectcolor(n, aBuckets, up, dict){
+
+var aStandardKey = [ "worst", "below", "average", "better", "best", "no data" ];
+var aKeyLightness = [30, 40, 50, 60, 90, 100];
+
+var aMissingDataKey = ["missing 1 year", " missing 9m", "+missing 6m", "missing 3m", "up to date"]
+//var aCoreKey = ["highest rate", "below average", "above average", "lowest rate", "no data"]
+
+
+
+function selectcolor(n, aBuckets, up){
+
     if(isNaN(n)){
-        if(dict.hasOwnProperty(n)){
-            if(isNaN(dict[n])){
-                return "grey"; //"hsla(0, 0%, 0%, 1)"
-            } else {
-                return HSLAer(dict[n], aBuckets, up);
-            }
-        }
-        return "grey"; //"hsla(0, 0%, 0%, 1)";
+        return "white";
     }else{
-        return HSLAer(n, aBuckets, up);
+        if(up == true){
+            if(n <= aBuckets[0]){lightness = aKeyLightness[4]}
+            else if(n > aBuckets[0] && n <= aBuckets[1]){lightness = aKeyLightness[3]}
+            else if(n > aBuckets[1] && n <= aBuckets[2]){lightness = aKeyLightness[2]}
+            else if(n > aBuckets[2] && n <= aBuckets[3]){lightness = aKeyLightness[1]}
+            else if(n > aBuckets[3]){lightness = aKeyLightness[0]}
+            else { console.log("error n = " + n)}
+        } else {
+            if(n >= aBuckets[3]){lightness = aKeyLightness[4]}
+            else if(n < aBuckets[3] && n >= aBuckets[2]){lightness = aKeyLightness[3]}
+            else if(n < aBuckets[2] && n >= aBuckets[1]){lightness = aKeyLightness[2]}
+            else if(n < aBuckets[1] && n >= aBuckets[0]){lightness = aKeyLightness[1]}
+            else if(n < aBuckets[0]){lightness = aKeyLightness[0]}
+            else { console.log("error n = " + n)}
+        }
+
+        //console.log("n: " + n)
+        //console.log(aBuckets)
+        //console.log("lightness: " + lightness)
+        //console.log("---------")
+
+        return "hsla(10, 90%, "+ lightness +"%, 1)"
     }
 }
 
 
-function addcolors(data, up, onoffList, dict){
-    var aBuckets = data[1];
-    aOn = onoffList[0];
-
+function addColors(aBuckets, up, aPath, obj){
     map.data.setStyle(function(feature) {
         var id = feature.getProperty('geo_code');
-        if(aOn.indexOf(id) > -1) {
-            var n = data[0][id];
-            var color = selectcolor(n, aBuckets, up, dict);
-            return {
-                fillColor: color,
-                fillOpacity: 1,
-                strokeWeight: 0.5,
-                strokeOpacity: 1,
-                strokeColor: "black"
-            }
-        } else {
-            return {
-                fillOpacity: 0,
-                strokeOpacity: 0
-            }
+        //console.log(aPath[1])
+        //console.log(oEntities[id][aPath[0]])
+        var n = jsonPath(0, aPath, obj[id]);
+        var color = selectcolor(n, aBuckets, up);
+        return {
+            fillColor: color,
+            fillOpacity: 1,
+            strokeWeight: 0.5,
+            strokeOpacity: 1,
+            strokeColor: "black"
         }
     })
 }
+
 
 function getData(){
 
     var sActive = $("#activeData").html();
     var year = $("#yearSelect").val();
     var quarter = $("#quarterSelect").val();
-    var type = $("#percentcountSelect").val();
-    var duration = $("#unemploymentDurationSelect").val();
-    var classification = $("#coreSelect").val();
-    if(classification == "statutory homeless and owed a duty"){classification = "stat_owed"}
-    if(classification == "statutory homeless and not owed a duty"){classification = "stat_not_owed"}
-    if(classification == "not statutory homeless but considered homeless"){classification = "non_stat"}
-    console.log(classification)
+
+    console.log("entities")
+    console.log(oEntities)
+    console.log("national")
+    console.log(oNational)
 
     if(sActive == $("#btn_P1E").html()){
-        $.ajax("/P1E/" + year + quarter + "/" + type).done(function (data) {
-            dict = {"..": "NA", ".": "NA", "-": "2.5"};
-            var up = true //good is low, bad is high
-            var onoffList = [aLaList, aRegionList];
-            addcolors(data, up, onoffList, dict);
-        })
+        aBuckets = oNational.homeless_data[year + quarter].p1e.quintiles;
+        var up = true;
+        var aPath = ["homeless_data", year + quarter, "p1e", "percent"];
+        addColors(aBuckets, up, aPath, oEntities );
+        addKey(aStandardKey, aKeyLightness);
     }
 
     if(sActive == $("#btn_P1E_reporting").html()){
-        $.ajax("/P1E_Reporting").done(function (data) {
-            dict = {"..": "NA", ".": "NA", "-": "2.5"}
-            var up = true; //good is low
-            var onoffList = [aLaList, aRegionList];
-            addcolors(data, up, onoffList, dict);
-        })
-    }
-
-    if(sActive == $("#btn_Unemployment").html()){
-        $.ajax("/Unemployment/" + year + quarter + "/" + duration).done(function (data) {
-            dict = {}
-            var up = true; //good is low
-            var onoffList = [aLaList, aRegionList];
-            addcolors(data, up, onoffList, dict);
-        })
-    }
-
-    if(sActive == $("#btn_Education_lv3").html()){
-        $.ajax("/Education_lv3/" + year + "/percent").done(function (data) {
-            dict = {};
-            var up = false; //good is high
-            var onoffList = [aLaList, aRegionList];
-            addcolors(data, up, onoffList, dict);
-        })
-    }
-
-    if(sActive == $("#btn_Education_AG").html()){
-        $.ajax("/Education_lv3/" + year + "/attainment_gap").done(function (data) {
-            dict = {};
-            var up = true; //good is low
-            var onoffList = [aLaList, aRegionList];
-            addcolors(data, up, onoffList, dict);
-        })
-    }
-
-    if(sActive == $("#btn_Apprenticeship").html()){
-        $.ajax("/Apprenticeship/" + year + "/" + type).done(function (data) {
-            console.log(data)
-            dict = {};
-            var up = false; //good is high
-            var onoffList = [aLaList, aRegionList];
-            addcolors(data, up, onoffList, dict);
-        })
-    }
-
-    if(sActive == $("#btn_Deprivation").html()){
-        $.ajax("/Deprivation/Rank_of_Local_Concentration").done(function (data) {
-            dict = {};
-            var up = false; //good is high
-            var onoffList = [aLaList, aRegionList];
-            addcolors(data, up, onoffList, dict);
-        })
+        console.log(oNational.homeless_data.p1e_missing_count.quintiles)
+        aBuckets = oNational.homeless_data.p1e_missing_count.quintiles;
+        var up = true; //good is low
+        var aPath = ["homeless_data", "p1e_missing_count"];
+        addColors(aBuckets, up, aPath, oEntities );
+        addKey(aMissingDataKey, [30, 40, 50, 60, 100]);
     }
 
     if(sActive == $("#btn_Prevention").html()){
-        $.ajax("/Prevention/" + year ).done(function (data) {
-            dict = {};
-            var up = true; //good is high ??
-            var onoffList = [aLaList, aRegionList];
-            addcolors(data, up, onoffList, dict);
-        })
+        aBuckets = oNational.homeless_data[year].prevention.quintiles;
+        var up = false;
+        var aPath = ["homeless_data", year, "prevention", "percent"];
+        addColors(aBuckets, up, aPath, oEntities );
+        addKey(aStandardKey, aKeyLightness);
     }
 
-    if(sActive == $("#btn_Core").html()){
-        $.ajax("/Core/"  + year + quarter +  "/" + classification + "/" + type ).done(function(data){
-            console.log(data)
-            dict = {};
-            var up = true; //good is low
-            var onoffList = [aRegionList, aLaList];
-            addcolors(data, up, onoffList, dict);
-        })
+    if(sActive == $("#btn_Core_Priority").html()){
+        aBuckets = oNational.homeless_data[year + quarter].core_priority.quintiles;
+        var up = true;
+        var aPath = ["homeless_data", year + quarter, "core_priority", "percent"];
+        addColors(aBuckets, up, aPath, oEntities );
+        addKey(aStandardKey, aKeyLightness);
     }
+
+    if(sActive == $("#btn_Core_Non_Priority").html()){
+        aBuckets = oNational.homeless_data[year + quarter].core_non_priority.quintiles;
+        var up = true;
+        var aPath = ["homeless_data", year + quarter, "core_non_priority", "percent"];
+        addColors(aBuckets, up, aPath, oEntities );
+        addKey(aStandardKey, aKeyLightness);
+    }
+
 
 }
 
 
+
+
+
+function getRiskFactorData(){
+
+    var riskOrder = {} // true means low is good high is bad
+    riskOrder.alcohol = true;
+    riskOrder.apprenticeship = false;
+    riskOrder.care = true;
+    riskOrder.deprivation = false;
+    riskOrder.drugs = true;
+    riskOrder.education_attainment_gap = true;
+    riskOrder.education_level3 = false;
+    riskOrder.hospital = true;
+    riskOrder.mentalhealth = true;
+    riskOrder.truancy = true;
+    riskOrder.unemployment_total = true;
+
+
+
+    var aSelected = [];
+    $('.chkrisk').each(function() {
+        //console.log($(this).attr('name'))
+        if($(this).is(":checked")) {
+            aSelected.push($(this).attr('name'));
+        }
+    });
+
+    var oRiskIndex = {};
+    for(id in oEntities) {
+        oRiskIndex[id] = {};
+        oRiskIndex[id].ranks = {};
+
+        var count = 0;
+        var sum = 0;
+        for (var riskIndex in aSelected) {
+            var risk = aSelected[riskIndex];
+                if(oEntities[id].risks_data.hasOwnProperty(risk)) {
+                    var rank = oEntities[id].risks_data[risk].rank;
+                    if (rank > -1) {
+                        if (riskOrder[risk] == false) {
+                            rank = 1 - rank; //reverse rank
+                        }
+                        sum += rank;
+                        count += 1;
+                    }
+                    oRiskIndex[id].ranks[risk] = rank;
+                }
+        }
+
+        if (count > 0) {
+            oRiskIndex[id].average = sum / count;
+        } else {
+            oRiskIndex[id].average = "NA"
+        }
+    }
+
+    var min = 1;
+    var max = 0;
+
+    for(id in oRiskIndex){
+        var average = oRiskIndex[id].average;
+        if(average != "NA"){
+            if(average < min){min = average}
+            if(average > max){max = average}
+        }
+    }
+    var aBuckets = [];
+    var aN = [0.2, 0.4, 0.6, 0.8];
+    for(var i in aN){
+        var n = aN[i]
+        aBuckets[i] = (((n - 0) * (max - min)) / (1 - 0)) + min
+    }
+
+    console.log(oRiskIndex)
+    console.log(min + " : " + max + " : " + aBuckets)
+
+    var up = true;
+    aPath = ["average"];
+    addColors(aBuckets, up, aPath, oRiskIndex)
+
+    //$(".riskFactorsModal").modal("hide");
+
+}
+
+
+
 $(function () { //change data list
 
-    $(".datatype").click(function(event){
-        var sActive = ($(this).html())
-        $("#activeData").html(sActive)
-        getData()
+    $(".datatype").click(function (event) {
+        if ($(this).is(":button")) {
+            var sActive = ($(this).html());
+            $("#activeData").html(sActive);
+            getData()
+        }
     })
 
-    //$("#p1eSelect").change(function(){
-    //    var sActive = $("#btn_P1E").html()
-    //    $("#activeData").html(sActive)
-    //    getData()
-    //});
-
-    $("#unemploymentDurationSelect").change(function(){
-        var sActive = $("#btn_Unemployment").html()
-        $("#activeData").html(sActive)
-        getData()
-    });
-
-    $("#coreSelect").change(function(){
-        var sActive = $("#btn_Core").html()
-        $("#activeData").html(sActive)
-        getData()
-    });
-
-    //$("#apprenticeshipSelect").change(function(){
-    //    var sActive = $("#btn_Apprenticeship").html()
-    //    $("#activeData").html(sActive)
-    //    getData()
-    //});
-
-    $("#yearSelect").change(function(){
-        getData()
-    });
-
-    $("#quarterSelect").change(function(){
-        getData()
-    });
-
-    $("#percentcountSelect").change(function(){
-        getData()
+    $(".riskfactortype").click(function (event) { // add modal
+        riskFactorClick(event)
     })
 
-});
+    $("#btn_Add_Risk_Factors").click(function(event){ // map data
+        getRiskFactorData()
+        $("#activeData").html("index of risk factors")
+    })
+
+    $("#chk_Select_All").change(function(){ //select/deselect all
+        if($(this).is(":checked")) {
+            $('.chkrisk').each(function() {
+                this.checked = true;
+            });
+
+        } else {
+            $('.chkrisk').each(function() {
+                this.checked = false;
+            });
+        }
+    })
 
 
 
+})
