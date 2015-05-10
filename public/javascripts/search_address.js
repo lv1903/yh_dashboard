@@ -22,7 +22,7 @@ function findAddress() {
             var loc_Center = results[0].geometry.location;
 
             map.setCenter(loc_Center);
-            map.setZoom(8);
+            map.setZoom(9);
 
         } else {
             alert('We could not find your address for the following reason: ' + status);

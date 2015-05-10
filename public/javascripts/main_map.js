@@ -10,10 +10,16 @@ function getIdList(oGeo){
     }
     return aList
 }
-
 var aLaList = getIdList(oGeoLa);
 
-//console.log(aLaList)
+function extend_bounds(bounds, arr){
+    arr.forEach(function(path){
+        path.getArray().forEach(function(latLng){
+            bounds.extend(latLng);
+        });
+    });
+    return bounds
+}
 
 
 
@@ -36,31 +42,43 @@ function initialize() {
 
     map.data.addGeoJson(oGeoLa);
 
-    var infowindow = new google.maps.InfoWindow();
-
+    //var infowindow = new google.maps.InfoWindow();
+    //
     //map.data.addListener('mouseover', function(event) {
-    //    infowindow.close
-    //    contentString = event.feature.getProperty('geo_label') + " : " + event.feature.getProperty('geo_code')
-    //    infowindow.setContent(contentString)
-    //    var latlng = new google.maps.LatLng(event.latLng.k, event.latLng.D)
-    //    infowindow.setPosition(latlng)
-    //    infowindow.open(map)
-    //});
-    //
-    //
-    //map.data.addListener('mouseout', function(event) {
     //    infowindow.close()
+    //    contentString = event.feature.getProperty('geo_label');// + " : " + event.feature.getProperty('geo_code')
+    //    infowindow.setContent(contentString)
+    //
+    //    var bounds = new google.maps.LatLngBounds();
+    //
+    //    if(event.feature.getGeometry().getType()==='MultiPolygon'){
+    //        for(i in event.feature.getGeometry().getArray()){
+    //            bounds = extend_bounds(bounds, event.feature.getGeometry().getArray()[i].getArray())
+    //        }
+    //    }
+    //
+    //    if(event.feature.getGeometry().getType()==='Polygon'){
+    //        bounds = extend_bounds(bounds, event.feature.getGeometry().getArray())
+    //    }
+    //
+    //    var latlng = new google.maps.LatLng(bounds.getCenter().lat() + 1000, bounds.getCenter().lng());
+    //
+    //    infowindow.setPosition(bounds.getCenter())
+    //    infowindow.open(map)
+    //    setTimeout(function () { infowindow.close(); }, 3000);
     //});
 
     map.data.addListener('click', function(event) {
         featureClick(event)
     });
 
+
     getData()
-
-
 
 }
 
 
+
 google.maps.event.addDomListener(window, 'load', initialize);
+
+//var marker = new google.maps.Marker({map: map});

@@ -5,6 +5,8 @@ body {
     /*color: black;*/
 }
 
+/*-------header--------------------*/
+
 .navbar{
     background-color: white;
     min-height: 110px;
@@ -19,28 +21,273 @@ body {
     /*color: black;*/
 }
 
+/*---------leftcol--------------------*/
 
 #colLeft{
     background-color: white;
 }
 
-.datatype, .riskfactortype{
-    margin: 2px 2px 2px 0px;
-    background-color: white;
-    color: #535353;
-    text-align: left;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 1;
-    /*border-color: white;*/
+.clicktextrow{
+    margin-top: 50px;
+}
+
+.clicktext{
+    /*background-color: #D04627;*/
+    /*color: white;*/
+    width: 330px;
+    text-align: center;
+    margin-left: -5px;
+    /*height: 30px;*/
+    /*//padding: 5px;*/
+    font-weight: bold;
+
+
+}
+
+/*----address seach-----------*/
+
+
+#addressbox{
+    margin-top: 10px;
+    height: 54px;
+    width: 320px;
+    /*background-color: hsla(10, 90%, 50%, 1);*/
+    background-color: #D04627;
+    border-radius: 5px;
+    /*margin-left: -30px;*/
+}
+
+#findAddress{
+    position: absolute;
+    margin: 10px;
+    width: 300px;
+    z-index: 11;
+
+}
+
+#searchText{
+    border-radius: 2;
+}
+
+#searchIcon{
+    top: 0px;
+    /*padding-bottom: 20px;*/
+}
+
+
+/*----date slider-------------*/
+
+
+#slider{
+    /*margin-top: 150px;*/
+}
+
+#slider label {
+    position: absolute;
+    width: 20px;
+    margin-left: -10px;
+    text-align: center;
+    margin-top: 30px;
+    font-family: Arial;
+    font-size: 13px;
+    color: white;
+    /*color: lightgrey;*/
+}
+
+
+#slider .ui-slider-handle {
+    /*border-color: #000;*/
+    /*background: #c2290a;*/
+    background: white;
+    border-radius: 20px;
+
+    border-width: 1px;
+    margin-top: 10px
+    /*width: 6px;*/
+}
+
+#slider .ui-slider-handle:focus{
+    /*border-radius: 20px;*/
+    outline: none;
+}
+
+#dateRow {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-left: 0px;
+    /*background-color: hsla(10, 90%, 50%, 1);*/
+
+}
+
+#sliderbox{
+    height: 80px;
+    width: 320px;
+    /*background-color: hsla(10, 90%, 50%, 1);*/
+    background-color: #D04627;
+    border-radius: 5px;
+    margin-left: -30px;
+    margin-bottom: 10px;
+}
+
+#slider{
+    /*border-color: hsla(10, 90%, 50%, 1);*/
+    border-color: #D04627;
+    background: #000;
+    height: 70px;
+    width: 250px;
+    /*background-color: hsla(10, 90%, 50%, 1);*/
+    background-color: #D04627;
+    margin-left: 30px;
+
+}
+
+/*----buttons-----------------*/
+
+.top-buffer {
+    margin-top:45px;
+}
+
+.buttonHeader{
+    margin-top: 20px;
     font-weight: bold;
 }
 
-#activeData{
+.datatype, .riskfactortype, .button_add_risk_factors{
+    margin: 1px 0px 1px 0px;
+    background-color: #D04627;
+    border-color: #D04627;
+    color: white;
+    text-align: left;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    /*border-color: white;*/
+    font-weight: bold;
+    font-size: 13px;
+    width: 280px;
+    height: 32px;
+}
+
+#riskFactorTitle{
     text-align: center;
-    color: hsla(10, 90%, 15%, 1);
+}
+
+/*.datatype{*/
+    /*font-size: 13px;*/
+    /*width: 280px;*/
+/*}*/
+
+/*.riskfactortype{*/
+    /*font-size: 13px;*/
+    /*width: 320px;*/
+/*}*/
+
+.glyphicon{
+    top: 0;
+}
+
+.infotype{
+    margin: 1px 0px 1px 0px;
+    position-top: 0;
+    font-size: 20px;
+    width: 40px;
+    background-color: #D04627;
+    border-color: #D04627;
+    height: 32px;
 
 }
+
+
+.infoChktype{
+    border: none;
+    font-size: 20px;
+    padding: 0px 0px 0px 10px;
+}
+
+/*----popover-----------------*/
+
+.popover{
+    max-width: 100%; /* Max Width of the popover (depending on the container!) */
+    z-index: 1060;
+}
+
+
+/*----ocpd--------------------*/
+
+#ocdp {
+    margin: 20px 0 0 30px;
+}
+
+#ocdpinfo{
+    text-align: left;
+}
+
+#ocdpLink, #ocdpinfoLink{
+    font-weight: bold;
+}
+
+/*----risk factor modal-------*/
+
+.modal .modal-body {
+    max-height: 420px;
+    overflow-y: auto;
+}
+
+
+.modal.fade:not(.in).left .modal-dialog {
+    -webkit-transform: translate3d(-25%, 0, 0);
+    transform: translate3d(-25%, 0, 0);
+}
+
+#riskDialog {
+    /*width: 500px;*/
+    margin-left: 10px;
+    /*margin-top: 120px;*/
+    border-radius: 1px;
+    /*margin-right: 55%;*/
+}
+
+
+#riskText{
+    /*text-align: center;*/
+    font-size: 12px;
+    font-color: grey;
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.riskcatagory{
+    color: #D04627;
+    margin-top: 25px;
+    margin-bottom: 5px;
+}
+
+.button_add_risk_factors{
+
+    text-align: center;
+    width: 95%;
+}
+
+#chkrow {
+    margin-left: 20px;
+    margin: 0;
+}
+
+.checkbox {
+    margin: 5px 0 0 0;
+}
+
+.chkrisk {
+    margin: 0px; 10px 0px 10px;
+}
+
+.modal-backdrop, .modal-backdrop.fade.in {
+    opacity: 0;
+}
+
+
+/*---------rightcol--------------------*/
 
 #colRight{
     position: relative;
@@ -53,55 +300,24 @@ body {
     width: 500px
 }
 
-/*#mapContainer{*/
-    /*padding: 90px 0px 0px 0px;*/
-    /*margin: 0px 0px 0px 100px;*/
-    /*width: 98%;*/
-    /*height: 500px;*/
-/*}*/
+#activeData{
+    text-align: center;
+    background-color: #D04627;
+    color: white;
+    font-weight: bold;
+    margin-left: 15px;
+    padding-top: 3px;
+    width: 470px;
+    height: 30px
+}
 
-
-/*.mapContainer{*/
-    /*height: 450px;*/
-/*}*/
+/*----map----------------------*/
 
 .mapCanvas {
-    /*position: absolute;*/
-    /*top: 50px;*/
-    /*left: 0px;*/
-    /*right: 0px;*/
-    /*bottom: 0px;*/
-    /*background-color: #D14414;*/
-    /*background-color: orange;*/
     height: 450px
 }
 
-
-.top-buffer {
-    margin-top:45px;
-}
-
-
-#findAddress{
-    margin: 5px 5px 5px 5px;
-    background-color: white;
-    padding-left: 10px;
-
-    margin-top: 30px;
-    width: 262px;
-    z-index: 11;
-
-}
-
-#searchText{
-    /*border-color: #ffffff;*/
-    border-radius: 2;
-}
-
-#searchIcon{
-    top: 0px;
-    /*padding-bottom: 20px;*/
-}
+/*---key-----------------------*/
 
 #keyContainer{
     position: absolute;
@@ -115,34 +331,32 @@ body {
     z-index: 20;
 }
 
+/*---feature modal------------*/
+
+
 #featureIdTitle{
     text-align: left;
 }
 
 
-#ex1Slider .slider-selection {
-    background: #BABABA;
+.modal.fade:not(.in).bottom .modal-dialog {
+    -webkit-transform: translate3d(0, 125%, 0);
+    transform: translate3d(0, 125%, 0);
+}
+
+#featureInfoCanvas {
+    /*background-color: red;*/
+}
+
+#featureTitle {
+    font-size: 25px;
 }
 
 
-.modal.fade:not(.in).left .modal-dialog {
-    -webkit-transform: translate3d(-25%, 0, 0);
-    transform: translate3d(-25%, 0, 0);
-}
+/*-----------*/
 
-/*.riskFactorModal{*/
-    /*margin: 10px;*/
-    /*poistion: fixed;*/
 
-    /*left:0;*/
-    /*outline: none;*/
-/*}*/
 
-#riskDialog{
-    margin-top: 120px;
-    margin-right: 55%;
-}
 
-.modal-backdrop, .modal-backdrop.fade.in {
-    opacity: 0;
-}
+/*-----------------*/
+

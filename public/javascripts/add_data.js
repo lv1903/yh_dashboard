@@ -1,4 +1,11 @@
 
+var aDates = [
+    ["2012", "Q1"], ["2012", "Q2"], ["2012", "Q3"], ["2012", "Q4"],
+    ["2013", "Q1"], ["2013", "Q2"], ["2013", "Q3"], ["2013", "Q4"],
+    ["2014", "Q1"], ["2014", "Q2"], ["2014", "Q3"], ["2014", "Q4"]
+]
+
+
 function addKey(aKeyValues, aLightnessValues){
 
     if($("#keyContainer") != null) {
@@ -23,25 +30,25 @@ function addKey(aKeyValues, aLightnessValues){
     var r = 20;
     var circlepadding = 5;
 
-    svg.selectAll("rect")
-        .data(aKeyValues)
-        .enter()
-        .append("rect")
-        .attr("x", 0)
-        .attr("y", function(d, i){
-            return ystart + 10 + i * (2 * (r + circlepadding));
-        })
-        .attr("height", r )
-        .attr("width", 150 - r)
-        .attr("fill", "white")
-    //.attr("rx", r)
-    //.attr("ry", r)
+    //svg.selectAll("rect")
+    //    .data(aKeyValues)
+    //    .enter()
+    //    .append("rect")
+    //    .attr("x", 0)
+    //    .attr("y", function(d, i){
+    //        return ystart + 10 + i * (2 * (r + circlepadding));
+    //    })
+    //    .attr("height", r )
+    //    .attr("width", 150 - r)
+    //    .attr("fill", "white")
+    ////.attr("rx", r)
+    ////.attr("ry", r)
 
     svg.selectAll("circle")
         .data(aKeyValues)
         .enter()
         .append("circle")
-        .attr("cx", 130)
+        .attr("cx", 100)
         .attr("cy", function(d, i) {
             return ystart + i * (2 * (r + circlepadding)) + r;
         })
@@ -55,7 +62,7 @@ function addKey(aKeyValues, aLightnessValues){
         .attr("stroke-width", 2)
         .attr("stroke", "hsla(10, 90%, "+ aLightnessValues[0] +"%, 1)")
 
-    var fontsize = 15
+/*    var fontsize = 15
     svg.selectAll("text")
         .data(aKeyValues)
         .enter()
@@ -69,7 +76,39 @@ function addKey(aKeyValues, aLightnessValues){
             return ystart + 5 + i * (2 * (r + circlepadding)) + r;
             //return i * (h / aKeyValues.length) + boxh / 2 + fontSize / 3;
         })
-        .attr("font-size", fontsize + "px")
+        .attr("font-size", fontsize + "px")*/
+
+
+    var fontsizeNumber = 30;
+    var fontsizeText = 18;
+    svg.selectAll("text")
+        .data(aKeyValues)
+        .enter()
+        .append("text")
+        .text(function(d) {
+            return d;
+        })
+        .attr("text-anchor", "middle")
+        .attr("x", 100)
+        .attr("y", function(d, i) {
+            if(isNaN(Number(aKeyValues[i]))){
+                return ystart + (fontsizeText/2 - 2) + i * (2 * (r + circlepadding)) + r;
+            } else {
+                return ystart + (fontsizeNumber/2 - 4)+ i * (2 * (r + circlepadding)) + r;
+            }
+
+
+        })
+        .attr("font-size", function(d, i){
+            if(isNaN(Number(aKeyValues[i]))){
+                return fontsizeText + "px"
+            } else {
+                return fontsizeNumber + "px"
+            }
+        })
+        .attr("font-weight", "bold")
+        //.attr("color", "white")
+
 
 }
 
@@ -85,16 +124,19 @@ function jsonPath(index, aPath, parent_obj){
     return value;
 }
 
-
-var aStandardKey = [ "worst", "below", "average", "better", "best", "no data" ];
+var aStandardKey = ["5", "4", "3", "2", "1", "na"]
+//var aStandardKey = [ "worst", "", "", "", "best", "no data" ];
 var aKeyLightness = [30, 40, 50, 60, 90, 100];
 
-var aMissingDataKey = ["missing 1 year", " missing 9m", "+missing 6m", "missing 3m", "up to date"]
+var aMissingDataKey = ["12m", " 9m", "6m", "3m", "0m"]
 //var aCoreKey = ["highest rate", "below average", "above average", "lowest rate", "no data"]
 
 
 
 function selectcolor(n, aBuckets, up){
+
+    //console.log(n)
+    //console.log(aBuckets)
 
     if(isNaN(n)){
         return "white";
@@ -146,20 +188,30 @@ function addColors(aBuckets, up, aPath, obj){
 function getData(){
 
     var sActive = $("#activeData").html();
-    var year = $("#yearSelect").val();
-    var quarter = $("#quarterSelect").val();
+    var dateIndex = $("#slider").slider("value");
+    var year = aDates[dateIndex][0];
+    var quarter = aDates[dateIndex][1];
 
-    console.log("entities")
-    console.log(oEntities)
-    console.log("national")
-    console.log(oNational)
+    //var year = $("#yearSelect").val();
+    //var quarter = $("#quarterSelect").val();
+
+    //console.log("entities")
+    //console.log(oEntities)
+    //console.log("national")
+    //console.log(oNational)
+
+    if(sActive == $("#btn_P1E").html()){
+        $( "#slider" ).slider( "option", "disabled", false );
+    } else {
+        $( "#slider" ).slider( "option", "disabled", true );
+    }
 
     if(sActive == $("#btn_P1E").html()){
         aBuckets = oNational.homeless_data[year + quarter].p1e.quintiles;
         var up = true;
         var aPath = ["homeless_data", year + quarter, "p1e", "percent"];
         addColors(aBuckets, up, aPath, oEntities );
-        addKey(aStandardKey, aKeyLightness);
+        //addKey(aStandardKey, aKeyLightness);
     }
 
     if(sActive == $("#btn_P1E_reporting").html()){
@@ -168,7 +220,7 @@ function getData(){
         var up = true; //good is low
         var aPath = ["homeless_data", "p1e_missing_count"];
         addColors(aBuckets, up, aPath, oEntities );
-        addKey(aMissingDataKey, [30, 40, 50, 60, 100]);
+        //addKey(aMissingDataKey, [30, 40, 50, 60, 100]);
     }
 
     if(sActive == $("#btn_Prevention").html()){
@@ -176,7 +228,7 @@ function getData(){
         var up = false;
         var aPath = ["homeless_data", year, "prevention", "percent"];
         addColors(aBuckets, up, aPath, oEntities );
-        addKey(aStandardKey, aKeyLightness);
+        //addKey(aStandardKey, aKeyLightness);
     }
 
     if(sActive == $("#btn_Core_Priority").html()){
@@ -184,7 +236,7 @@ function getData(){
         var up = true;
         var aPath = ["homeless_data", year + quarter, "core_priority", "percent"];
         addColors(aBuckets, up, aPath, oEntities );
-        addKey(aStandardKey, aKeyLightness);
+        //addKey(aStandardKey, aKeyLightness);
     }
 
     if(sActive == $("#btn_Core_Non_Priority").html()){
@@ -192,7 +244,7 @@ function getData(){
         var up = true;
         var aPath = ["homeless_data", year + quarter, "core_non_priority", "percent"];
         addColors(aBuckets, up, aPath, oEntities );
-        addKey(aStandardKey, aKeyLightness);
+        //addKey(aStandardKey, aKeyLightness);
     }
 
 
@@ -273,8 +325,8 @@ function getRiskFactorData(){
         aBuckets[i] = (((n - 0) * (max - min)) / (1 - 0)) + min
     }
 
-    console.log(oRiskIndex)
-    console.log(min + " : " + max + " : " + aBuckets)
+    //console.log(oRiskIndex)
+    //console.log(min + " : " + max + " : " + aBuckets)
 
     var up = true;
     aPath = ["average"];
@@ -300,7 +352,7 @@ $(function () { //change data list
         riskFactorClick(event)
     })
 
-    $("#btn_Add_Risk_Factors").click(function(event){ // map data
+    $(".button_add_risk_factors").click(function(event){ // map data
         getRiskFactorData()
         $("#activeData").html("index of risk factors")
     })
@@ -318,6 +370,86 @@ $(function () { //change data list
         }
     })
 
+    $(".chkParent").change(function(){ //select/deselect all
+        var pname = $(this).attr('pname');
+        console.log(pname)
+        if($(this).is(":checked")) {
+            $('.chkrisk').each(function() {
+                if($(this).attr('pname') == pname) {
+                    this.checked = true;
+                }
+            });
+        } else {
+            $('.chkrisk').each(function() {
+                if($(this).attr('pname') == pname) {
+                    this.checked = false;
+                }
+            });
+        }
+    })
+
+    $(function () {
+        $('[data-toggle="popover"]').popover()
+    })
+
+    $(".infotype").each(function(){
+        var name = $(this).attr('name')
+        if(oText.hasOwnProperty(name)) {
+            $(this).popover({
+                html: true,
+                container: 'body',
+                title: oText[name].title,
+                content: oText[name].content
+            })
+        }
+    })
+
+    $(".infoChktype").each(function(){
+        var name = $(this).attr('name')
+        if(oText.hasOwnProperty(name)) {
+            $(this).popover({
+                html: true,
+                container: 'body',
+                title: oText[name].title,
+                content: oText[name].content
+            })
+        }
+    })
+
 
 
 })
+
+
+
+//--slider----
+
+
+$(function() {
+
+    var aDateRange= ["Q2 2012", "Q3", "Q4", "Q1 2013", "Q2", "Q3", "Q4", "Q1 2014", "Q2", "Q3", "Q4 2014"]
+
+    $( "#slider" ).slider({
+
+        value: aDateRange.length,
+        min: 1,
+        max: aDateRange.length,
+        step: 1,
+        slide: function( event, ui ) {
+            //console.log(aDateRange[ui])
+            console.log( aDateRange[ui.value - 1]);
+            getData()
+        }
+    }).each(function() {
+        var opt = $(this).data().uiSlider.options;
+
+        // Space out values
+        for (var i = 0; i < aDateRange.length; i++) {
+
+            var el = $('<label>' + aDateRange[i] + '</label>').css('left', (i / (aDateRange.length - 1) * 100) + '%');
+
+            $("#slider").append(el);
+        }
+    })
+
+});

@@ -11,7 +11,7 @@ var aRisk = [
     ["yh_education", "education_level3", [],["value", "data", "annual", "2014","val_percent"]],
     ["yh_education", "education_attainment_gap", [],["value", "data", "annual", "2014","val_attainment_gap"]],
     ["yh_apprenticeship", "apprenticeship", ["value", "data", "annual", "2014","val_count"],
-        ["value", "data", "annual", "2014","val_percent"]],
+            ["value", "data", "annual", "2014","val_percent"]],
     ["yh_truancy", "truancy", [],["value", "data", "value"]],
     ["yh_mentalhealth", "mentalhealth", [], ["value", "data", "Value"]],
     ["yh_drugs", "drugs", [], ["value", "data", "rate"]],
@@ -27,6 +27,47 @@ var aRisk = [
 function sortNumber(a,b) {
     return a - b;
 }
+
+function sortPercent(a, b) {
+    return a.percent - b.percent
+}
+
+function rankPercent(aObj) {
+    //rank the percent values - where there is a tie take the average
+    var index = 0;
+    while (index < aObj.length) {
+
+        var same = 1
+        while (index + same < aObj.length) {
+            if (aObj[index].percent == aObj[index + same].percent) {
+                same++;
+            } else {
+                break
+            }
+        }
+
+        var avgRank = ((index + 1) + (index + same)) / 2;
+        for (var jndex = index; jndex < (index + same); jndex++) {
+            aObj[jndex].rank = avgRank;
+        }
+        index += same;
+    }
+    return aObj
+}
+
+function medianPercent(aObj){
+    return aObj[Math.round(aObj.length/100 * 50)].percent
+}
+
+function quintilePercent(aObj){
+    aBuckets = [20, 40, 60, 80];
+    aRes = [];
+    for(var index in aBuckets){
+        aRes.push(aObj[Math.round(aObj.length / 100 * aBuckets[index])].percent);
+    }
+    return aRes
+}
+
 
 function getMedian(aX){
     return aX[Math.round(aX.length /100 * 50)]
@@ -122,11 +163,14 @@ function getP1EData(oEntities, oNational, callback){
         for(var indexQ in aQ){
             aX = [];
             var Q = aQ[indexQ];
+            var count = 0;
             for(id in oEntities ){
+                count += 1;
                 var val = oEntities[id].homeless_data[Q].p1e.percent;
                 var x = Number(val);
                 if(isNaN(x) == false){
                     aX.push(x);
+
                 }
             }
             if(!(oNational.homeless_data.hasOwnProperty(Q))) {
@@ -137,6 +181,12 @@ function getP1EData(oEntities, oNational, callback){
             aX.sort(sortNumber);
             oNational.homeless_data[Q].p1e.median = getMedian(aX);
             oNational.homeless_data[Q].p1e.quintiles = getQuintiles(aX);
+
+            //console.log(count)
+            //console.log(aX.length)
+            //console.log(aX.length/ count)
+
+            oNational.homeless_data[Q].p1e.reported_percent = aX.length / count;
             //console.log(oNational.homeless_data[Q].p1e)
         }
 
@@ -387,39 +437,43 @@ function getRiskData(riskIndex, aRisk, oEntities, oNational, callback){
                         oEntities[id].risks_data[name].percent =  jsonPath(0, aPathPercent, doc)
                     }
 
+                    //add default rank
+                    oEntities[id].risks_data[name].rank = -1;
+
                 }
             }
         }
 
-        //get national data
-        aX = [];
-
+        //get array of entity objects with numeric values
+        var aObj = []
         for(id in oEntities ){
             if(oEntities[id].risks_data.hasOwnProperty(name)) {
                 var val = oEntities[id].risks_data[name].percent;
                 var x = Number(val);
                 if (isNaN(x) == false) {
-                    aX.push(x);
+                    var obj = {};
+                    obj.id = id;
+                    obj.percent = x;
+                    aObj.push(obj)
                 }
             }
         }
+
+        aObj.sort(sortPercent);  //sort array of entity objects
+        aObj = rankPercent(aObj);  //rank data (where there are ties take the average
+
+        for(var index in aObj){ //record rank in oEntities
+            var id = aObj[index].id;
+            oEntities[id].risks_data[name].rank = aObj[index].rank;
+        }
+
+        //add National data
         oNational.risks_data[name] = {};
-        aX.sort(sortNumber);
-        oNational.risks_data[name].median = getMedian(aX);
-        oNational.risks_data[name].quintiles = getQuintiles(aX);
+        oNational.risks_data[name].median = medianPercent(aObj);
+        oNational.risks_data[name].quintiles = quintilePercent(aObj);
 
 
-        //get risk rank data
-        for(id in oEntities){
-            if(oEntities[id].risks_data.hasOwnProperty(name)) {
-                var val = Number(oEntities[id].risks_data[name].percent);
-                var index = aX.indexOf(val);
-                if(index > -1){
-                    index = index / aX.length;
-                }
-                oEntities[id].risks_data[name].rank = index;
-            }
-        }
+        // move to next risk
 
         if(riskIndex < aRisk.length - 1){
             getRiskData(riskIndex + 1, aRisk, oEntities, oNational, callback)
