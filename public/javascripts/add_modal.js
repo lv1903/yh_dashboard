@@ -37,6 +37,9 @@ function featureClick(event){
 
     featureId = event.feature.getProperty('geo_code');
     featureName = event.feature.getProperty('geo_label');
+
+    $$("homelessnessFeatureView").define("header", featureName);
+
     $$("homelessnessFeatures").refresh();
     $$("homelessnessFeatureView").expand();
 

@@ -46,9 +46,11 @@ function homelessnessDateTitle(slider) {
 
 // Re-loads the data based on the date slider value.
 function homelessnessDateChange(index) {
-  if ($$("homelessnessFeatureView").config.collapsed) {
+  if (!$$("homelessnessMapView").config.collapsed) {
     getData("P1E",index);
-  } else {
+  }
+
+  if (!$$("homelessnessFeatureView").config.collapsed) {
     $$("homelessnessFeatures").refresh();
   }
 }
@@ -60,7 +62,7 @@ function homelessnessDateDrag() {
 }
 
 // This is the side-bar ui for youth homelessness.
-var uiHomelessnessFilterForm = {
+var uiHomelessnessSideBar = {
   rows: [
     {
       cols: [
@@ -90,12 +92,12 @@ var uiHomelessnessFilterForm = {
 // which is visible at any time.
 var uiHomelessnessVisualisation = {
   view: "accordion",
-  multi: false,
-  type: "clean",
+  multi: "mixed",
+  type: "line",
   cols: [
     {
-      header: "youth homelessness map",
       id: "homelessnessMapView",
+      header: "youth homelessness map",
       body: {
         id: "homelessnessMap",
         view: "google-map",
@@ -105,8 +107,8 @@ var uiHomelessnessVisualisation = {
     },
     {
       id: "homelessnessFeatureView",
-      collapsed: true,
       header: "youth homelessness details",
+      collapsed: true,
       body: {
         view: "scrollview",
         scroll: "y",
@@ -124,28 +126,18 @@ var uiHomelessnessVisualisation = {
 // This is the main homelessness panel, combining the side-bar and the visualisation.
 var uiHomelessnessPanel = {
   id: "homelessnessPanel",
-  rows: [
+  view: "accordion",
+  type: "line",
+  cols: [
     {
-      responsive: "homelessnessPanel",
-      cols: [
-        {
-          view: "accordion",
-          type: "line",
-          multi: false,
-          cols: [
-            {
-              header: "select date",
-              width: 294,
-              body: uiHomelessnessFilterForm,
-              collapsed: webix.env.touch
-            },
-            {
-              header: false,
-              body: uiHomelessnessVisualisation
-            }
-          ]
-        }
-      ]
+      header: "select date",
+      width: 294,
+      collapsed: webix.env.touch,
+      body: uiHomelessnessSideBar
+    },
+    {
+      header: false,
+      body: uiHomelessnessVisualisation
     }
   ]
 };
