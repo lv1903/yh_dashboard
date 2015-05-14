@@ -21,17 +21,17 @@ cdo.getDataObjects(function(oEntities, oNational){
 
     console.log("got data objects")
 
-    app.get('/', function(req, res){
-        res.render('index', {
-            quarter: sQuarter,
-            mapStyle: mapStyle,
-            topoLa: oLaTopo,
-            entities: oEntities,
-            national: oNational
-        })
-    });
+    //app.get('/', function(req, res){
+    //    res.render('index', {
+    //        quarter: sQuarter,
+    //        mapStyle: mapStyle,
+    //        topoLa: oLaTopo,
+    //        entities: oEntities,
+    //        national: oNational
+    //    })
+    //});
 
-    app.get("/webix", function(req,res) {
+    app.get("/", function(req,res) {
        res.render("webix", {
             quarter: sQuarter,
               mapStyle: mapStyle,
