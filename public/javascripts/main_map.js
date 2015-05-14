@@ -23,7 +23,7 @@ function extend_bounds(bounds, arr){
 
 
 
-function initialize() {
+function initialiseMap() {
 
     var latlng = new google.maps.LatLng(53,-2.5);
     var mapOptions = {
@@ -37,7 +37,8 @@ function initialize() {
             position: google.maps.ControlPosition.TOP_RIGHT
         }
     };
-    map = new google.maps.Map($(".mapCanvas")[0], mapOptions);
+//    map = new google.maps.Map($(".mapCanvas")[0], mapOptions);
+    map = $$("homelessnessMap").map;
 
 
     map.data.addGeoJson(oGeoLa);
@@ -71,14 +72,9 @@ function initialize() {
     map.data.addListener('click', function(event) {
         featureClick(event)
     });
-
-
-    getData()
-
 }
 
 
-
-google.maps.event.addDomListener(window, 'load', initialize);
+//google.maps.event.addDomListener(window, 'load', initialize);
 
 //var marker = new google.maps.Marker({map: map});

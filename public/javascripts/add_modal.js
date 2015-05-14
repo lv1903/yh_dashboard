@@ -1,3 +1,5 @@
+var featureId = "";
+var featureName = "";
 
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -19,15 +21,26 @@ function findLastReportedQuarter(index, oData){
     return findLastReportedQuarter(index - 1, oData)
 }
 
+function getHomelessnessFeature(obj,view) {
+    var template;
+
+    if (featureId.length === 0 || featureName.length === 0) {
+        template = "no data";
+    } else {
+        var dataDiv = loadFeatureInfoBox(featureId, featureName);
+        template = dataDiv.innerHTML;
+    }
+    return template;
+}
 
 function featureClick(event){
 
-    var id = event.feature.getProperty('geo_code');
-    var name = event.feature.getProperty('geo_label');
+    featureId = event.feature.getProperty('geo_code');
+    featureName = event.feature.getProperty('geo_label');
+    $$("homelessnessFeatures").refresh();
+    $$("homelessnessFeatureView").expand();
 
     //console.log(event)
-
-    loadFeatureInfoBox(id, name)
 }
 
 
@@ -41,10 +54,10 @@ var margin = {
     left: 10
 };
 
-function loadFeatureInfoBox(id, name){
+function loadFeatureInfoBox( id, name){
 
-    $("#featureTitle").html(name);
-    $("#featureIdTitle").html("ONS Entity Id: " + id);
+    //$("#featureTitle").html(name);
+    //$("#featureIdTitle").html("ONS Entity Id: " + id);
 
     var oData = oEntities[id];
     console.log("data")
@@ -58,9 +71,11 @@ function loadFeatureInfoBox(id, name){
     var x = 0;
     var y = 0;
 
+    var hackDiv = document.createElement("div");
+
     d3.select("#featureInfoContainer").remove()
 
-    var svg = d3.select("#featureInfoCanvas")
+    var svg = d3.select(hackDiv)
         .append("div")
         .classed("svg-container", true) //container class to make it responsive
         .attr("id", "featureInfoContainer")
@@ -92,7 +107,7 @@ function loadFeatureInfoBox(id, name){
 
     y += 40;
     svg.append("image")
-        .attr("xlink:href", "./images/persons.png")
+        .attr("xlink:href", "/images/persons.png")
         .attr("x",x)
         .attr("y", y)
         .attr("width", 350)
@@ -356,7 +371,7 @@ function loadFeatureInfoBox(id, name){
     y += 50;
 
     svg.append("image")  //------house image
-        .attr("xlink:href", "./images/red-house.png")
+        .attr("xlink:href", "/images/red-house.png")
         .attr("x",x)
         .attr("y", y - 25)
         .attr("width", 150)
@@ -453,7 +468,7 @@ function loadFeatureInfoBox(id, name){
     y += 50;
 
     svg.append("image")  //------house image
-        .attr("xlink:href", "./images/falling-arrow-red.png")
+        .attr("xlink:href", "/images/falling-arrow-red.png")
         .attr("x",x)
         .attr("y", y - 60)
         .attr("width", 150)
@@ -1025,7 +1040,9 @@ function loadFeatureInfoBox(id, name){
     //update svg height
     svg.attr("viewBox", "0 0 " + (margin.left + w + margin.right) + " " + (margin.top + y + margin.bottom) )
 
-    $(".featureInfoModal").modal("show");
+//    $(".featureInfoModal").modal("show");
+
+  return hackDiv;
 }
 
 

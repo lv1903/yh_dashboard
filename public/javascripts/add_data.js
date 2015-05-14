@@ -185,10 +185,12 @@ function addColors(aBuckets, up, aPath, obj){
 }
 
 
-function getData(){
+function getData(sActive, dateIndex){
 
-    var sActive = $("#activeData").html();
-    var dateIndex = $("#slider").slider("value");
+    dateIndex = dateIndex || 10;
+
+    //var sActive = $("#activeData").html();
+    //var dateIndex = $("#slider").slider("value");
     var year = aDates[dateIndex][0];
     var quarter = aDates[dateIndex][1];
 
@@ -200,13 +202,13 @@ function getData(){
     //console.log("national")
     //console.log(oNational)
 
-    if(sActive == $("#btn_P1E").html()){
-        $( "#slider" ).slider( "option", "disabled", false );
-    } else {
-        $( "#slider" ).slider( "option", "disabled", true );
-    }
+    //if(sActive == $("#btn_P1E").html()){
+    //    $( "#slider" ).slider( "option", "disabled", false );
+    //} else {
+    //    $( "#slider" ).slider( "option", "disabled", true );
+    //}
 
-    if(sActive == $("#btn_P1E").html()){
+    if(sActive === "P1E") {
         aBuckets = oNational.homeless_data[year + quarter].p1e.quintiles;
         var up = true;
         var aPath = ["homeless_data", year + quarter, "p1e", "percent"];
@@ -214,39 +216,39 @@ function getData(){
         //addKey(aStandardKey, aKeyLightness);
     }
 
-    if(sActive == $("#btn_P1E_reporting").html()){
-        console.log(oNational.homeless_data.p1e_missing_count.quintiles)
-        aBuckets = oNational.homeless_data.p1e_missing_count.quintiles;
-        var up = true; //good is low
-        var aPath = ["homeless_data", "p1e_missing_count"];
-        addColors(aBuckets, up, aPath, oEntities );
-        //addKey(aMissingDataKey, [30, 40, 50, 60, 100]);
-    }
-
-    if(sActive == $("#btn_Prevention").html()){
-        aBuckets = oNational.homeless_data[year].prevention.quintiles;
-        var up = false;
-        var aPath = ["homeless_data", year, "prevention", "percent"];
-        addColors(aBuckets, up, aPath, oEntities );
-        //addKey(aStandardKey, aKeyLightness);
-    }
-
-    if(sActive == $("#btn_Core_Priority").html()){
-        aBuckets = oNational.homeless_data[year + quarter].core_priority.quintiles;
-        var up = true;
-        var aPath = ["homeless_data", year + quarter, "core_priority", "percent"];
-        addColors(aBuckets, up, aPath, oEntities );
-        //addKey(aStandardKey, aKeyLightness);
-    }
-
-    if(sActive == $("#btn_Core_Non_Priority").html()){
-        aBuckets = oNational.homeless_data[year + quarter].core_non_priority.quintiles;
-        var up = true;
-        var aPath = ["homeless_data", year + quarter, "core_non_priority", "percent"];
-        addColors(aBuckets, up, aPath, oEntities );
-        //addKey(aStandardKey, aKeyLightness);
-    }
-
+    //if(sActive == $("#btn_P1E_reporting").html()){
+    //    console.log(oNational.homeless_data.p1e_missing_count.quintiles)
+    //    aBuckets = oNational.homeless_data.p1e_missing_count.quintiles;
+    //    var up = true; //good is low
+    //    var aPath = ["homeless_data", "p1e_missing_count"];
+    //    addColors(aBuckets, up, aPath, oEntities );
+    //    //addKey(aMissingDataKey, [30, 40, 50, 60, 100]);
+    //}
+    //
+    //if(sActive == $("#btn_Prevention").html()){
+    //    aBuckets = oNational.homeless_data[year].prevention.quintiles;
+    //    var up = false;
+    //    var aPath = ["homeless_data", year, "prevention", "percent"];
+    //    addColors(aBuckets, up, aPath, oEntities );
+    //    //addKey(aStandardKey, aKeyLightness);
+    //}
+    //
+    //if(sActive == $("#btn_Core_Priority").html()){
+    //    aBuckets = oNational.homeless_data[year + quarter].core_priority.quintiles;
+    //    var up = true;
+    //    var aPath = ["homeless_data", year + quarter, "core_priority", "percent"];
+    //    addColors(aBuckets, up, aPath, oEntities );
+    //    //addKey(aStandardKey, aKeyLightness);
+    //}
+    //
+    //if(sActive == $("#btn_Core_Non_Priority").html()){
+    //    aBuckets = oNational.homeless_data[year + quarter].core_non_priority.quintiles;
+    //    var up = true;
+    //    var aPath = ["homeless_data", year + quarter, "core_non_priority", "percent"];
+    //    addColors(aBuckets, up, aPath, oEntities );
+    //    //addKey(aStandardKey, aKeyLightness);
+    //}
+    //
 
 }
 
@@ -336,7 +338,8 @@ function getRiskFactorData(){
 
 }
 
-
+/*
+    This needs porting to webix
 
 $(function () { //change data list
 
@@ -453,3 +456,5 @@ $(function() {
     })
 
 });
+
+  */
