@@ -1,6 +1,6 @@
 
 var aDates = [
-    ["2012", "Q1"], ["2012", "Q2"], ["2012", "Q3"], ["2012", "Q4"],
+    /*["2012", "Q1"],*/ ["2012", "Q2"], ["2012", "Q3"], ["2012", "Q4"],
     ["2013", "Q1"], ["2013", "Q2"], ["2013", "Q3"], ["2013", "Q4"],
     ["2014", "Q1"], ["2014", "Q2"], ["2014", "Q3"], ["2014", "Q4"]
 ]
@@ -185,76 +185,56 @@ function addColors(aBuckets, up, aPath, obj){
 }
 
 
-function getData(){
+function getData(sActive, dateIndex){
 
-    var sActive = $("#activeData").html();
-    var dateIndex = $("#slider").slider("value");
-    var year = aDates[dateIndex][0];
-    var quarter = aDates[dateIndex][1];
+  var year = aDates[dateIndex][0];
+  var quarter = aDates[dateIndex][1];
 
-    //var year = $("#yearSelect").val();
-    //var quarter = $("#quarterSelect").val();
+  if(sActive === "P1E") {
+      aBuckets = oNational.homeless_data[year + quarter].p1e.quintiles;
+      var up = true;
+      var aPath = ["homeless_data", year + quarter, "p1e", "percent"];
+      addColors(aBuckets, up, aPath, oEntities );
+      //addKey(aStandardKey, aKeyLightness);
+  }
 
-    //console.log("entities")
-    //console.log(oEntities)
-    //console.log("national")
-    //console.log(oNational)
-
-    if(sActive == $("#btn_P1E").html()){
-        $( "#slider" ).slider( "option", "disabled", false );
-    } else {
-        $( "#slider" ).slider( "option", "disabled", true );
-    }
-
-    if(sActive == $("#btn_P1E").html()){
-        aBuckets = oNational.homeless_data[year + quarter].p1e.quintiles;
-        var up = true;
-        var aPath = ["homeless_data", year + quarter, "p1e", "percent"];
-        addColors(aBuckets, up, aPath, oEntities );
-        //addKey(aStandardKey, aKeyLightness);
-    }
-
-    if(sActive == $("#btn_P1E_reporting").html()){
-        console.log(oNational.homeless_data.p1e_missing_count.quintiles)
-        aBuckets = oNational.homeless_data.p1e_missing_count.quintiles;
-        var up = true; //good is low
-        var aPath = ["homeless_data", "p1e_missing_count"];
-        addColors(aBuckets, up, aPath, oEntities );
-        //addKey(aMissingDataKey, [30, 40, 50, 60, 100]);
-    }
-
-    if(sActive == $("#btn_Prevention").html()){
-        aBuckets = oNational.homeless_data[year].prevention.quintiles;
-        var up = false;
-        var aPath = ["homeless_data", year, "prevention", "percent"];
-        addColors(aBuckets, up, aPath, oEntities );
-        //addKey(aStandardKey, aKeyLightness);
-    }
-
-    if(sActive == $("#btn_Core_Priority").html()){
-        aBuckets = oNational.homeless_data[year + quarter].core_priority.quintiles;
-        var up = true;
-        var aPath = ["homeless_data", year + quarter, "core_priority", "percent"];
-        addColors(aBuckets, up, aPath, oEntities );
-        //addKey(aStandardKey, aKeyLightness);
-    }
-
-    if(sActive == $("#btn_Core_Non_Priority").html()){
-        aBuckets = oNational.homeless_data[year + quarter].core_non_priority.quintiles;
-        var up = true;
-        var aPath = ["homeless_data", year + quarter, "core_non_priority", "percent"];
-        addColors(aBuckets, up, aPath, oEntities );
-        //addKey(aStandardKey, aKeyLightness);
-    }
-
+  if (sActive === "P1E_Missing"){
+      console.log(oNational.homeless_data.p1e_missing_count.quintiles)
+      aBuckets = oNational.homeless_data.p1e_missing_count.quintiles;
+      var up = true; //good is low
+      var aPath = ["homeless_data", "p1e_missing_count"];
+      addColors(aBuckets, up, aPath, oEntities );
+      //addKey(aMissingDataKey, [30, 40, 50, 60, 100]);
+  }
+  //
+  //if(sActive == $("#btn_Prevention").html()){
+  //    aBuckets = oNational.homeless_data[year].prevention.quintiles;
+  //    var up = false;
+  //    var aPath = ["homeless_data", year, "prevention", "percent"];
+  //    addColors(aBuckets, up, aPath, oEntities );
+  //    //addKey(aStandardKey, aKeyLightness);
+  //}
+  //
+  //if(sActive == $("#btn_Core_Priority").html()){
+  //    aBuckets = oNational.homeless_data[year + quarter].core_priority.quintiles;
+  //    var up = true;
+  //    var aPath = ["homeless_data", year + quarter, "core_priority", "percent"];
+  //    addColors(aBuckets, up, aPath, oEntities );
+  //    //addKey(aStandardKey, aKeyLightness);
+  //}
+  //
+  //if(sActive == $("#btn_Core_Non_Priority").html()){
+  //    aBuckets = oNational.homeless_data[year + quarter].core_non_priority.quintiles;
+  //    var up = true;
+  //    var aPath = ["homeless_data", year + quarter, "core_non_priority", "percent"];
+  //    addColors(aBuckets, up, aPath, oEntities );
+  //    //addKey(aStandardKey, aKeyLightness);
+  //}
+  //
 
 }
 
-
-
-
-
-function getRiskFactorData(){
+function getRiskFactorData(aSelected){
 
     var riskOrder = {} // true means low is good high is bad
     riskOrder.alcohol = true;
@@ -268,16 +248,6 @@ function getRiskFactorData(){
     riskOrder.mentalhealth = true;
     riskOrder.truancy = true;
     riskOrder.unemployment_total = true;
-
-
-
-    var aSelected = [];
-    $('.chkrisk').each(function() {
-        //console.log($(this).attr('name'))
-        if($(this).is(":checked")) {
-            aSelected.push($(this).attr('name'));
-        }
-    });
 
     var oRiskIndex = {};
     for(id in oEntities) {
@@ -336,120 +306,3 @@ function getRiskFactorData(){
 
 }
 
-
-
-$(function () { //change data list
-
-    $(".datatype").click(function (event) {
-        if ($(this).is(":button")) {
-            var sActive = ($(this).html());
-            $("#activeData").html(sActive);
-            getData()
-        }
-    })
-
-    $(".riskfactortype").click(function (event) { // add modal
-        riskFactorClick(event)
-    })
-
-    $(".button_add_risk_factors").click(function(event){ // map data
-        getRiskFactorData()
-        $("#activeData").html("index of risk factors")
-    })
-
-    $("#chk_Select_All").change(function(){ //select/deselect all
-        if($(this).is(":checked")) {
-            $('.chkrisk').each(function() {
-                this.checked = true;
-            });
-
-        } else {
-            $('.chkrisk').each(function() {
-                this.checked = false;
-            });
-        }
-    })
-
-    $(".chkParent").change(function(){ //select/deselect all
-        var pname = $(this).attr('pname');
-        console.log(pname)
-        if($(this).is(":checked")) {
-            $('.chkrisk').each(function() {
-                if($(this).attr('pname') == pname) {
-                    this.checked = true;
-                }
-            });
-        } else {
-            $('.chkrisk').each(function() {
-                if($(this).attr('pname') == pname) {
-                    this.checked = false;
-                }
-            });
-        }
-    })
-
-    $(function () {
-        $('[data-toggle="popover"]').popover()
-    })
-
-    $(".infotype").each(function(){
-        var name = $(this).attr('name')
-        if(oText.hasOwnProperty(name)) {
-            $(this).popover({
-                html: true,
-                container: 'body',
-                title: oText[name].title,
-                content: oText[name].content
-            })
-        }
-    })
-
-    $(".infoChktype").each(function(){
-        var name = $(this).attr('name')
-        if(oText.hasOwnProperty(name)) {
-            $(this).popover({
-                html: true,
-                container: 'body',
-                title: oText[name].title,
-                content: oText[name].content
-            })
-        }
-    })
-
-
-
-})
-
-
-
-//--slider----
-
-
-$(function() {
-
-    var aDateRange= ["Q2 2012", "Q3", "Q4", "Q1 2013", "Q2", "Q3", "Q4", "Q1 2014", "Q2", "Q3", "Q4 2014"]
-
-    $( "#slider" ).slider({
-
-        value: aDateRange.length,
-        min: 1,
-        max: aDateRange.length,
-        step: 1,
-        slide: function( event, ui ) {
-            //console.log(aDateRange[ui])
-            console.log( aDateRange[ui.value - 1]);
-            getData()
-        }
-    }).each(function() {
-        var opt = $(this).data().uiSlider.options;
-
-        // Space out values
-        for (var i = 0; i < aDateRange.length; i++) {
-
-            var el = $('<label>' + aDateRange[i] + '</label>').css('left', (i / (aDateRange.length - 1) * 100) + '%');
-
-            $("#slider").append(el);
-        }
-    })
-
-});

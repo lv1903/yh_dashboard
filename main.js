@@ -21,17 +21,26 @@ cdo.getDataObjects(function(oEntities, oNational){
 
     console.log("got data objects")
 
-    app.get('/', function(req, res){
-        res.render('index', {
-            quarter: sQuarter,
+    //app.get('/', function(req, res){
+    //    res.render('index', {
+    //        quarter: sQuarter,
+    //        mapStyle: mapStyle,
+    //        topoLa: oLaTopo,
+    //        entities: oEntities,
+    //        national: oNational
+    //    })
+    //});
+
+  app.get("/", function(req,res) {
+     res.render("webix", {
+          quarter: sQuarter,
             mapStyle: mapStyle,
             topoLa: oLaTopo,
             entities: oEntities,
             national: oNational
-        })
-    });
-
-})
+      }); 
+  });
+});
 
 //app.get('/', function(req, res){
 //
@@ -54,4 +63,4 @@ cdo.getDataObjects(function(oEntities, oNational){
 
 
 
-app.listen(3003);
+app.listen(3004);
