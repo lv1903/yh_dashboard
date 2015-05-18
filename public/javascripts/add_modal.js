@@ -207,7 +207,7 @@ function loadFeatureInfoBox(id, name){
 
     } else if (isNaN(yhCount)){ //-----missing months
 
-        var index = findLastReportedQuarter(aDates.length - 1, oData);
+        var index = (aDates.length - 1, oData);
         var missingQuarters = aDates.length - 1 - index;
         var missingMonths = missingQuarters * 3;
         var quarter = aDates[index][0] + aDates[index][1];

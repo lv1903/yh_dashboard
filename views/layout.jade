@@ -15,6 +15,7 @@ html
         link(rel='stylesheet', href='/stylesheets/style.css')
 
         script(src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=false")
+        script(src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js")
         script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js")
         script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js")
 
@@ -35,11 +36,15 @@ html
             var oEntities = !{JSON.stringify(entities)}
             var oNational = !{JSON.stringify(national)}
 
+        script(src="/javascripts/add_info.js")
         script(src="/javascripts/add_info_text.js")
         script(src="/javascripts/add_data.js")
         script(src="/javascripts/main_map.js")
         script(src="/javascripts/search_address.js")
         script(src="/javascripts/add_modal.js")
+
+        script.
+            console.log(oEntities["E06000019"])
 
 
     body
@@ -51,15 +56,15 @@ html
                         span.icon-bar
                         span.icon-bar
                         span.icon-bar
-                    a.navbar-brand(href='http://centrepoint.org.uk/', style="position:fixed;")
+                    a.navbar-brand(target= '_blank' href='http://centrepoint.org.uk/' style="position:fixed;")
                         img#brandImage(src="/images/logo.png")
                         span.h1#brandText
                 //#navbar-main.navbar-collapse.collapse
-                //    ul#navigate.nav.navbar-nav.navbar-right
+                //    ul#navigate.nav.navbar-navtarget= '_blank'.navbar-right
                 //        li
-                //            a(href='/').glyphicon.glyphicon-home
-                    //    li
-                    //        a(href='/references').glyphicon.glyphicon-info-sign
-                    //    li
+                //            a(href='/local').glyphicon.glyphicon-home
+                //        li
+                //            a(href='/references').glyphicon.glyphicon-info-sign
+                //        li
                     //        a(href="http://goo.gl/c6rzBt") press release
         block content

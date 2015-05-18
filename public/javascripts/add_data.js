@@ -387,20 +387,51 @@ $(function () { //change data list
             });
         }
     })
-
+;
     $(function () {
         $('[data-toggle="popover"]').popover()
     })
 
-    $(".infotype").each(function(){
+    //$(".infotype").each(function(){
+    //    var name = $(this).attr('name')
+    //    if(oText.hasOwnProperty(name)) {
+    //        $(this).popover({
+    //            html: true,
+    //            container: 'body',
+    //            title: oText[name].title,
+    //            content: oText[name].content
+    //        })
+    //    }
+    //})
+
+    $(".datatype, .riskfactortype, .risktext").each(function() {
+        console.log("here")
         var name = $(this).attr('name')
-        if(oText.hasOwnProperty(name)) {
+        if (oText.hasOwnProperty(name)) {
+
             $(this).popover({
-                html: true,
-                container: 'body',
-                title: oText[name].title,
-                content: oText[name].content
-            })
+                                trigger: "manual",
+                                html: true,
+                                animation: false,
+                                container: 'body',
+                                title: oText[name].title,
+                                content: oText[name].content
+                            }
+            ).on("mouseenter", function () {
+                var _this = this;
+                $(this).popover("show");
+                $(".popover").on("mouseleave", function () {
+                    $(_this).popover('hide');
+                });
+            }).on("mouseleave", function () {
+                var _this = this;
+                setTimeout(function () {
+                    if (!$(".popover:hover").length) {
+                        $(_this).popover("hide");
+                    }
+                }, 50);
+            });
+
         }
     })
 
@@ -429,7 +460,7 @@ $(function() {
 
     var aDateRange= ["Q2 2012", "Q3", "Q4", "Q1 2013", "Q2", "Q3", "Q4", "Q1 2014", "Q2", "Q3", "Q4 2014"]
 
-    $( "#slider" ).slider({
+    $("#slider").slider({
 
         value: aDateRange.length,
         min: 1,

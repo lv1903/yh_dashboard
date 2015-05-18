@@ -28,7 +28,7 @@ body {
 }
 
 .clicktextrow{
-    margin-top: 50px;
+    margin-top: 40px;
 }
 
 .clicktext{
@@ -51,7 +51,7 @@ body {
     margin-top: 10px;
     height: 54px;
     width: 320px;
-    /*background-color: hsla(10, 90%, 50%, 1);*/
+    /*background-color: black; test*/
     background-color: #D04627;
     border-radius: 5px;
     /*margin-left: -30px;*/
@@ -62,11 +62,12 @@ body {
     margin: 10px;
     width: 300px;
     z-index: 11;
+    border: none;
 
 }
 
 #searchText{
-    border-radius: 2;
+    border-radius: 2px;
 }
 
 #searchIcon{
@@ -78,8 +79,25 @@ body {
 /*----date slider-------------*/
 
 
+#sliderbox{
+    height: 90px;
+    width: 320px;
+    /*background-color: black; test*/
+    background-color: #D04627;
+    border-radius: 5px;
+    margin-left: -30px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+}
+
 #slider{
-    /*margin-top: 150px;*/
+    border-color: white;
+    background-color: white;
+    width: 250px;
+    margin-left: 30px;
+    margin-top: 10px;
+    border-radius: 2px;
+
 }
 
 #slider label {
@@ -87,7 +105,7 @@ body {
     width: 20px;
     margin-left: -10px;
     text-align: center;
-    margin-top: 30px;
+    margin-top: 20px;
     font-family: Arial;
     font-size: 13px;
     color: white;
@@ -102,7 +120,7 @@ body {
     border-radius: 20px;
 
     border-width: 1px;
-    margin-top: 10px
+    /*margin-top: 10px*/
     /*width: 6px;*/
 }
 
@@ -119,27 +137,8 @@ body {
 
 }
 
-#sliderbox{
-    height: 80px;
-    width: 320px;
-    /*background-color: hsla(10, 90%, 50%, 1);*/
-    background-color: #D04627;
-    border-radius: 5px;
-    margin-left: -30px;
-    margin-bottom: 10px;
-}
 
-#slider{
-    /*border-color: hsla(10, 90%, 50%, 1);*/
-    border-color: #D04627;
-    background: #000;
-    height: 70px;
-    width: 250px;
-    /*background-color: hsla(10, 90%, 50%, 1);*/
-    background-color: #D04627;
-    margin-left: 30px;
 
-}
 
 /*----buttons-----------------*/
 
@@ -156,6 +155,10 @@ body {
     margin: 1px 0px 1px 0px;
     background-color: #D04627;
     border-color: #D04627;
+
+    /*background-color: black; test*/
+    /*border-color: black; test*/
+
     color: white;
     text-align: left;
     padding-left: 10px;
@@ -164,13 +167,11 @@ body {
     /*border-color: white;*/
     font-weight: bold;
     font-size: 13px;
-    width: 280px;
+    width: 320px;
     height: 32px;
 }
 
-#riskFactorTitle{
-    text-align: center;
-}
+
 
 /*.datatype{*/
     /*font-size: 13px;*/
@@ -186,16 +187,16 @@ body {
     top: 0;
 }
 
-.infotype{
-    margin: 1px 0px 1px 0px;
-    position-top: 0;
-    font-size: 20px;
-    width: 40px;
-    background-color: #D04627;
-    border-color: #D04627;
-    height: 32px;
+/*.infotype{*/
+    /*margin: 1px 0px 1px 0px;*/
+    /*position-top: 0;*/
+    /*font-size: 20px;*/
+    /*width: 40px;*/
+    /*background-color: #D04627;*/
+    /*border-color: #D04627;*/
+    /*height: 32px;*/
 
-}
+/*}*/
 
 
 .infoChktype{
@@ -247,14 +248,31 @@ body {
     /*margin-right: 55%;*/
 }
 
+#riskfactortitle1{
+    font-weight: bold;
+}
+
+#riskfactortitle2{
+    font-weight: bold;
+}
+
+.chkspan{
+    display: inline-block;
+}
+
+/*.risktext{*/
+    /*width: auto;*/
+    /*width:100%;*/
+    /*white-space:nowrap;*/
+/*}*/
 
 #riskText{
     /*text-align: center;*/
     font-size: 12px;
     font-color: grey;
-    margin-left: 20px;
-    margin-top: 10px;
-    margin-bottom: 20px;
+    /*margin-left: 20px;*/
+    /*margin-top: 10px;*/
+    margin-bottom: 10px;
 }
 
 .riskcatagory{
@@ -264,14 +282,19 @@ body {
 }
 
 .button_add_risk_factors{
-
     text-align: center;
-    width: 95%;
+    width: 100px;
+    /*margin-top: 20px*/
+    /*margin-left: 30px;*/
 }
 
 #chkrow {
     margin-left: 20px;
     margin: 0;
+}
+
+.checkbox{
+    width: 300px;
 }
 
 .checkbox {
@@ -303,6 +326,7 @@ body {
 #activeData{
     text-align: center;
     background-color: #D04627;
+    /*background-color: black; test*/
     color: white;
     font-weight: bold;
     margin-left: 15px;
@@ -313,8 +337,9 @@ body {
 
 /*----map----------------------*/
 
+
 .mapCanvas {
-    height: 450px
+    height: 450px;
 }
 
 /*---key-----------------------*/
@@ -353,7 +378,28 @@ body {
 }
 
 
-/*-----------*/
+/*----info box-------*/
+
+.infobox-wrapper {
+    display:none;
+}
+
+#infobox {
+    border:2px solid black;
+    margin-top: 8px;
+    background-color: white;
+    /*background:#333;*/
+    color:#FFF;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:12px;
+    padding: .5em 1em;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    text-shadow:0 -1px #000000;
+    -webkit-box-shadow: 0 0  8px #000;
+    box-shadow: 0 0 8px #000;
+}
 
 
 

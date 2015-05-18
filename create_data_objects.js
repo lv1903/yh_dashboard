@@ -1,5 +1,11 @@
 var fs = require('fs');
 
+//var aDates = [
+//    ["2012", "Q1"], ["2012", "Q2"], ["2012", "Q3"], ["2012", "Q4"],
+//    ["2013", "Q1"], ["2013", "Q2"], ["2013", "Q3"], ["2013", "Q4"],
+//    ["2014", "Q1"], ["2014", "Q2"], ["2014", "Q3"], ["2014", "Q4"]
+//]
+
 var cradle = require("cradle");
 var connection = new(cradle.Connection)('http://dev1.ubiapps.com', 5984, {
     auth: { username: 'admin', password: 'Monkey15' }
@@ -18,10 +24,27 @@ var aRisk = [
     ["yh_alcohol", "alcohol", [], ["value", "data", "Value"]],
     ["yh_hospital", "hospital", [], ["value", "data", "Value"]],
     ["yh_unemployment", "unemployment_total", [], ["value", "data", "quarterly_data", "2014Q4", "val_total"]],
+    ["yh_unemployment", "unemployment_0-6m", [], ["value", "data", "quarterly_data", "2014Q4", "val_0-6m"]],
+    ["yh_unemployment", "unemployment_6-12ml", [], ["value", "data", "quarterly_data", "2014Q4", "val_6-12m"]],
+    ["yh_unemployment", "unemployment_over12m", [], ["value", "data", "quarterly_data", "2014Q4", "val_over12m"]],
     ["yh_care", "care", [],["value", "data", "value"]],
     ["yh_deprivation", "deprivation", [],["value", "data", "Rank_of_Local_Concentration"]]
 
 ]
+
+//function findLastReportedQuarter(index, oData) {
+//    if (index < 0) {
+//        return "NA", "NA"
+//        console.alert("MISSING DATA") //????
+//    }
+//    var quarter = aDates[index][0] + aDates[index][1];
+//    var yhCount = oData.homeless_data[quarter].p1e.count;
+//    if (!(isNaN(yhCount)) || yhCount == "-") {
+//        return index
+//    }
+//    return findLastReportedQuarter(index - 1, oData)
+//}
+
 
 
 function sortNumber(a,b) {
@@ -88,7 +111,7 @@ function countMissing(index, aVals){
             index = countMissing(index + 1, aVals)
         }
     }
-    return index
+   return index
 }
 
 function getAllDocs(db, callback){
@@ -159,6 +182,16 @@ function getP1EData(oEntities, oNational, callback){
             }
         }
 
+        //// add missing months data
+        //
+        //for(id in oEntities){
+        //    var index = findLastReportedQuarter(aDates.length - 1, oEntities[id]);
+        //    var missingQuarters = aDates.length - 1 - index;
+        //    oEntities[id].missing = missingQuarters * 3;
+        //}
+
+
+
         //calc National data
         for(var indexQ in aQ){
             aX = [];
@@ -191,7 +224,6 @@ function getP1EData(oEntities, oNational, callback){
         }
 
         //calc unreported data
-
         for(id in oEntities){
             var aVals = []
             for(Q in oEntities[id].homeless_data){
@@ -199,14 +231,15 @@ function getP1EData(oEntities, oNational, callback){
             }
             aVals.sort().reverse();
             //console.log(aVals)
-            var missing_count = countMissing(0, aVals);
-            if(missing_count == 0){missing_count = "up to date"}
-            oEntities[id].homeless_data.p1e_missing_count = missing_count;
+            var index = countMissing(0, aVals);
+            //if(missing_count == 0){missing_count = "up to date"}
+            oEntities[id].homeless_data.p1e_missing_count = index * 3;
+            oEntities[id].homeless_data.p1e_last_count = aVals[index].split("|")[1]
         }
 
         //save missing buckets
         oNational.homeless_data.p1e_missing_count = {};
-        oNational.homeless_data.p1e_missing_count.quintiles = [.9, 1.9, 2.9, 3.9];
+        oNational.homeless_data.p1e_missing_count.quintiles = [2.9, 5.9, 8.9, 11.9];
 
         getCoreData(oEntities, oNational, callback)
 

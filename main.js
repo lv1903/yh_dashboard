@@ -31,19 +31,31 @@ cdo.getDataObjects(function(oEntities, oNational){
         })
     });
 
+
+
+
+    app.get('/local/:id/:name/', function(req, res){
+
+        var id = req.params["id"];
+        oData = oEntities[id];
+
+        var yhCount = oData.homeless_data["2014Q4"].p1e.count;
+        console.log(yhCount)
+
+        console.log("local");
+
+        res.render('localHead', {
+            oData: oData,
+            oNational: oNational
+        })
+
+
+
+    })
+
 })
 
-//app.get('/', function(req, res){
-//
-//    res.render('index', {
-//            quarter: sQuarter,
-//            mapStyle: mapStyle,
-//            topoLa: oLaTopo,
-//            entities: oEntities,
-//            national: oNational
-//        })
-//
-//});
+
 
 
 

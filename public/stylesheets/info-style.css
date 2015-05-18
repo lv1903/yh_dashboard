@@ -1,0 +1,113 @@
+#infoCanvas{
+    max-width: 500px;
+}
+
+.titleText {
+    font-family: Arial;
+    font-size: 25px;
+    font-weight: bold;
+    color: #D04627;
+
+}
+
+
+
+.headText{
+    font-family: Arial;
+    font-size: 25px;
+    /*color: grey;*/
+    color: #D04627;
+    margin: 30px 0 0 0;
+
+}
+
+.normText{
+    font-family: Arial;
+    font-size: 20px;
+    color: grey;
+    margin: 20px 0 20px 0;
+    line-height: 30px;
+    text-align: justify;
+}
+
+.nameText{
+    font-family: Arial;
+    font-size: 20px;
+    color: #D04627;
+    font-weight: bold;
+    margin: 10px 0 10px 0;
+}
+
+.smallText{
+    font-family: Arial;
+    font-size: 14px;
+    color: grey;
+}
+
+.bigNumber{
+    font-family: Arial Black;
+    font-size: 25px;
+    font-weight: bold;
+    color: grey;
+    margin-top: -15px;
+    margin-bottom: 20px;
+    line-height: 30px;
+
+}
+
+hr{
+    margin: 20px
+}
+
+#popImg{
+    margin-bottom: 20px;
+    margin-right: 10px
+}
+
+#otherFactorsText {
+    font-family: Arial;
+    font-size: 25px;
+    /*font-weight: bold;*/
+    /*color: #D04627;*/
+    color: grey;
+}
+
+.bulletImg{
+    width: 60px;
+    float: left;
+    margin-right: 10px;
+}
+
+
+/*#houseImg{*/
+    /*width: 100px;*/
+    /*float: left;*/
+/*}*/
+
+/*#houseText{*/
+    /*height: 100px*/
+/*}*/
+
+/*#notAll{*/
+    /*padding: 30px 0 0 120px;*/
+    /*margin: 20px 0 30px 20px;*/
+/*}*/
+
+/*#mostAre{*/
+    /*margin-top: 30px;*/
+/*}*/
+
+
+
+
+/*#fallingText{*/
+    /*height: 100px*/
+/*}*/
+
+/*#overThe{*/
+    /*padding: 30px 0 0 120px;*/
+/*}*/
+
+/*#deprivationExtraText{*/
+    /*margin-top: -20px;*/
+/*}*/
