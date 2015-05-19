@@ -64,6 +64,7 @@ if (typeof window.centrePoint === "undefined") {
       }
     }
 
+    showMap(true);
     setMapBusy();
     getRiskFactorData(selected);
   };
