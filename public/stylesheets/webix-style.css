@@ -60,9 +60,11 @@ html {
     display: none;
 }
 
-.test input {
-    border-radius: 0px; -webkit-border-radius: 0px;-moz-border-radius: 0px;
-    border: 1px solid #3D7113;
+.webix_accordionitem_label {
+    height: 48px;
+}
 
+.webix_layout_toolbar.webix_toolbar .webixtype_base {
+    border-color: black;
 }
 

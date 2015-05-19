@@ -153,8 +153,7 @@ centrePoint.uiMainLayout = {
               elements: [
                 { view: "button", id: "mapButton", type: "iconButton", icon: "chevron-left", label: "map", width: 70, on: { onItemClick: centrePoint.viewChanged } },
                 { view: "label", id: "featureLabel", label: "youth homelessness"},
-                //{ view: "button", id: "resetButton", label: "reset map", width: 110, class:"test" , on: { onItemClick: resetMap } }
-                { view: "button", id: "resetButton", type: "iconButton", icon: "reset", label: "reset map", width: 110, on: { onItemClick: resetMap } }
+                { view: "button", id: "resetButton", borderless: true, type: "iconButton", icon: "refresh", label: "reset map", width: 110, on: { onItemClick: resetMap } }
               ]
 
             },
@@ -179,17 +178,21 @@ centrePoint.uiMainLayout = {
             {
               header: "Youth homelessness",
               id: "homelessnessView",
+              headerAltHeight: 50,
+              headerHeight: 48,
               body: centrePoint.uiHomelessnessSideBar
             },
             {
               header: "Missing data",
               id: "missingView",
+              headerHeight: 48,
               collapsed: true,
               body: centrePoint.uiMissingSideBar
             },
             {
               header: "Risk factors",
               id: "riskFactorsView",
+              headerHeight: 48,
               collapsed: true,
               body: centrePoint.uiRiskFactorsSideBar
             }
