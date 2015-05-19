@@ -67,22 +67,15 @@ centrePoint.uiHomelessnessSideBar = {
 // Contains the info-graphic when a feature is clicked.
 centrePoint.uiHomelessnessFeatureView = {
   id: "homelessnessFeatureView",
-  header: "youth homelessness details",
-  headerHeight: 0,
-  headerAltHeight: 0,
-  collapsed: true,
+  view: "scrollview",
+  scroll: "y",
   body: {
-    id: "homelessnessFeatureScrollView",
-    view: "scrollview",
-    scroll: "y",
-    body: {
-          id: "homelessnessFeatures",
-          view: "template",
-          minWidth: 200,
-          maxWidth: 800,
-          autoheight: true,
-          template: centrePoint.renderFeatureInfo
-    }
+        id: "homelessnessFeatures",
+        view: "template",
+        minWidth: 200,
+        maxWidth: 800,
+        autoheight: true,
+        template: centrePoint.renderFeatureInfo
   }
 };
 
@@ -90,9 +83,7 @@ centrePoint.uiHomelessnessFeatureView = {
 centrePoint.uiHomelessnessMap = {
   id: "homelessnessMap",
   view: "google-map",
-  minWidth: 300,
-  zoom: 6,
-  center: [53, -2.5]
+  minWidth: 300
 };
 
 //************************************************************************
@@ -148,60 +139,58 @@ centrePoint.uiRiskFactorsSideBar = {
 //************************************************************************
 
 centrePoint.uiMainLayout = {
+  id: "rootLayout",
   rows: [
     {
-      view: "toolbar",
-      css: "cp_mainTabs",
-      elements: [
+      type: "space",
+      cols: [
         {
-          id: "mainToolbar",
-          view: "segmented",
-          multiview: true,
-          on : { onBeforeTabClick: function() { $$("homelessnessFeatureView").collapse(); }},
-          align: "center",
-          options: [
-            { id: "homelessness", value: "Youth homelessness", width: 150 },
-            { id: "missing", value: "Missing data", width: 95 },
-            { id: "riskFactors", value: "Risk factors", width: 95 }
-          ]
-        }
-      ]
-    },
-    {
-      view: "layout",
-      id: "mainLayout",
-      rows: [
-        {
-          view: "layout",
-          responsive: "mainLayout",
-          cols: [
-            centrePoint.uiHomelessnessMap,
+          minWidth: 300,
+          rows: [
             {
-              view: "accordion",
-              multi: false,
-              maxWidth: 255,
-              type: "clean",
-              on: { onAfterExpand: centrePoint.refreshFeatureInfo },
-              rows: [
-                {
-                  id: "homelessnessSideBarView",
-                  header: "filters",
-                  body: {
-                    view: "multiview",
-                    id: "sideBarMultiView",
-                    animate: true,
-                    on: {
-                      onViewChange: centrePoint.viewChanged
-                    },
-                    cells: [
-                      centrePoint.uiHomelessnessSideBar,
-                      centrePoint.uiMissingSideBar,
-                      centrePoint.uiRiskFactorsSideBar
-                    ]
-                  }
-                },
+              id: "mainHeader",
+              view: "toolbar",
+              elements: [
+                { view: "button", id: "mapButton", type: "iconButton", icon: "chevron-left", label: "map", width: 70, on: { onItemClick: centrePoint.viewChanged } },
+                { view: "label", id: "featureLabel", label: "youth homelessness"},
+                { view: "button", id: "resetButton", type: "iconButton", icon: "reset", label: "reset", width: 100, on: { onItemClick: resetMap } }
+              ]
+
+            },
+            {
+              id: "mainPanelView",
+              view: "multiview",
+              cells: [
+                centrePoint.uiHomelessnessMap,
                 centrePoint.uiHomelessnessFeatureView
               ]
+            }
+          ]
+        },
+        {
+          view: "accordion",
+          id: "viewAccordion",
+          width: 260,
+          type: "line",
+          multi: false,
+          responsive: "rootLayout",
+          rows: [
+            {
+              header: "Youth homelessness",
+              id: "homelessnessView",
+              body: centrePoint.uiHomelessnessSideBar
+            },
+            {
+              header: "Missing data",
+              id: "missingView",
+              collapsed: true,
+              body: centrePoint.uiMissingSideBar
+            },
+            {
+              header: "Risk factors",
+              id: "riskFactorsView",
+              collapsed: true,
+              body: centrePoint.uiRiskFactorsSideBar
             }
           ]
         }

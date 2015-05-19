@@ -19,8 +19,8 @@ if (typeof window.centrePoint === "undefined") {
       // There is no active feature.
       template = document.getElementById("noFeatureData").innerHTML;
     } else {
-      var dataDiv = loadFeatureInfoBox(activeFeatureId, activeFeatureName);
-      template = dataDiv.innerHTML;
+//      $$("newView").showProgress({ type: "icon"});
+      template = webix.ajax().sync().get("local/" + activeFeatureId).responseText;
     }
     return template;
   };
@@ -33,13 +33,14 @@ if (typeof window.centrePoint === "undefined") {
 
   // Re-loads the data based on the date slider value.
   centrePoint.onDataDateChange = function(index) {
-    setSideBarTitle();
+    showMap(true);
+    setHeaderTitle();
 
-    if (!$$("homelessnessSideBarView").config.collapsed) {
+    if (false === $$("homelessnessView").config.collapsed) {
       getHomelessnessData("P1E",index);
     }
 
-    if (!$$("homelessnessFeatureView").config.collapsed) {
+    if (false === $$("missingView").config.collapsed) {
       $$("homelessnessFeatures").refresh();
     }
   };
@@ -69,16 +70,22 @@ if (typeof window.centrePoint === "undefined") {
     getRiskFactorData(selected);
   };
 
-  centrePoint.refreshFeatureInfo = function() {
-    if ($$("homelessnessFeatureView") && $$("homelessnessSideBarView").config.collapsed) {
-      $$("homelessnessFeatures").render();
-    }
-  };
-
   centrePoint.viewChanged = function() {
-    var newView = $$("sideBarMultiView").getActiveId();
+    var newView;
+    if (false === $$("homelessnessView").config.collapsed) {
+      newView = "homelessness";
+    } else if (false === $$("missingView").config.collapsed) {
+      newView = "missing";
+    } else {
+      newView = "riskFactors";
+    }
 
-    if (true) {
+    activeView = newView;
+    activeFeatureId = activeFeatureName = "";
+
+    showMap(true);
+
+    if ($$("homelessnessMap").map) {
       switch (newView) {
         case "homelessness":
           centrePoint.onDataDateChange($$("homelessnessDateSlider").getValue());
@@ -92,9 +99,7 @@ if (typeof window.centrePoint === "undefined") {
       }
     }
 
-    activeView = newView;
-    activeFeatureId = activeFeatureName = "";
-    setSideBarTitle();
+    setHeaderTitle();
   };
 
   // Enable webix debugging.
@@ -140,16 +145,18 @@ if (typeof window.centrePoint === "undefined") {
     gmap.data.addListener('click', onFeatureClick);
     gmap.addListener('idle', clearMapBusy);
 
+    // Add an overlay for the 'loading' icon.
+    webix.extend($$("homelessnessMap"), webix.ProgressBar);
+
     // Initialise the map data.
     initialiseMap(gmap);
 
-    // Add an overlay for the 'loading' icon.
-    webix.extend($$("homelessnessMap"), webix.ProgressBar);
+    $$("viewAccordion").attachEvent("onAfterExpand",  centrePoint.viewChanged);
 
     // Force initial data load.
     centrePoint.viewChanged();
 
-    webix.history.track("mainToolbar");
+    webix.history.track("viewAccordion");
   });
 
   function getHomelessnessData(type, index) {
@@ -171,7 +178,7 @@ if (typeof window.centrePoint === "undefined") {
     $$("homelessnessMap").hideProgress();
   }
 
-  function setSideBarTitle() {
+  function setHeaderTitle() {
     var title = "";
     switch (activeView) {
       case "homelessness":
@@ -185,34 +192,47 @@ if (typeof window.centrePoint === "undefined") {
         title = "Index of risk factors"
         break;
     }
-    title = "<span style='float:right;font-size: .8em;'>" + title + "</span>";
+    title = "<span style='float:right;font-size: 1em;'>" + title + "</span>";
     if (activeFeatureName.length > 0) {
-      title = title + "<span style='font-size:.8em;'>" + activeFeatureName + "</span>";
+      title = title + "<span style='font-size:1em;'>" + activeFeatureName + "</span>";
     }
-    $$("homelessnessSideBarView").define("header", title);
-    $$("homelessnessSideBarView").refresh();
+    $$("featureLabel").define("label", title);
+    $$("featureLabel").refresh();
+  }
+
+  function showMap(show) {
+    if (show) {
+      $$("mapButton").hide();
+      $$("resetButton").show();
+      $$("mainPanelView").setValue("homelessnessMap");
+    } else {
+      $$("mapButton").show();
+      $$("resetButton").hide();
+      $$("mainPanelView").setValue("homelessnessFeatureView");
+    }
   }
 
   function onMouseOverMap(event) {
-    if (!webix.env.touch && $$("homelessnessFeatureView").config.collapsed) {
+    if (!webix.env.touch) {
       activeFeatureId = event.feature.getProperty('geo_code');
       activeFeatureName = event.feature.getProperty('geo_label');
-      setSideBarTitle();
+      setHeaderTitle();
     }
   }
 
   function onFeatureClick(event){
+    showMap(false);
+
     // Get feature details.
     activeFeatureId = event.feature.getProperty('geo_code');
     activeFeatureName = event.feature.getProperty('geo_label');
 
-    setSideBarTitle();
+    setHeaderTitle();
 
     // Get feature view to render with new selection.
     $$("homelessnessFeatures").refresh();
 
     // Make sure feature view is visible.
-    $$("homelessnessFeatureScrollView").scrollTo(0,0);
-    $$("homelessnessFeatureView").expand();
+    $$("homelessnessFeatureView").scrollTo(0,0);
   }
 }());

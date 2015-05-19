@@ -2,6 +2,8 @@
 
 var map;
 var oGeoLa = topojson.feature(oLaTopo, oLaTopo.objects.collection);
+var initialCenter = new google.maps.LatLng(53,-2.5);
+var initialZoom = 6;
 
 function getIdList(oGeo){
     var aList = [];
@@ -25,6 +27,8 @@ function initialiseMap(gmap) {
   map = gmap;
 
   map.setOptions({
+    center: initialCenter,
+    zoom: initialZoom,
     styles: mapStyle,
     disableDefaultUI: true,
     zoomControl: true,
@@ -35,4 +39,9 @@ function initialiseMap(gmap) {
   });
 
   map.data.addGeoJson(oGeoLa);
+}
+
+function resetMap() {
+  map.setCenter(initialCenter);
+  map.setZoom(initialZoom);
 }

@@ -51,7 +51,7 @@ oText["care"].content= "<div id='infoText'>"
 oText["deprivation"] = {}
 oText["deprivation"].title = "info"
 oText["deprivation"].content= "<div id='infoText'>"
-+ "<p> The concentration of deprivation relative to other local authorities. "
++ "<p> The concentration of deprivation relative to other local authorities. </p>"
 + "</br> Calculated by comparing most deprived areas in each authority."
 + "</br>"
 + "</br>"
