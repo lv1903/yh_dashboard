@@ -1,31 +1,16 @@
-
-$(function() { //search address
-    $("#seachIcon").click(function(){
-        findAddress();
-    })
-})
-
-$(function() { //search address
-    $("#searchText").keydown(function () {
-        if (event.keyCode == 13) {
-            findAddress();
-        }
-    });
-})
-
-function findAddress() {
+function findAddress(address) {
     var geocoder = new google.maps.Geocoder();
-    var address = $('#searchText').val();
     console.log(address)
     geocoder.geocode( {'address': address}, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
+        if (status === google.maps.GeocoderStatus.OK && results.length > 0) {
             var loc_Center = results[0].geometry.location;
-
             map.setCenter(loc_Center);
             map.setZoom(9);
-
         } else {
-            alert('We could not find your address for the following reason: ' + status);
+            webix.message('We could not find your address for the following reason: ' + status);
         }
+        // Clear focus from search input.
+        document.activeElement.value = "";
+        document.activeElement.blur();
     });
 }

@@ -1,0 +1,62 @@
+@import url(info-style.css);
+
+html {
+    background: #f0f0f0;
+}
+
+.cp_floating_logo {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    z-index: 90;
+}
+
+.cp_floating_logo img {
+    height: 60px;
+}
+
+.cp_floating_search {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    z-index: 90;
+    height: 40px;
+    width: 100px;
+}
+
+.cp_logo img {
+    height: 70px;
+}
+
+.cp_small_logo img {
+    height: 50px;
+}
+
+.cp_header {
+    background: #f0f0f0;
+}
+
+.cp_mainTabs.webix_layout_toolbar {
+    background: #424242 !important;
+}
+
+.cp_mainTabs .webix_item_tab {
+    font-size: .8em;
+}
+
+.cp_mainTabs button {
+    background: #D04627 !important;
+}
+
+.cp_mainTabs .webix_selected {
+    background: #47AD54 !important;
+}
+
+.cp_riskFactorForm .webix_form {
+    padding-left: 0px;
+}
+
+.cp_hidden {
+    display: none;
+}
+
