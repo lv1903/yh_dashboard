@@ -57,9 +57,9 @@ centrePoint.uiHomelessnessSideBar = {
       },
       {
         borderless: true,
-        autoheight: true,
         template: "html->homelessnessInfoText"
-      }
+      },
+      {}
     ]
   }
 };
@@ -154,7 +154,7 @@ centrePoint.uiMainLayout = {
                 { view: "button", id: "mapButton", type: "iconButton", icon: "chevron-left", label: "map", width: 70, on: { onItemClick: centrePoint.viewChanged } },
                 { view: "label", id: "featureLabel", label: "youth homelessness"},
                 //{ view: "button", id: "resetButton", label: "reset map", width: 110, class:"test" , on: { onItemClick: resetMap } }
-                { view: "button", id: "resetButton", type: "iconButton", icon: "reset", label: "reset map", width: 110, on: { onItemClick: resetMap } }
+                { view: "button", id: "resetButton", type: "iconButton", icon: "refresh", label: "reset map", width: 110, on: { onItemClick: resetMap } }
               ]
 
             },
