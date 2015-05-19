@@ -28,6 +28,17 @@ cdo.getDataObjects(function(oEntities, oNational) {
     });
   });
 
+  app.get('/feature/:id', function(req, res) {
+    var id = req.params["id"];
+    var oData = oEntities[id];
+
+    var yhCount = oData.homeless_data["2014Q4"].p1e.count;
+    res.render('feature', {
+      oData: oData,
+      oNational: oNational
+    })
+  });
+
   app.get('/local/:id', function(req, res){
     var id = req.params["id"];
     var oData = oEntities[id];

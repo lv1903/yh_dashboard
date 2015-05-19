@@ -11,7 +11,6 @@ if (typeof window.centrePoint === "undefined") {
   var activeFeatureName = "";
 
   // Renders the information for the currently active feature.
-  // ToDo - replace with ajax call to server?
   centrePoint.renderFeatureInfo = function() {
     var template;
 
@@ -19,8 +18,7 @@ if (typeof window.centrePoint === "undefined") {
       // There is no active feature.
       template = document.getElementById("noFeatureData").innerHTML;
     } else {
-//      $$("newView").showProgress({ type: "icon"});
-      template = webix.ajax().sync().get("local/" + activeFeatureId).responseText;
+      template = webix.ajax().sync().get("feature/" + activeFeatureId).responseText;
     }
     return template;
   };

@@ -170,7 +170,7 @@ centrePoint.uiMainLayout = {
         {
           view: "accordion",
           id: "viewAccordion",
-          width: 260,
+          width: 270,
           type: "line",
           multi: false,
           responsive: "rootLayout",
