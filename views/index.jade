@@ -2,11 +2,6 @@ extends layout
 
 block content
 
-    //if lt IE 7
-      div(style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;')
-        a(href='http://www.microsoft.com/windows/internet-explorer/default.aspx?ocid=ie6_countdown_bannercode')
-          img(src='http://i.imgur.com/hNingci.jpg', border='0', height='42', width='820', alt='')
-
     .featureInfoModal.modal.fade.bottom
         .modal-dialog
             .modal-content
@@ -28,11 +23,9 @@ block content
                 .modal-header
                     button.close(type="button",data-dismiss="modal",aria-hidden="true") &times;
                     .modal-title
-
-                        h4 Select the risk factors you would like to see AND click the button to see their impact on the map
+                        h4#riskFactorTitle Select the risk factors you would like to map
+                        button#btn_Add_Risk_Factors.button_add_risk_factors.btn.btn-default(type='submit') Click to see the impact of the combined factors on the map!
                         #riskText An index is calculated as an average of the Local Authorities rank for each risk factor.
-                        button.btn_Add_Risk_Factors.button_add_risk_factors.btn.btn-default(type='submit') Click here!
-
                 .modal-body#riskBody
 
 
@@ -46,9 +39,9 @@ block content
                             //input.chkParent#chk_Social_Care(type='checkbox', value='', name='care', pname='social_care')
                     .row#chkrow
                         #chkspan.span3.checkbox
-                            input.chkrisk#chk_Care(type='checkbox', value='', pname="social_care")
-                            div(data-toggle='popover', data-trigger='hover', data-placement='right', name='care').risktext Children in care
-                            //a.btn.btn-default.infoChktype(tabindex='0', role='button', data-toggle='popover', data-trigger='focus', title='info', name="care").glyphicon.glyphicon-info-sign
+                            input.chkrisk#chk_Care(type='checkbox', value='', name='care', pname="social_care")
+                            | Children in care
+                            a.btn.btn-default.infoChktype(tabindex='0', role='button', data-toggle='popover', data-trigger='focus', title='info', name="care").glyphicon.glyphicon-info-sign
 
                     .row#chkrow
                         h5.riskcatagory Environment
@@ -56,8 +49,8 @@ block content
                     .row#chkrow
                         #chkspan.span3.checkbox
                             input.chkrisk#chk_Deprivation(type='checkbox', value='', name='deprivation', pname="environment")
-                            div(data-toggle='popover', data-trigger='hover', data-placement='right',name='deprivation').risktext Index of deprivation
-                            //a.btn.btn-default.infoChktype(tabindex='0', role='button', data-toggle='popover', data-trigger='focus', title='info', name='deprivation').glyphicon.glyphicon-info-sign
+                            |  Index of deprivation
+                            a.btn.btn-default.infoChktype(tabindex='0', role='button', data-toggle='popover', data-trigger='focus', title='info', name='deprivation').glyphicon.glyphicon-info-sign
 
                     .row#chkrow
                         h5.riskcatagory Education
@@ -65,23 +58,23 @@ block content
                     .row#chkrow
                         #chkspan.span3.checkbox
                             input.chkrisk#chk_Level3(type='checkbox', value='', name='education_level3', pname="education")
-                            div(data-toggle='popover', data-trigger='hover', data-placement='right',name='education_level3').risktext Achieved 2 or more A levels or equivalent
-                            //a.btn.btn-default.infoChktype(tabindex='0', role='button', data-toggle='popover', data-trigger='focus', title='info', name='education_level3').glyphicon.glyphicon-info-sign
+                            | Achieved 2 or more A levels or equivalent
+                            a.btn.btn-default.infoChktype(tabindex='0', role='button', data-toggle='popover', data-trigger='focus', title='info', name='education_level3').glyphicon.glyphicon-info-sign
                     .row#chkrow
                         #chkspan.span3.checkbox
                             input.chkrisk#chk_Attainment_Gap(type='checkbox', value='', name='education_attainment_gap', pname="education")
-                            div(data-toggle='popover', data-trigger='hover', data-placement='right',name='education_attainment_gap').risktext Achievement gap
-                            //a.btn.btn-default.infoChktype(tabindex='0', role='button', data-toggle='popover', data-trigger='focus', title='info', name='education_attainment_gap').glyphicon.glyphicon-info-sign
+                            | Achievement gap
+                            a.btn.btn-default.infoChktype(tabindex='0', role='button', data-toggle='popover', data-trigger='focus', title='info', name='education_attainment_gap').glyphicon.glyphicon-info-sign
                     .row#chkrow
                         #chkspan.span3.checkbox
                             input.chkrisk#chk_Apprenticeship(type='checkbox', value='', name='apprenticeship', pname="education")
-                            div(data-toggle='popover', data-trigger='hover', data-placement='right',name='apprenticeship').risktext Apprenticeship starts
-                            //a.btn.btn-default.infoChktype(tabindex='0', role='button', data-toggle='popover', data-trigger='focus', title='info', name='apprenticeship').glyphicon.glyphicon-info-sign
+                            | Apprenticeship starts
+                            a.btn.btn-default.infoChktype(tabindex='0', role='button', data-toggle='popover', data-trigger='focus', title='info', name='apprenticeship').glyphicon.glyphicon-info-sign
                     .row#chkrow
                         #chkspan.span3.checkbox
                             input.chkrisk#chk_Truancy(type='checkbox', value='', name='truancy', pname="education")
-                            div(data-toggle='popover', data-trigger='hover', data-placement='right',name='truancy').risktext Persistent truancy
-                            //a.btn.btn-default.infoChktype(tabindex='0', role='button', data-toggle='popover', data-trigger='focus', title='info', name='truancy').glyphicon.glyphicon-info-sign
+                            | Persitent truancy
+                            a.btn.btn-default.infoChktype(tabindex='0', role='button', data-toggle='popover', data-trigger='focus', title='info', name='truancy').glyphicon.glyphicon-info-sign
 
                     .row#chkrow
                         h5.riskcatagory Health
@@ -89,13 +82,13 @@ block content
                     .row#chkrow
                         #chkspan.span3.checkbox
                             input.chkrisk#chk_Hospital(type='checkbox', value='', name='hospital', pname="health")
-                            div(data-toggle='popover', data-trigger='hover', data-placement='right',name='hospital').risktext Hospital admissions for under 24s with injuries
-                            //a.btn.btn-default.infoChktype(tabindex='0', role='button', data-toggle='popover', data-trigger='focus', title='info', name='hospital').glyphicon.glyphicon-info-sign
+                            | Hospital admissions for under 24s with injuries
+                            a.btn.btn-default.infoChktype(tabindex='0', role='button', data-toggle='popover', data-trigger='focus', title='info', name='hospital').glyphicon.glyphicon-info-sign
                     .row#chkrow
                         #chkspan.span3.checkbox
                             input.chkrisk#chk_Mentalhealth(type='checkbox', value='', name='mentalhealth', pname="health")
-                            div(data-toggle='popover', data-trigger='hover', data-placement='right',name='mentalhealth').risktext Mental health problems (all ages)
-                            //a.btn.btn-default.infoChktype(tabindex='0', role='button', data-toggle='popover', data-trigger='focus', title='info', name='mentalhealth').glyphicon.glyphicon-info-sign
+                            | Mental health problems (all ages)
+                            a.btn.btn-default.infoChktype(tabindex='0', role='button', data-toggle='popover', data-trigger='focus', title='info', name='mentalhealth').glyphicon.glyphicon-info-sign
 
                     .row#chkrow
                         h5.riskcatagory Economy
@@ -103,15 +96,13 @@ block content
                     .row#chkrow
                         #chkspan.span3.checkbox
                             input.chkrisk#chk_Unemployment(type='checkbox', value='', name='unemployment_total', pname="economy")
-                            div(data-toggle='popover', data-trigger='hover', data-placement='right',name='unemployment_total').risktext Youth unemployment
-                            //a.btn.btn-default.infoChktype(tabindex='0', role='button', data-toggle='popover', data-trigger='focus', title='info', name='unemployment_total').glyphicon.glyphicon-info-sign
-                    br
-                    br
+                            | Youth unemployment
+                            a.btn.btn-default.infoChktype(tabindex='0', role='button', data-toggle='popover', data-trigger='focus', title='info', name='unemployment_total').glyphicon.glyphicon-info-sign
 
-                    button#btn_Add_Risk_Factors.button_add_risk_factors.btn.btn-default(type='submit') Click here!
                     //h4#featureIdTitle
-                //.modal-footer
-                  //h5#featureIdTitle
+                .modal-footer
+                   // button#btn_Add_Risk_Factors2.button_add_risk_factors.btn.btn-default(type='submit') Click to see the impact of the combined factors on the map!
+                    //h5#featureIdTitle
 
     .container
 
@@ -140,11 +131,13 @@ block content
                 .col-sm-12
                     .row
                         //.h5.buttonHeader Local authority
-                        //.btn-group(role='group', aria-label='...')
-                        button#btn_P1E.btn.btn-default.datatype(type='submit', data-toggle='popover', data-trigger='hover', name='p1e') Youth homelessness
-                    .row
-                        button#btn_P1E_reporting.btn.btn-default.datatype(type='submit', data-toggle='popover', data-trigger='hover', name='p1e_reporting') Youth homelessness missing data
-
+                        .btn-group(role='group', aria-label='...')
+                            button#btn_P1E.btn.btn-default.datatype(type='submit') Youth homelessness
+                            a.btn.btn-default.infotype(tabindex='0', role='button', data-toggle='popover', data-trigger='focus', title='info', name='p1e').glyphicon.glyphicon-info-sign
+                            //button#info_P1E.btn.btn-default.infotype(type='button', data-toggle='popover', name='p1e').glyphicon.glyphicon-info-sign
+                        .btn-group(role='group', aria-label='...')
+                            button#btn_P1E_reporting.btn.btn-default.datatype(type='submit') Youth homelessness missing data
+                            a.btn.btn-default.infotype(tabindex='0', role='button', data-toggle='popover', data-trigger='focus', title='info', name='p1e_reporting').glyphicon.glyphicon-info-sign
                         //.btn-group(role='group', aria-label='...')
                             button#btn_Prevention.btn.btn-default.btn-block.datatype(type='submit') Preventing and relieving homelessness
                             a.btn.btn-default.infotype(tabindex='0', role='button', data-toggle='popover', data-trigger='focus', title='info', name='prevention').glyphicon.glyphicon-info-sign
@@ -163,13 +156,15 @@ block content
                 .col-sm-12
                     .row
                         .h5.buttonHeader Build an index of multiple risk factors
-                         button#btn_Risk_Factors.btn.btn-default.btn-block.riskfactortype(type='submit', data-toggle='popover', data-trigger='hover', name='risk_factors') Risk factors
+                        .btn-group(role='group', aria-label='...')
+                            button#btn_Risk_Factors.btn.btn-default.btn-block.riskfactortype(type='submit') Risk factors
+                            a.btn.btn-default.infotype(tabindex='0', role='button', data-toggle='popover', data-trigger='focus', title='info', name='risk_factors').glyphicon.glyphicon-info-sign
 
             .row
                 .col-sm-12
                 #ocdp
                     p This app was built using open data <br /> on the #{''}
-                        a#ocdpLink(target= '_blank' href='http://nquiringminds.com/smart-cities/') Open City Data Platform
+                        a#ocdpLink(href='http://nquiringminds.com/smart-cities/') Open City Data Platform
 
 
         .col-md-1#colMid
@@ -178,8 +173,3 @@ block content
             #activeData.h3 Youth homelessness
             .container#mapSide
                 .mapCanvas
-
-
-
-            #ib.infobox-wrapper
-                #infobox

@@ -1,11 +1,5 @@
 var fs = require('fs');
 
-//var aDates = [
-//    ["2012", "Q1"], ["2012", "Q2"], ["2012", "Q3"], ["2012", "Q4"],
-//    ["2013", "Q1"], ["2013", "Q2"], ["2013", "Q3"], ["2013", "Q4"],
-//    ["2014", "Q1"], ["2014", "Q2"], ["2014", "Q3"], ["2014", "Q4"]
-//]
-
 var cradle = require("cradle");
 var connection = new(cradle.Connection)('http://dev1.ubiapps.com', 5984, {
     auth: { username: 'admin', password: 'Monkey15' }
@@ -31,20 +25,6 @@ var aRisk = [
     ["yh_deprivation", "deprivation", [],["value", "data", "Rank_of_Local_Concentration"]]
 
 ]
-
-//function findLastReportedQuarter(index, oData) {
-//    if (index < 0) {
-//        return "NA", "NA"
-//        console.alert("MISSING DATA") //????
-//    }
-//    var quarter = aDates[index][0] + aDates[index][1];
-//    var yhCount = oData.homeless_data[quarter].p1e.count;
-//    if (!(isNaN(yhCount)) || yhCount == "-") {
-//        return index
-//    }
-//    return findLastReportedQuarter(index - 1, oData)
-//}
-
 
 
 function sortNumber(a,b) {
@@ -111,7 +91,7 @@ function countMissing(index, aVals){
             index = countMissing(index + 1, aVals)
         }
     }
-   return index
+    return index
 }
 
 function getAllDocs(db, callback){
@@ -182,16 +162,6 @@ function getP1EData(oEntities, oNational, callback){
             }
         }
 
-        //// add missing months data
-        //
-        //for(id in oEntities){
-        //    var index = findLastReportedQuarter(aDates.length - 1, oEntities[id]);
-        //    var missingQuarters = aDates.length - 1 - index;
-        //    oEntities[id].missing = missingQuarters * 3;
-        //}
-
-
-
         //calc National data
         for(var indexQ in aQ){
             aX = [];
@@ -224,6 +194,7 @@ function getP1EData(oEntities, oNational, callback){
         }
 
         //calc unreported data
+
         for(id in oEntities){
             var aVals = []
             for(Q in oEntities[id].homeless_data){
