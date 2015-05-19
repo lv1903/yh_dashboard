@@ -18,6 +18,8 @@ html
         script(src="/javascripts/add_modal.js")
         script(src="/javascripts/main_map.js")
         script(type="text/javascript", src="/javascripts/webix-client.js")
+        script(type="text/javascript").
+            var preLoadFeature = '#{ activeFeature ? activeFeature : "" }';
     body
         // info text for the homelessness data
         div.cp_hidden(id="homelessnessInfoText")
