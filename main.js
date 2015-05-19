@@ -29,6 +29,19 @@ cdo.getDataObjects(function(oEntities, oNational) {
   });
 
   app.get('/feature/:id', function(req, res) {
+    var featureId = req.params["id"];
+
+    res.render("webix", {
+      quarter: sQuarter,
+      mapStyle: mapStyle,
+      topoLa: oLaTopo,
+      entities: oEntities,
+      national: oNational,
+      activeFeature: featureId
+    });
+  });
+
+  app.get('/ajaxFeature/:id', function(req, res) {
     var id = req.params["id"];
     var oData = oEntities[id];
 

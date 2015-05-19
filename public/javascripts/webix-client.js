@@ -14,11 +14,11 @@ if (typeof window.centrePoint === "undefined") {
   centrePoint.renderFeatureInfo = function() {
     var template;
 
-    if (activeFeatureId.length === 0 || activeFeatureName.length === 0) {
+    if (activeFeatureId.length === 0) {
       // There is no active feature.
       template = document.getElementById("noFeatureData").innerHTML;
     } else {
-      template = webix.ajax().sync().get("feature/" + activeFeatureId).responseText;
+      template = webix.ajax().sync().get("/ajaxFeature/" + activeFeatureId).responseText;
     }
     return template;
   };
@@ -155,7 +155,10 @@ if (typeof window.centrePoint === "undefined") {
     // Force initial data load.
     centrePoint.viewChanged();
 
-    webix.history.track("viewAccordion");
+    if (preLoadFeature && preLoadFeature.length > 0) {
+      activeFeatureId = preLoadFeature;
+      showFeature();
+    }
   });
 
   function getHomelessnessData(type, index) {
@@ -219,12 +222,8 @@ if (typeof window.centrePoint === "undefined") {
     }
   }
 
-  function onFeatureClick(event){
+  function showFeature() {
     showMap(false);
-
-    // Get feature details.
-    activeFeatureId = event.feature.getProperty('geo_code');
-    activeFeatureName = event.feature.getProperty('geo_label');
 
     setHeaderTitle();
 
@@ -233,5 +232,15 @@ if (typeof window.centrePoint === "undefined") {
 
     // Make sure feature view is visible.
     $$("homelessnessFeatureView").scrollTo(0,0);
+  }
+
+  function onFeatureClick(event){
+    // Get feature details.
+    activeFeatureId = event.feature.getProperty('geo_code');
+    activeFeatureName = event.feature.getProperty('geo_label');
+
+    window.history.pushState(null,null,"/feature/" + activeFeatureId);
+
+    showFeature();
   }
 }());
