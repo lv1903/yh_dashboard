@@ -108,7 +108,7 @@ centrePoint.uiRiskFactorsSideBar = {
   css: "cp_riskFactorForm",
   type: "clean",
   padding: 4,
-  scroll: webix.env.touch ? "y" : false,
+  scroll: "y",
   elementsConfig: {
     gravity: 5,
     on: {onItemClick: centrePoint.riskFactorSelection},
