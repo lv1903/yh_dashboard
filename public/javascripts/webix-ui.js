@@ -57,9 +57,9 @@ centrePoint.uiHomelessnessSideBar = {
       },
       {
         borderless: true,
-        autoheight: true,
         template: "html->homelessnessInfoText"
-      }
+      },
+      {}
     ]
   }
 };
