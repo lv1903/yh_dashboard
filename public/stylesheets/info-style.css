@@ -1,27 +1,37 @@
 #infoCanvas{
     max-width: 500px;
-    margin: 30px;
+    margin: 5px;
 }
 
 .titleText {
     font-family: Arial;
     font-size: 25px;
     font-weight: bold;
-    color: #D04627;
+    /*color: #D04627;*/
+    color: white;
+    background-color: black;
+    padding: 0 5px 0 5px;
 
 }
 
+.headParent{
+    display: inline-block;
+}
 
-
-.headText{
+.headText, .headTextSmall{
     font-family: Arial;
     font-size: 25px;
     /*color: grey;*/
-    color: #D04627;
+    /*color: #D04627;*/
+    color: white;
+    background-color: black;
     margin: 30px 0 0 0;
     font-weight: bold;
+    padding: 0 5px 0 5px;
+    /*width: auto;*/
 
 }
+
 
 .normText{
     font-family: Arial;
@@ -50,7 +60,8 @@
     font-family: Arial Black;
     font-size: 25px;
     font-weight: bold;
-    color: grey;
+    color: #D04627;
+    /*color: grey;*/
     margin-top: -15px;
     margin-bottom: 20px;
     line-height: 30px;

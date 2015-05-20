@@ -24,17 +24,23 @@ html
         // info text for the homelessness data
         div.cp_hidden(id="homelessnessInfoText")
             p 16-24 year olds accepted as eligible, unintentionally homeless and in priority need.
-            p This data will not include single homeless people as they are not classed as in priority need.
+            p This data will not include most single homeless people as they are not classed as in priority need.
             p Where the DCLG has supressed counts of less than 5 they are reported as not available.
             p Where the count is less than 5 we have reported 5.
             p
-                a(href='https://www.gov.uk/government/statistical-data-sets/live-tables-on-homelessness#detailed-local-authority-level-responses') Source
+                a(target="_blank" href='https://www.gov.uk/government/statistical-data-sets/live-tables-on-homelessness#detailed-local-authority-level-responses') Source
 
         //info text for the missing data.
         div.cp_hidden(id="missingDataInfoText")
             p How many months the local authority has not submitted data on statutory youth homelessness
             p
-                a(href='https://www.gov.uk/government/statistical-data-sets/live-tables-on-homelessness#detailed-local-authority-level-responses') Source
+                a(target="_blank" href='https://www.gov.uk/government/statistical-data-sets/live-tables-on-homelessness#detailed-local-authority-level-responses') Source
+
+        //info text for risk factors
+       div.cp_hidden(id="riskFactorInfoText")
+           p Select the factors related to youth homelessness that you want to map.
+           P See which areas are most affected.
+           p Click here for detailed descriptions of the data.
 
         div.cp_hidden(id="noFeatureData")
             p Click on a region of the map to see details of the population.

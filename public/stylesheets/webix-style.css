@@ -60,11 +60,34 @@ html {
     display: none;
 }
 
-.webix_accordionitem_label {
-    height: 48px;
+.cp_furtherInfo .webix_accordionitem_header.collapsed{
+    font-size: 15px;
+    background: #D04627;
+    color: white;
+    padding-bottom: 8px;
+
+}
+
+.cp_furtherInfo .webix_accordionitem_header{
+    font-size: 15px;
+    background: #D04627;
+    color: white;
+}
+
+.cp_furtherInfo .webix_accordionitem_body {
+    font-size: 15px;
+    background: #D04627;
+    color: white;
 }
 
 .webix_layout_toolbar.webix_toolbar .webixtype_base {
     border-color: black;
 }
+
+/*.webix_accordionitem_header #riskFactorsInfo{*/
+    /*color: red;*/
+    /*height: 20px;*/
+    /*headerAltHeight: 50px;*/
+    /*headerHeight: 48px;*/
+/*}*/
 

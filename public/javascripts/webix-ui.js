@@ -36,7 +36,7 @@ centrePoint.uiHeader = {
 centrePoint.uiHomelessnessSideBar = {
   id: "homelessness",
   view: "scrollview",
-  scroll: webix.env.touch ? "y" : false,
+  scroll: "y", //webix.env.touch ? "y" : false,
   body: {
     rows: [
       {
@@ -48,7 +48,7 @@ centrePoint.uiHomelessnessSideBar = {
             step: 1,
             min: 0,
             max: aDates.length - 1,
-            value: 0,
+            value: aDates.length - 1,
             title: centrePoint.getDataDateTitle,
             on: { onChange: centrePoint.onDataDateChange }
           },
@@ -57,6 +57,7 @@ centrePoint.uiHomelessnessSideBar = {
       },
       {
         borderless: true,
+        autoheight: true,
         template: "html->homelessnessInfoText"
       },
       {}
@@ -103,35 +104,81 @@ centrePoint.uiMissingSideBar = {
 
 // Risk factor selection form, shown in the left-hand side-bar.
 centrePoint.uiRiskFactorsSideBar = {
-  view: "form",
-  id: "riskFactors",
-  css: "cp_riskFactorForm",
-  type: "clean",
-  padding: 4,
-  scroll: "y",
-  elementsConfig: {
-    gravity: 5,
-    on: {onItemClick: centrePoint.riskFactorSelection},
-    labelWidth: 225
-  },
-  elements: [
-      { view: "checkbox", label: "Select all", on: { onItemClick: centrePoint.riskFactorSelectAll } },
-      { template: "Social care", type: "section" },
-      { view: "checkbox", id:"rf_care", name:"care", label: "Children in care" },
-      { template: "Environment", type: "section" },
-      { view: "checkbox", id:"rf_deprivation", name: "deprivation", label: "Index of deprivation" },
-      { template: "Education", type: "section" },
-      { view: "checkbox", id: "rf_education_level3", name: "education_level3", label: "2 or more A levels or equivalent" },
-      { view: "checkbox", id: "rf_education_attainment_gap", name: "education_attainment_gap", label: "Achievement gap" },
-      { view: "checkbox", id: "rf_apprenticeship", name: "apprenticeship", label: "Apprenticeship starts" },
-      { view: "checkbox", id: "rf_truancy", name: "truancy", label: "Persistent truancy" },
-      { template: "Health", type: "section" },
-      { view: "checkbox", id: "rf_hospital", name: "hospital", label: "Hospital admissions (under 24s)" },
-      { view: "checkbox", id: "rf_mentalhealth", name: "mentalhealth", label: "Mental health problems (all ages)" },
-      { template: "Economy", type: "section" },
-      { view: "checkbox", id: "rf_unemployment_total", name: "unemployment_total", label: "Youth unemployment" },
-      {}
+
+    view: "accordion",
+    type: "line",
+    multi: false,
+    responsive: "rootLayout",
+    rows: [
+        {
+        //borderless: true,
+        id: "riskFactorsInfo",
+        header: "Related factors info...",
+        headerHeight: 40,
+        headerAltHeight: 40,
+        borderless: false,
+        css: "cp_furtherInfo",
+        body:{template: "html->riskFactorInfoText"},
+        height: 150,
+        collapsed: true,
+        headerColor: "red"
+        },
+        {
+            view: "form",
+            id: "riskFactorsForm",
+            css: "cp_riskFactorForm",
+            type: "clean",
+            padding: 4,
+            scroll: "y",
+            elementsConfig: {
+                gravity: 5,
+                on: {onItemClick: centrePoint.riskFactorSelection},
+                labelWidth: 225
+            },
+            elements: [
+                //{view: "checkbox", label: "Select all", on: {onItemClick: centrePoint.riskFactorSelectAll}},
+                {template: "Economy", type: "section"},
+                {
+                    view: "checkbox",
+                    id: "rf_unemployment_total",
+                    name: "unemployment_total",
+                    label: "Youth unemployment"
+                },
+                {template: "Social care", type: "section"},
+                {view: "checkbox", id: "rf_care", name: "care", label: "Children in care"},
+                {template: "Environment", type: "section"},
+                {view: "checkbox", id: "rf_deprivation", name: "deprivation", label: "Index of deprivation"},
+                {template: "Education", type: "section"},
+                {
+                    view: "checkbox",
+                    id: "rf_education_level3",
+                    name: "education_level3",
+                    label: "2 or more A levels or equivalent"
+                },
+                {
+                    view: "checkbox",
+                    id: "rf_education_attainment_gap",
+                    name: "education_attainment_gap",
+                    label: "Achievement gap"
+                },
+                {view: "checkbox", id: "rf_apprenticeship", name: "apprenticeship", label: "Apprenticeship starts"},
+                {view: "checkbox", id: "rf_truancy", name: "truancy", label: "Persistent truancy"},
+                {template: "Health", type: "section"},
+                {view: "checkbox", id: "rf_hospital", name: "hospital", label: "Hospital admissions (under 24s)"},
+                {
+                    view: "checkbox",
+                    id: "rf_mentalhealth",
+                    name: "mentalhealth",
+                    label: "Mental health problems (all ages)"
+                },
+                {}
+
+
+            ]
+
+        }
     ]
+    //}
 };
 
 //************************************************************************
@@ -152,7 +199,7 @@ centrePoint.uiMainLayout = {
               view: "toolbar",
               elements: [
                 { view: "button", id: "mapButton", type: "iconButton", icon: "chevron-left", label: "map", width: 70, on: { onItemClick: centrePoint.viewChanged } },
-                { view: "label", id: "featureLabel", label: "youth homelessness"},
+                { view: "label", id: "featureLabel", label: "Offical youth homelessness"},
                 { view: "button", id: "resetButton", borderless: true, type: "iconButton", icon: "refresh", label: "reset map", width: 110, on: { onItemClick: resetMap } }
               ]
 
@@ -170,28 +217,32 @@ centrePoint.uiMainLayout = {
         {
           view: "accordion",
           id: "viewAccordion",
-          width: 270,
+
+          width: 310,
           type: "line",
           multi: false,
           responsive: "rootLayout",
           rows: [
+
             {
-              header: "Youth homelessness",
+              header: "Offical youth homelessness",
               id: "homelessnessView",
               headerAltHeight: 50,
               headerHeight: 48,
               body: centrePoint.uiHomelessnessSideBar
             },
             {
-              header: "Missing data",
+              header: "How much data is missing",
               id: "missingView",
+              headerAltHeight: 50,
               headerHeight: 48,
               collapsed: true,
               body: centrePoint.uiMissingSideBar
             },
             {
-              header: "Risk factors",
+              header: "Related factors",
               id: "riskFactorsView",
+              headerAltHeight: 50,
               headerHeight: 48,
               collapsed: true,
               body: centrePoint.uiRiskFactorsSideBar
@@ -226,3 +277,6 @@ centrePoint.uiPageLayout = {
     }
   ]
 };
+
+
+

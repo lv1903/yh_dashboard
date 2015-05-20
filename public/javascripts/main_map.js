@@ -14,14 +14,14 @@ function getIdList(oGeo){
 }
 var aLaList = getIdList(oGeoLa);
 
-function extend_bounds(bounds, arr){
-    arr.forEach(function(path){
-        path.getArray().forEach(function(latLng){
-            bounds.extend(latLng);
-        });
-    });
-    return bounds
-}
+//function extend_bounds(bounds, arr){
+//    arr.forEach(function(path){
+//        path.getArray().forEach(function(latLng){
+//            bounds.extend(latLng);
+//        });
+//    });
+//    return bounds
+//}
 
 function initialiseMap(gmap) {
   map = gmap;

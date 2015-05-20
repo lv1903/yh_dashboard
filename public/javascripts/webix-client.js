@@ -45,7 +45,7 @@ if (typeof window.centrePoint === "undefined") {
 
   // Toggle the risk factor checkboxes and re-load data.
   centrePoint.riskFactorSelectAll = function() {
-    var formData = $$("riskFactors").getValues();
+    var formData = $$("riskFactorsForm").getValues();
     for (var name in formData) {
       if (formData.hasOwnProperty(name)) {
         $$("rf_" + name).setValue(this.getValue());
@@ -56,9 +56,11 @@ if (typeof window.centrePoint === "undefined") {
 
   // Re-loads the risk factor data based on the checkbox values.
   centrePoint.riskFactorSelection = function() {
-    var formData = $$("riskFactors").getValues();
+    console.log($$("riskFactorsForm"))
+    var formData = $$("riskFactorsForm").getValues();
     var selected = [];
     for (var name in formData) {
+
       if (formData.hasOwnProperty(name) && formData[name] !== 0) {
         selected.push(name);
       }
@@ -141,6 +143,7 @@ if (typeof window.centrePoint === "undefined") {
     // Add listeners for click, hover and idle events.
     var gmap = $$("homelessnessMap").map;
     gmap.data.addListener('mouseover', onMouseOverMap);
+    gmap.data.addListener('mouseout', onMouseOffMap);
     gmap.data.addListener('click', onFeatureClick);
     gmap.addListener('idle', clearMapBusy);
 
@@ -185,16 +188,16 @@ if (typeof window.centrePoint === "undefined") {
     switch (activeView) {
       case "homelessness":
         var index = $$("homelessnessDateSlider").getValue();
-        title = "Youth homelessness"; // + aDates[index][0] + "/" + aDates[index][1];
+        title = "Offical youth homelessness"; // + aDates[index][0] + "/" + aDates[index][1];
         break;
       case "missing":
         title = "Missing data";
         break;
       case "riskFactors":
-        title = "Index of risk factors"
+        title = "Index of related factors"
         break;
     }
-    title = "<span style='float:right;font-size: 1em;'>" + title + "</span>";
+    title = "<span style='float:right;font-size: 1em;margin-right:20px'>" + title + "</span>";
     if (activeFeatureName.length > 0) {
       title = title + "<span style='font-size:1em;'>" + activeFeatureName + "</span>";
     }
@@ -221,6 +224,16 @@ if (typeof window.centrePoint === "undefined") {
       setHeaderTitle();
     }
   }
+
+  function onMouseOffMap(event) {
+    if (!webix.env.touch) {
+        activeFeatureId = "";
+        activeFeatureName = "";
+        setHeaderTitle();
+    }
+  }
+
+
 
   function showFeature() {
     showMap(false);
