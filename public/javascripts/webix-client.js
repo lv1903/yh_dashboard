@@ -161,6 +161,8 @@ if (typeof window.centrePoint === "undefined") {
     // Force initial data load.
     centrePoint.viewChanged();
 
+
+
     if (preLoadFeature && preLoadFeature.length > 0) {
       activeFeatureId = preLoadFeature;
       showFeature();
@@ -266,15 +268,23 @@ if (typeof window.centrePoint === "undefined") {
   }
 
 
-  function onSourceClick(){
-    console.log("here")
-    activeFeatureId = "sources"
-    window.history.pushState(null,null,"/related_factors");
-    showFeature();
-  }
-
-
 
 
 }());
 
+
+function onSourceClick(){
+    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++here")
+    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++here")
+    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++here")
+    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++here")
+    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++here")
+    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++here")
+    //activeFeatureId = "sources"
+    //window.history.pushState(null,null,"/related_factors");
+    //showFeature();
+}
+
+$(document).ready(function(){
+    $(".sourceClick").click(onSourceClick)
+})

@@ -105,31 +105,25 @@ centrePoint.uiMissingSideBar = {
 // Risk factor selection form, shown in the left-hand side-bar.
 centrePoint.uiRiskFactorsSideBar = {
 
+    id: "riskAccordion",
     view: "accordion",
     type: "line",
     multi: false,
     responsive: "rootLayout",
     rows: [
         {
-        //borderless: true,
-        id: "riskFactorsInfo",
-        header: "Related factors info...",
-        headerHeight: 40,
-        headerAltHeight: 40,
-        borderless: false,
-        css: "cp_furtherInfo",
-        body:{template: "html->riskFactorInfoText"},
-        height: 190,
-        collapsed: true,
-        headerColor: "red"
+            //borderless: true,
+            id: "riskFactorsInfo",
+            header: "Related factors info...",
+            headerHeight: 40,
+            headerAltHeight: 40,
+            borderless: false,
+            css: "cp_furtherInfo",
+            height: 190,
+            collapsed: true,
+            headerColor: "red",
+            body: {template: "html->riskFactorInfoText"}
         },
-        {
-            view: "button",
-            label: "test",
-            click: "onSourceClick()"
-
-        },
-
         {
             view: "form",
             id: "riskFactorsForm",
