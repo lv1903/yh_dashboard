@@ -17,6 +17,8 @@ if (typeof window.centrePoint === "undefined") {
     if (activeFeatureId.length === 0) {
       // There is no active feature.
       template = document.getElementById("noFeatureData").innerHTML;
+    } else if (activeFeatureId === "sources") {
+      template  = webix.ajax().sync().get("/related_factors").responseText;
     } else {
       template = webix.ajax().sync().get("/ajaxFeature/" + activeFeatureId).responseText;
     }
@@ -147,6 +149,7 @@ if (typeof window.centrePoint === "undefined") {
     gmap.data.addListener('click', onFeatureClick);
     gmap.addListener('idle', clearMapBusy);
 
+
     // Add an overlay for the 'loading' icon.
     webix.extend($$("homelessnessMap"), webix.ProgressBar);
 
@@ -162,6 +165,11 @@ if (typeof window.centrePoint === "undefined") {
       activeFeatureId = preLoadFeature;
       showFeature();
     }
+
+
+
+
+
   });
 
   function getHomelessnessData(type, index) {
@@ -256,4 +264,17 @@ if (typeof window.centrePoint === "undefined") {
 
     showFeature();
   }
+
+
+  function onSourceClick(){
+    console.log("here")
+    activeFeatureId = "sources"
+    window.history.pushState(null,null,"/related_factors");
+    showFeature();
+  }
+
+
+
+
 }());
+

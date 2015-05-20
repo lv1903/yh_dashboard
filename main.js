@@ -65,6 +65,13 @@ cdo.getDataObjects(function(oEntities, oNational) {
       oNational: oNational
     })
   });
+
+  app.get('/related_factors', function(req, res){
+      res.render('source', {
+          activeFeature: "sources"
+      })
+  })
+
 });
 
 app.listen(3004);

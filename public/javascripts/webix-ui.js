@@ -119,10 +119,17 @@ centrePoint.uiRiskFactorsSideBar = {
         borderless: false,
         css: "cp_furtherInfo",
         body:{template: "html->riskFactorInfoText"},
-        height: 150,
+        height: 190,
         collapsed: true,
         headerColor: "red"
         },
+        {
+            view: "button",
+            label: "test",
+            click: "onSourceClick()"
+
+        },
+
         {
             view: "form",
             id: "riskFactorsForm",
