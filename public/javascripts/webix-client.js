@@ -229,6 +229,10 @@ if (typeof window.centrePoint === "undefined") {
     if (!webix.env.touch) {
       activeFeatureId = event.feature.getProperty('geo_code');
       activeFeatureName = event.feature.getProperty('geo_label');
+      var gmap = $$("homelessnessMap").map
+      gmap.data.revertStyle()
+      gmap.data.overrideStyle(event.feature, {strokeColor: 'yellow', strokeWeight: '2', zIndex: '1001', strokeOpacity: '1'});
+
       setHeaderTitle();
     }
   }

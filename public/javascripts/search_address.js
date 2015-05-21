@@ -6,6 +6,10 @@ function findAddress(address) {
             var loc_Center = results[0].geometry.location;
             map.setCenter(loc_Center);
             map.setZoom(9);
+            var gmap = $$("homelessnessMap").map;
+            console.log(gmap.event)
+            gmap.event.trigger( loc_Center, 'click', {});
+
         } else {
             webix.message('We could not find your address for the following reason: ' + status);
         }
