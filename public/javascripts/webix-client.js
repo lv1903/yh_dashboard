@@ -105,6 +105,11 @@ if (typeof window.centrePoint === "undefined") {
     setHeaderTitle();
   };
 
+  centrePoint.onSourceClick = function() {
+    activeFeatureId = "sources"
+    showFeature();
+  };
+
   // Enable webix debugging.
   webix.debug = true;
 
@@ -161,17 +166,10 @@ if (typeof window.centrePoint === "undefined") {
     // Force initial data load.
     centrePoint.viewChanged();
 
-
-
     if (preLoadFeature && preLoadFeature.length > 0) {
       activeFeatureId = preLoadFeature;
       showFeature();
     }
-
-
-
-
-
   });
 
   function getHomelessnessData(type, index) {
@@ -198,7 +196,7 @@ if (typeof window.centrePoint === "undefined") {
     switch (activeView) {
       case "homelessness":
         var index = $$("homelessnessDateSlider").getValue();
-        title = "Offical youth homelessness"; // + aDates[index][0] + "/" + aDates[index][1];
+        title = "Official youth homelessness"; // + aDates[index][0] + "/" + aDates[index][1];
         break;
       case "missing":
         title = "Missing data";
@@ -243,8 +241,6 @@ if (typeof window.centrePoint === "undefined") {
     }
   }
 
-
-
   function showFeature() {
     showMap(false);
 
@@ -266,25 +262,5 @@ if (typeof window.centrePoint === "undefined") {
 
     showFeature();
   }
-
-
-
-
 }());
 
-
-function onSourceClick(){
-    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++here")
-    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++here")
-    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++here")
-    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++here")
-    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++here")
-    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++here")
-    //activeFeatureId = "sources"
-    //window.history.pushState(null,null,"/related_factors");
-    //showFeature();
-}
-
-$(document).ready(function(){
-    $(".sourceClick").click(onSourceClick)
-})

@@ -80,6 +80,12 @@ html {
     color: white;
 }
 
+.webix_view.cp_riskFactorIntro p {
+    padding: 0;
+    margin: 0;
+    margin-bottom: 6px;
+}
+
 .webix_layout_toolbar.webix_toolbar .webixtype_base {
     border-color: black;
 }

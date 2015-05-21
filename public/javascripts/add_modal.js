@@ -395,7 +395,7 @@ function loadFeatureInfoBox( id, name){
         + "<span style='font-family: Arial; font-weight: 900; font-size: 60px; color: grey'>"
         + core_ratio + "%</span>"
         + "<span style='font-family: Arial; font-size: 20px'>"
-        + " of these had met offical criteria.</span>");
+        + " of these had met official criteria.</span>");
 
     y += 100
 
