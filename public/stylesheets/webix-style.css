@@ -4,6 +4,18 @@ html {
     background: white;
 }
 
+.ocdp_floating_logo {
+    position: absolute;
+    bottom: 30px;
+    left: 4px;
+    z-index: 90;
+}
+
+.ocdp_floating_logo img {
+    /*height: 40px;*/
+    height: 5vh;
+}
+
 .cp_floating_logo {
     position: absolute;
     top: 4px;
@@ -97,3 +109,23 @@ html {
     /*headerHeight: 48px;*/
 /*}*/
 
+
+.infobox-wrapper {
+    display:none;
+}
+#infobox {
+    border:2px solid black;
+    margin-top: 8px;
+    background:#333;
+    color:#FFF;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:12px;
+    /*padding: 5px;*/
+    padding: .5em 1em;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    text-shadow:0 -1px #000000;
+    -webkit-box-shadow: 0 0  8px #000;
+    box-shadow: 0 0 8px #000;
+}

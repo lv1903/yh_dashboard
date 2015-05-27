@@ -22,7 +22,7 @@ centrePoint.uiHeader = {
   height: 80,
   css: "cp_header",
   cols: [
-    { view: "label", css: "cp_logo", width: 170, template: "<a href=\"/\"><img src=\"/images/logo.png\" alt=\"centre point logo\" /></a>"},
+    { view: "label", css: "cp_logo", width: 170, template: "<a target='_blank', href='http://centrepoint.org.uk/'><img src=\"/images/logo.png\" alt=\"centre point logo\" /></a>"},
     {},
     centrePoint.uiSearchForm
   ]
@@ -163,12 +163,15 @@ centrePoint.uiRiskFactorsSideBar = {
 
 centrePoint.uiMainLayout = {
   id: "rootLayout",
+  maxHeight: 700,
+  //maxWidth: 1000,
   rows: [
     {
       type: "space",
       cols: [
         {
           minWidth: 300,
+          //maxWidth: 700,
           rows: [
             {
               id: "mainHeader",

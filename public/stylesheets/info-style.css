@@ -91,6 +91,21 @@ hr{
     margin-right: 10px;
 }
 
+.ocdpText{
+    text-align: center;
+    color: dodgerblue;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+
+}
+
+.ocdpLogo img{
+    height: 30px;
+    margin-left: 10px;
+    vertical-align: -10px;
+
+}
 
 /*#houseImg{*/
     /*width: 100px;*/

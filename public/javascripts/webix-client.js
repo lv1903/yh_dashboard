@@ -127,7 +127,7 @@ if (typeof window.centrePoint === "undefined") {
       // In touch mode, add the logo and search box as overlays on the map view
       // to optimise space.
       var ele = document.createElement("div");
-      ele.innerHTML = "<div class='cp_floating_logo'><img src='/images/logo.png' /></div>";
+      ele.innerHTML = "<div class='cp_floating_logo'><a target='_blank', href='http://centrepoint.org.uk/'><img src='/images/logo.png' /></div>";
       $$("homelessnessMap")._contentobj.appendChild(ele.firstChild);
 
       // Create a container for the search ui.
@@ -147,6 +147,12 @@ if (typeof window.centrePoint === "undefined") {
       webix.ui(centrePoint.uiPageLayout);
     }
 
+      //add ocdp logo
+      var ele = document.createElement("div");
+      ele.innerHTML = "<div class='ocdp_floating_logo'><a target='_blank', href='http://nquiringminds.com/'><img src='/images/ocdp.png' /></div>";
+      $$("homelessnessMap")._contentobj.appendChild(ele.firstChild);
+
+
     // Add listeners for click, hover and idle events.
     var gmap = $$("homelessnessMap").map;
     gmap.data.addListener('mouseover', onMouseOverMap);
@@ -155,11 +161,44 @@ if (typeof window.centrePoint === "undefined") {
     gmap.addListener('idle', clearMapBusy);
 
 
+
+
     // Add an overlay for the 'loading' icon.
     webix.extend($$("homelessnessMap"), webix.ProgressBar);
 
     // Initialise the map data.
     initialiseMap(gmap);
+
+
+    //add infobox
+    var infobox =  new InfoBox();
+    contentString ="<div><p>Select data to show</br>from the side bar.</p><p>Or click on your local area on</br>for more details.</p></div>"
+    infobox.setContent(contentString)
+    myOptions = {
+        disableAutoPan: true,
+        maxWidth: 200,
+        pixelOffset: new google.maps.Size(-100, -100),
+        zIndex: null,
+
+        boxStyle: {
+          border: "1px solid grey",
+          boxShadow:  '0 5px 5px rgba(0,0,0,.3)',
+          textAlign: "center",
+          fontSize: "12pt",
+          color: "black",
+          font: "Arial",
+          background: "white",
+          opacity: 0.85,
+          //width: w,
+          padding: '5px'
+        },
+        closeBoxMargin: "12px 4px 2px 2px",
+        closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
+        infoBoxClearance: new google.maps.Size(1, 1)
+    }
+    infobox.setPosition(new google.maps.LatLng(53,-2.5))
+    infobox.setOptions(myOptions)
+    infobox.open(gmap)
 
     $$("viewAccordion").attachEvent("onAfterExpand",  centrePoint.viewChanged);
 
@@ -202,10 +241,14 @@ if (typeof window.centrePoint === "undefined") {
         title = "Missing data";
         break;
       case "riskFactors":
-        title = "Index of related factors"
+        title = "Index of related factors";
         break;
     }
-    title = "<span style='float:right;font-size: 1em;margin-right:20px'>" + title + "</span>";
+    if($$("mapButton")._settings.hidden == true) {
+        title = "<span style='float:right;font-size: 1em;margin-right:20px'>" + title + "</span>";
+    } else {
+        title = "";
+    }
     if (activeFeatureName.length > 0) {
       title = title + "<span style='font-size:1em;'>" + activeFeatureName + "</span>";
     }
@@ -213,32 +256,53 @@ if (typeof window.centrePoint === "undefined") {
     $$("featureLabel").refresh();
   }
 
+  function mapZoom(){
+      var zoom;
+      if($$("homelessnessMap").$height < 330){
+          zoom = 5;
+      } else {
+          zoom = 6;
+      }
+      //alert($$("homelessnessMap").$height + " --> " + zoom)
+      return zoom
+  }
+
+
   function showMap(show) {
     if (show) {
       $$("mapButton").hide();
+      //$$("featureLabel").show();
       $$("resetButton").show();
+      var zoom = mapZoom();
+      $$('homelessnessMap').map.setOptions({zoom: zoom});
       $$("mainPanelView").setValue("homelessnessMap");
     } else {
       $$("mapButton").show();
+      //$$("featureLabel").hide();
       $$("resetButton").hide();
       $$("mainPanelView").setValue("homelessnessFeatureView");
     }
   }
 
+  function test(){
+      alert("here")
+  }
+
   function onMouseOverMap(event) {
     if (!webix.env.touch) {
-      activeFeatureId = event.feature.getProperty('geo_code');
-      activeFeatureName = event.feature.getProperty('geo_label');
-      var gmap = $$("homelessnessMap").map
+      //var gmap = $$("homelessnessMap").map;
       //gmap.data.revertStyle()
       //gmap.data.overrideStyle(event.feature, {strokeColor: 'yellow', strokeWeight: '2', zIndex: '1001', strokeOpacity: '1'});
-
+      activeFeatureId = event.feature.getProperty('geo_code');
+      activeFeatureName = event.feature.getProperty('geo_label');
       setHeaderTitle();
     }
   }
 
   function onMouseOffMap(event) {
     if (!webix.env.touch) {
+        var gmap = $$("homelessnessMap").map;
+        gmap.data.revertStyle();
         activeFeatureId = "";
         activeFeatureName = "";
         setHeaderTitle();
@@ -253,7 +317,7 @@ if (typeof window.centrePoint === "undefined") {
     // Get feature view to render with new selection.
     $$("homelessnessFeatures").refresh();
 
-    // Make sure feature view is visible.
+    // Make sure feature view is visle.
     $$("homelessnessFeatureView").scrollTo(0,0);
   }
 

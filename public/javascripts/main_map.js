@@ -39,9 +39,16 @@ function initialiseMap(gmap) {
   });
 
   map.data.addGeoJson(oGeoLa);
+
 }
 
 function resetMap() {
-  map.setCenter(initialCenter);
-  map.setZoom(initialZoom);
+    map.setCenter(initialCenter);
+    var zoom;
+    if($$("homelessnessMap").$height < 330){
+        zoom = 5;
+    } else {
+        zoom = 6;
+    }
+    map.setZoom(zoom);
 }
