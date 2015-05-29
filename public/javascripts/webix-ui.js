@@ -163,7 +163,7 @@ centrePoint.uiRiskFactorsSideBar = {
 
 centrePoint.uiMainLayout = {
   id: "rootLayout",
-  maxHeight: 700,
+  //maxHeight: 700,
   //maxWidth: 1000,
   rows: [
     {

@@ -8,108 +8,90 @@ var aDates = [
 
 function addKey(aKeyValues, aLightnessValues){
 
-    if($("#keyContainer") != null) {
-        $("#keyContainer").remove();
+    //close the info box if there is one
+    infobox.close();
+
+    var ele = document.getElementById("keyContainer")
+    if(ele != null) {
+        ele.parentNode.removeChild(ele);
     }
 
-    var h = 450;
-    var w = 200;
+    var r = 10;
+    var padding = 2;
+    var sidepadding = 5;
+    var fontsize = 18;
+    var h = (r * 2 + padding) + (aKeyValues.length * 2 * r);
+    var w = 100;
 
-    var svg = d3.select("#mapSide")//(".mapCanvas")
+    var ele = document.createElement("div");
+
+
+    var svg = d3.select(ele)//(".mapCanvas")
         .append("div")
         .classed("svg-container", true)
         .attr("id", "keyContainer")
+        .on("click", function(){
+            centrePoint.showKeyInfo()
+        })
+
         .append("svg")
         .attr("id", "keyCanvas")
-        .attr("height", h)
-        .attr("width", w)
+        .attr("viewBox", "0 0 " + w + " " + (h) )
+        .classed("svg-content-responsive", true)
 
 
 
-    var ystart = 20;
-    var r = 20;
-    var circlepadding = 5;
-
-    //svg.selectAll("rect")
-    //    .data(aKeyValues)
-    //    .enter()
-    //    .append("rect")
-    //    .attr("x", 0)
-    //    .attr("y", function(d, i){
-    //        return ystart + 10 + i * (2 * (r + circlepadding));
-    //    })
-    //    .attr("height", r )
-    //    .attr("width", 150 - r)
-    //    .attr("fill", "white")
-    ////.attr("rx", r)
-    ////.attr("ry", r)
-
-    svg.selectAll("circle")
-        .data(aKeyValues)
-        .enter()
-        .append("circle")
-        .attr("cx", 100)
-        .attr("cy", function(d, i) {
-            return ystart + i * (2 * (r + circlepadding)) + r;
-        })
+    svg.append("circle")
+        .attr("id", "keyQuestionMark")
+        .attr("cx",  w/2)
+        .attr("cy",  r)
         .attr("r", r)
-        //.attr("fill", "white")
+        .attr("fill", "black")
+
+
+    svg.append("text")
+        .text("?")
+        .attr("x", w/2)
+        .attr("y", r + 7)
+        .attr("font-size", fontsize + "px")
+        .attr("font-weight", "bold")
+        .attr("text-anchor", "middle")
+        .attr("fill", "white")
+
+
+    svg.selectAll("rect")
+        .data(aKeyValues)
+        .enter()
+        .append("rect")
+        .attr("x", sidepadding)
+        .attr("y", function(d, i){
+            return (r * 2 + padding) + (i * 2 * r);
+        })
+        .attr("height", r * 2 - padding)
+        .attr("width", w - (2 * sidepadding))
         .attr("fill", function(d, i){
-            var lightness = aLightnessValues[i]
-            return "hsla(10, 90%, "+ lightness +"%, 1)"
+            return "hsla(10, 90%, "+ aLightnessValues[i] +"%, 1)"
         })
-        //.attr("border", 1)
-        .attr("stroke-width", 2)
-        .attr("stroke", "hsla(10, 90%, "+ aLightnessValues[0] +"%, 1)")
+        .attr("stroke", "black")
 
-/*    var fontsize = 15
-    svg.selectAll("text")
+    svg.selectAll("text.labels")
         .data(aKeyValues)
         .enter()
         .append("text")
         .text(function(d) {
-            return d;
-        })
-        //.attr("text-anchor", "middle")
-        .attr("x", 0)
-        .attr("y", function(d, i) {
-            return ystart + 5 + i * (2 * (r + circlepadding)) + r;
-            //return i * (h / aKeyValues.length) + boxh / 2 + fontSize / 3;
-        })
-        .attr("font-size", fontsize + "px")*/
-
-
-    var fontsizeNumber = 30;
-    var fontsizeText = 18;
-    svg.selectAll("text")
-        .data(aKeyValues)
-        .enter()
-        .append("text")
-        .text(function(d) {
+            console.log(d)
             return d;
         })
         .attr("text-anchor", "middle")
-        .attr("x", 100)
+        .attr("x", w/2)
         .attr("y", function(d, i) {
-            if(isNaN(Number(aKeyValues[i]))){
-                return ystart + (fontsizeText/2 - 2) + i * (2 * (r + circlepadding)) + r;
-            } else {
-                return ystart + (fontsizeNumber/2 - 4)+ i * (2 * (r + circlepadding)) + r;
-            }
-
-
+            return (r * 2 + fontsize) + (i * 2 * r) - 2;
         })
-        .attr("font-size", function(d, i){
-            if(isNaN(Number(aKeyValues[i]))){
-                return fontsizeText + "px"
-            } else {
-                return fontsizeNumber + "px"
-            }
-        })
-        .attr("font-weight", "bold")
-        //.attr("color", "white")
+        .attr("font-family", "Arial")
+        .attr("font-size", fontsize - 4 + "px")
+        .attr("fill", "black");
 
-
+    $$("homelessnessMap")._contentobj.appendChild(ele.firstChild);
 }
 
 
@@ -124,11 +106,12 @@ function jsonPath(index, aPath, parent_obj){
     return value;
 }
 
-var aStandardKey = ["5", "4", "3", "2", "1", "na"]
+var aStandardKey = ["worst 20%", "", "", "", "best 20%", "no data"]
 //var aStandardKey = [ "worst", "", "", "", "best", "no data" ];
 var aKeyLightness = [30, 40, 50, 60, 90, 100];
 
 var aMissingDataKey = ["12m", " 9m", "6m", "3m", "0m"]
+var aMissingLightness = [30, 40, 50, 60, 100]
 //var aCoreKey = ["highest rate", "below average", "above average", "lowest rate", "no data"]
 
 
@@ -173,6 +156,7 @@ function addColors(aBuckets, up, aPath, obj){
         //console.log(aPath[1])
         //console.log(oEntities[id][aPath[0]])
         var n = jsonPath(0, aPath, obj[id]);
+        if(n == 0){n = "zero"} //to give white color
         var color = selectcolor(n, aBuckets, up);
         return {
             fillColor: color,
@@ -195,16 +179,16 @@ function getData(sActive, dateIndex){
       var up = true;
       var aPath = ["homeless_data", year + quarter, "p1e", "percent"];
       addColors(aBuckets, up, aPath, oEntities );
-      //addKey(aStandardKey, aKeyLightness);
+      addKey(aStandardKey, aKeyLightness);
   }
 
   if (sActive === "P1E_Missing"){
-      console.log(oNational.homeless_data.p1e_missing_count.quintiles)
+      //console.log(oNational.homeless_data.p1e_missing_count.quintiles)
       aBuckets = oNational.homeless_data.p1e_missing_count.quintiles;
       var up = true; //good is low
       var aPath = ["homeless_data", "p1e_missing_count"];
       addColors(aBuckets, up, aPath, oEntities );
-      //addKey(aMissingDataKey, [30, 40, 50, 60, 100]);
+      addKey(aMissingDataKey, aMissingLightness);
   }
   //
   //if(sActive == $("#btn_Prevention").html()){
@@ -301,7 +285,7 @@ function getRiskFactorData(aSelected){
     var up = true;
     aPath = ["average"];
     addColors(aBuckets, up, aPath, oRiskIndex)
-
+    addKey(aStandardKey, aKeyLightness);
     //$(".riskFactorsModal").modal("hide");
 
 }

@@ -5,6 +5,8 @@ if (typeof window.centrePoint === "undefined") {
   centrePoint = {};
 }
 
+var infobox = new InfoBox();
+
 (function() {
   var activeView = "";
   var activeFeatureId = "";
@@ -81,7 +83,7 @@ if (typeof window.centrePoint === "undefined") {
       newView = "missing";
     } else {
       newView = "riskFactors";
-    }
+  }
 
     activeView = newView;
     activeFeatureId = activeFeatureName = "";
@@ -109,6 +111,100 @@ if (typeof window.centrePoint === "undefined") {
     activeFeatureId = "sources"
     showFeature();
   };
+
+  centrePoint.showInfoBox = function(){
+      infobox.close()
+      var gmap = $$("homelessnessMap").map;
+      infobox =  new InfoBox();
+      var contentString ="<div><p>Select data to show</br>from the side bar.</p><p>Or click on your local area on</br>for more details.</p></div>"
+      infobox.setContent(contentString)
+      var myOptions = {
+          disableAutoPan: true,
+          maxWidth: 200,
+          pixelOffset: new google.maps.Size(-100, -100),
+          zIndex: 200,
+
+          boxStyle: {
+              border: "1px solid grey",
+              boxShadow:  '0 5px 5px rgba(0,0,0,.3)',
+              textAlign: "center",
+              fontSize: "12pt",
+              color: "black",
+              font: "Arial",
+              background: "white",
+              opacity: 0.85,
+              //width: w,
+              padding: '5px'
+          },
+          closeBoxMargin: "12px 4px 2px 2px",
+          closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
+          infoBoxClearance: new google.maps.Size(1, 1)
+      }
+      infobox.setPosition(new google.maps.LatLng(53,-2.5))
+      infobox.setOptions(myOptions)
+      infobox.open(gmap)
+  }
+
+  centrePoint.showKeyInfo = function() {
+      infobox.close();
+      var gmap = $$("homelessnessMap").map;
+      infobox = new InfoBox();
+
+      var contentString;
+      if (false === $$("homelessnessView").config.collapsed) {
+
+          contentString = "<div><h4>Map Key</div>"
+                + "<div style='height:200px; width:200px; overflow:auto'>"
+                + "<div style='height:200px'>"
+                + "<p>The local authorities were ranked according to their reported rate of offical youth homelessness.</p>"
+                + "<p>The worst category refers to the 20% of authorities with the highest levels of youth homelessness.</p>"
+                + "<p>The best category refers to the 20% of authorities with the lowest levels of youth homelessness.</p>"
+                + "<p>The colours in between refer to three intervening fifths of local authorities.</p>"
+                + "</div></div>";
+      } else if (false === $$("missingView").config.collapsed) {
+          contentString = "<div><h4>Map Key</div>"
+                + "<div style='height:100px; width:200px; overflow:auto'>"
+                + "<p>How many months of official youth homelessness data are missing.</p>"
+                + "</div></div>";
+      } else {
+          contentString = "<div><h4>Map Key</div>"
+                + "<div style='height:200px; width:200px; overflow:auto'>"
+                + "<div style='height:200px'>"
+                + "<p>The local authorities are ranked for each of the related factor that has been selected.</p>"
+                + "<p>An average rank is then calculated for the selected factors.</p>"
+                + "<p>The worst 20% category refers to authorities that on average rank in the worst 20%.</p>"
+                + "<p>The best 20% category refers to authorities that on average rank in the best 20%.</p>"
+                + "<p>The colours in between refer to averages in the three intervening fifths.</p>"
+                + "</div></div>";
+      }
+
+
+      infobox.setContent(contentString)
+      var myOptions = {
+          disableAutoPan: true,
+          maxWidth: 200,
+          pixelOffset: new google.maps.Size(-75, -100),
+          zIndex: 200,
+
+          boxStyle: {
+              border: "1px solid grey",
+              boxShadow: '0 5px 5px rgba(0,0,0,.3)',
+              textAlign: "left",
+              fontSize: "12px",
+              color: "black",
+              font: "Arial",
+              background: "white",
+              opacity: 0.9,
+              padding: '5px'
+          },
+          closeBoxMargin: "0",//"0px 4px 2px 2px",
+          closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
+          infoBoxClearance: new google.maps.Size(1, 1)
+      }
+      infobox.setPosition(new google.maps.LatLng(53, -2.5))
+      infobox.setOptions(myOptions)
+      infobox.open(gmap)
+  }
 
   // Enable webix debugging.
   webix.debug = true;
@@ -158,6 +254,7 @@ if (typeof window.centrePoint === "undefined") {
     gmap.data.addListener('mouseover', onMouseOverMap);
     gmap.data.addListener('mouseout', onMouseOffMap);
     gmap.data.addListener('click', onFeatureClick);
+    gmap.data.addListener('click', function(){infobox.close()});
     gmap.addListener('idle', clearMapBusy);
 
 
@@ -169,37 +266,6 @@ if (typeof window.centrePoint === "undefined") {
     // Initialise the map data.
     initialiseMap(gmap);
 
-
-    //add infobox
-    var infobox =  new InfoBox();
-    contentString ="<div><p>Select data to show</br>from the side bar.</p><p>Or click on your local area on</br>for more details.</p></div>"
-    infobox.setContent(contentString)
-    myOptions = {
-        disableAutoPan: true,
-        maxWidth: 200,
-        pixelOffset: new google.maps.Size(-100, -100),
-        zIndex: null,
-
-        boxStyle: {
-          border: "1px solid grey",
-          boxShadow:  '0 5px 5px rgba(0,0,0,.3)',
-          textAlign: "center",
-          fontSize: "12pt",
-          color: "black",
-          font: "Arial",
-          background: "white",
-          opacity: 0.85,
-          //width: w,
-          padding: '5px'
-        },
-        closeBoxMargin: "12px 4px 2px 2px",
-        closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
-        infoBoxClearance: new google.maps.Size(1, 1)
-    }
-    infobox.setPosition(new google.maps.LatLng(53,-2.5))
-    infobox.setOptions(myOptions)
-    infobox.open(gmap)
-
     $$("viewAccordion").attachEvent("onAfterExpand",  centrePoint.viewChanged);
 
     // Force initial data load.
@@ -209,6 +275,10 @@ if (typeof window.centrePoint === "undefined") {
       activeFeatureId = preLoadFeature;
       showFeature();
     }
+
+    // add start up info box
+    centrePoint.showInfoBox()
+
   });
 
   function getHomelessnessData(type, index) {
