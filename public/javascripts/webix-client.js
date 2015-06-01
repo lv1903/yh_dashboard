@@ -75,12 +75,41 @@ var infobox = new InfoBox();
     getRiskFactorData(selected);
   };
 
+    // Toggle the unemployment checkboxes and re-load data.
+    centrePoint.unemploymentSelectAll = function() {
+        var formData = $$("unemploymentForm").getValues();
+        for (var name in formData) {
+            if (formData.hasOwnProperty(name)) {
+                $$("un_" + name).setValue(this.getValue());
+            }
+        }
+        centrePoint.unemploymentSelection();
+    };
+
+   // Re-loads the risk factor data based on the checkbox values.
+    centrePoint.unemploymentSelection = function() {
+        console.log($$("unemploymentForm"))
+        var formData = $$("unemploymentForm").getValues();
+        var selected = [];
+        for (var name in formData) {
+            if (formData.hasOwnProperty(name) && formData[name] !== 0) {
+                selected.push(name);
+            }
+        }
+        showMap(true);
+        setMapBusy();
+        getUnemploymentData(selected);
+    };
+
+
   centrePoint.viewChanged = function() {
     var newView;
     if (false === $$("homelessnessView").config.collapsed) {
       newView = "homelessness";
     } else if (false === $$("missingView").config.collapsed) {
       newView = "missing";
+    } else if (false === $$("unemploymentView").config.collapsed){
+      newView = "unemployment";
     } else {
       newView = "riskFactors";
   }
@@ -97,6 +126,9 @@ var infobox = new InfoBox();
           break;
         case "missing":
           getHomelessnessData("P1E_Missing" ,0);
+          break;
+        case "unemployment":
+          centrePoint.unemploymentSelection();
           break;
         case "riskFactors":
           centrePoint.riskFactorSelection();

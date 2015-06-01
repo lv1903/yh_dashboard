@@ -19,7 +19,7 @@ var aRisk = [
     ["yh_hospital", "hospital", [], ["value", "data", "Value"]],
     ["yh_unemployment", "unemployment_total", [], ["value", "data", "quarterly_data", "2014Q4", "val_total"]],
     ["yh_unemployment", "unemployment_0-6m", [], ["value", "data", "quarterly_data", "2014Q4", "val_0-6m"]],
-    ["yh_unemployment", "unemployment_6-12ml", [], ["value", "data", "quarterly_data", "2014Q4", "val_6-12m"]],
+    ["yh_unemployment", "unemployment_6-12m", [], ["value", "data", "quarterly_data", "2014Q4", "val_6-12m"]],
     ["yh_unemployment", "unemployment_over12m", [], ["value", "data", "quarterly_data", "2014Q4", "val_over12m"]],
     ["yh_care", "care", [],["value", "data", "value"]],
     ["yh_deprivation", "deprivation", [],["value", "data", "Rank_of_Local_Concentration"]]

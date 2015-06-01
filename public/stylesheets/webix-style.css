@@ -13,7 +13,8 @@ html {
 
 .ocdp_floating_logo img {
     /*height: 40px;*/
-    height: 5vh;
+    /*height: 5vh;*/
+    max-height: 30px;
 }
 
 .cp_floating_logo {
@@ -68,29 +69,42 @@ html {
     padding-left: 0px;
 }
 
+.cp_UnemploymentForm .webix_form {
+    padding-left: 0px;
+}
+
 .cp_hidden {
     display: none;
 }
 
-.cp_furtherInfo .webix_accordionitem_header.collapsed{
-    font-size: 15px;
-    background: #D04627;
-    color: white;
-    padding-bottom: 8px;
-
+.webix_accordionitem {
+    text-align: justify;
 }
 
-.cp_furtherInfo .webix_accordionitem_header{
-    font-size: 15px;
-    background: #D04627;
-    color: white;
-}
+/*.webix_accordionitem_header {*/
+    /*background: red;*/
+    /*top: 2px;*/
+/*}*/
 
-.cp_furtherInfo .webix_accordionitem_body {
-    font-size: 15px;
-    background: #D04627;
-    color: white;
-}
+/*.cp_furtherInfo .webix_accordionitem_header.collapsed{*/
+    /*font-size: 15px;*/
+    /*background: #D04627;*/
+    /*color: white;*/
+    /*padding-bottom: 8px;*/
+
+/*}*/
+
+/*.cp_furtherInfo .webix_accordionitem_header{*/
+    /*font-size: 15px;*/
+    /*background: #D04627;*/
+    /*color: white;*/
+/*}*/
+
+/*.cp_furtherInfo .webix_accordionitem_body {*/
+    /*font-size: 15px;*/
+    /*background: #D04627;*/
+    /*color: white;*/
+/*}*/
 
 .webix_view.cp_riskFactorIntro p {
     padding: 0;

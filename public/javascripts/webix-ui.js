@@ -36,7 +36,7 @@ centrePoint.uiHeader = {
 centrePoint.uiHomelessnessSideBar = {
   id: "homelessness",
   view: "scrollview",
-  scroll: "y", //webix.env.touch ? "y" : false,
+  scroll: webix.env.touch ? "y" : false,
   body: {
     rows: [
       {
@@ -69,12 +69,12 @@ centrePoint.uiHomelessnessSideBar = {
 centrePoint.uiHomelessnessFeatureView = {
   id: "homelessnessFeatureView",
   view: "scrollview",
-  scroll: "y",
+  //scroll: "y",
   body: {
         id: "homelessnessFeatures",
         view: "template",
         minWidth: 200,
-        maxWidth: 800,
+        maxWidth: 1000,
         autoheight: true,
         template: centrePoint.renderFeatureInfo
   }
@@ -84,7 +84,10 @@ centrePoint.uiHomelessnessFeatureView = {
 centrePoint.uiHomelessnessMap = {
   id: "homelessnessMap",
   view: "google-map",
-  minWidth: 300
+  //minWidth: 300
+  minWidth: 200,
+  maxWidth: 1000,
+  autoheight: true
 };
 
 //************************************************************************
@@ -96,6 +99,50 @@ centrePoint.uiMissingSideBar = {
   id: "missing",
   borderless: true,
   template: "html->missingDataInfoText"
+};
+
+//************************************************************************
+// Unemployment UI
+//************************************************************************
+
+// UNemployment selection form, shown in the left-hand side-bar.
+centrePoint.uiUnemploymentSideBar = {
+    view: "form",
+    id: "unemploymentForm",
+    css: "cp_unemploymentForm",
+    type: "clean",
+    padding: 4,
+    scroll: "y",
+    elementsConfig: {
+        gravity: 5,
+        on: {onItemClick: centrePoint.unemploymentSelection},
+        labelWidth: 225
+    },
+    elements: [
+        {template: "html->unemploymentInfoText", height: 100, css: "cp_unemploymentIntro" },
+        {view: "checkbox", label: "Total youth unemployment", on: {onItemClick: centrePoint.unemploymentSelectAll}},
+        {
+            view: "checkbox",
+            id: "un_unemployment_over12m",
+            name: "unemployment_over12m",
+            label: "Over 12 months",
+            value: 1
+        },
+        {
+            view: "checkbox",
+            id: "un_unemployment_6-12m",
+            name: "unemployment_6-12m",
+            label: "6 to 12 months"
+        },
+        {
+            view: "checkbox",
+            id: "un_unemployment_0-6m",
+            name: "unemployment_0-6m",
+            label: "Under 6 months"
+        }
+
+
+    ]
 };
 
 //************************************************************************
@@ -163,8 +210,8 @@ centrePoint.uiRiskFactorsSideBar = {
 
 centrePoint.uiMainLayout = {
   id: "rootLayout",
-  //maxHeight: 700,
-  //maxWidth: 1000,
+  maxHeight: 700,
+  maxWidth: 1000,
   rows: [
     {
       type: "space",
@@ -176,6 +223,7 @@ centrePoint.uiMainLayout = {
             {
               id: "mainHeader",
               view: "toolbar",
+              height: 35,
               elements: [
                 { view: "button", id: "mapButton", type: "iconButton", icon: "chevron-left", label: "map", width: 70, on: { onItemClick: centrePoint.viewChanged } },
                 { view: "label", id: "featureLabel", label: "Official youth homelessness"},
@@ -206,23 +254,31 @@ centrePoint.uiMainLayout = {
             {
               header: "Official youth homelessness",
               id: "homelessnessView",
-              headerAltHeight: 50,
-              headerHeight: 48,
+              headerAltHeight: 30,
+              headerHeight: 30,
               body: centrePoint.uiHomelessnessSideBar
             },
             {
               header: "How much data is missing",
               id: "missingView",
-              headerAltHeight: 50,
-              headerHeight: 48,
+              headerAltHeight: 30,
+              headerHeight: 30,
               collapsed: true,
               body: centrePoint.uiMissingSideBar
             },
             {
+              header: "Youth unemployment",
+              id: "unemploymentView",
+              headerAltHeight: 30,
+              headerHeight: 30,
+              collapsed: true,
+              body: centrePoint.uiUnemploymentSideBar
+            },
+            {
               header: "Related factors",
               id: "riskFactorsView",
-              headerAltHeight: 50,
-              headerHeight: 48,
+              headerAltHeight: 30,
+              headerHeight: 30,
               collapsed: true,
               body: centrePoint.uiRiskFactorsSideBar
             }

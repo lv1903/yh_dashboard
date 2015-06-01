@@ -5,12 +5,12 @@
 
 .titleText {
     font-family: Arial;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
     /*color: #D04627;*/
     color: white;
     background-color: black;
-    padding: 0 5px 0 5px;
+    padding: 0 10px 0 5px;
 
 }
 
@@ -20,14 +20,14 @@
 
 .headText, .headTextSmall{
     font-family: Arial;
-    font-size: 25px;
+    font-size: 20px;
     /*color: grey;*/
     /*color: #D04627;*/
     color: white;
     background-color: black;
     margin: 30px 0 0 0;
     font-weight: bold;
-    padding: 0 5px 0 5px;
+    padding: 0 10px 0 5px;
     /*width: auto;*/
 
 }
@@ -35,16 +35,16 @@
 
 .normText{
     font-family: Arial;
-    font-size: 20px;
-    color: grey;
-    margin: 20px 0 20px 0;
-    line-height: 30px;
+    font-size: 15px;
+    color: #666666;
+    margin: 15px 0 15px 0;
+    line-height: 18px;
     text-align: justify;
 }
 
 .nameText{
     font-family: Arial;
-    font-size: 20px;
+    font-size: 15px;
     color: #D04627;
     font-weight: bold;
     margin: 10px 0 10px 0;
@@ -52,29 +52,30 @@
 
 .smallText{
     font-family: Arial;
-    font-size: 14px;
+    font-size: 12px;
     color: grey;
 }
 
 .bigNumber{
     font-family: Arial Black;
-    font-size: 25px;
+    font-size: 15px;
     font-weight: bold;
     color: #D04627;
     /*color: grey;*/
     margin-top: -15px;
-    margin-bottom: 20px;
-    line-height: 30px;
+    margin-bottom: 15px;
+    line-height: 18px;
 
 }
 
 hr{
-    margin: 20px
+    /*margin: 20px*/
 }
 
 #popImg{
     margin-bottom: 20px;
-    margin-right: 10px
+    margin-right: 10px;
+    height: 80px;
 }
 
 #otherFactorsText {
@@ -86,7 +87,7 @@ hr{
 }
 
 .bulletImg{
-    width: 60px;
+    width: 30px;
     float: left;
     margin-right: 10px;
 }
@@ -94,7 +95,7 @@ hr{
 .ocdpText{
     text-align: center;
     color: dodgerblue;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: bold;
     margin-bottom: 10px;
 

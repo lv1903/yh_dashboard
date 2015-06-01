@@ -104,11 +104,11 @@ body.webix_full_screen {
   background-color: transparent;
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAUCAIAAADDbMD2AAAABnRSTlMA/wD/AP83WBt9AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAHElEQVR4nGP4//8/EwMDA158/vx5BmLUMTAwAADGhQiMQPqPwgAAAABJRU5ErkJggg==);
   background-repeat: repeat-x;
-  background-position: 12px;
+  background-position: 7.5px;
   color: #444;
   font-size: 10px;
   text-transform: uppercase;
-  line-height: 48px;
+  line-height: 30px;
 }
 .webix_section > .webix_template {
   padding: 0px 8px;
@@ -131,7 +131,7 @@ body.webix_full_screen {
 .webix_header > div {
   padding-left: 10px;
   color: #ffffff;
-  font-size: 20px;
+  font-size: 18px;
   background: #000000;
   /*.webix_el_button input, .webix_el_toggle input {
 		border: none;
@@ -142,8 +142,8 @@ body.webix_full_screen {
 		background-color: @barButtonActiveColor;
 	}*/
 
-  line-height: 46px;
-  line-height: 48px;
+  line-height: 28px;
+  line-height: 30px;
   padding-top: 0;
   padding-bottom: 0;
 }
@@ -153,7 +153,7 @@ body.webix_full_screen {
   color: #ffffff;
 }
 .webix_header > div .webix_el_label {
-  font-size: 20px;
+  font-size: 18px;
 }
 .webix_header > div .webixtype_base,
 .webix_header > div .webixtype_prev,
@@ -419,7 +419,7 @@ x\:ui {
   position: relative;
   z-index: 2;
   color: #ffffff;
-  font-size: 20px;
+  font-size: 18px;
   background: #000000;
   /*.webix_el_button input, .webix_el_toggle input {
 		border: none;
@@ -430,7 +430,7 @@ x\:ui {
 		background-color: @barButtonActiveColor;
 	}*/
 
-  line-height: 46px;
+  line-height: 28px;
   cursor: pointer;
   overflow: hidden;
 }
@@ -440,7 +440,7 @@ x\:ui {
   color: #ffffff;
 }
 .webix_accordionitem_header .webix_el_label {
-  font-size: 20px;
+  font-size: 18px;
 }
 .webix_accordionitem_header .webixtype_base,
 .webix_accordionitem_header .webixtype_prev,
@@ -622,7 +622,7 @@ x\:ui {
   position: relative;
   height: 11px;
   width: 11px;
-  margin: 16.5px 15px;
+  margin: 7.5px 6px;
 }
 /*
 .webix_accordionitem.vertical > .webix_accordionitem_header .webix_accordionitem_button{
@@ -1467,7 +1467,7 @@ div.webix_modal_cover {
   width: 100%;
   font-size: inherit;
   color: #666666 !important;
-  height: 42px;
+  height: 24px;
   margin-top: -2px;
   padding: 0 3px;
   vertical-align: top;
@@ -1684,7 +1684,7 @@ div.webix_modal_cover {
 }
 .webix_win_head > .webix_view > .webix_template {
   color: #ffffff;
-  font-size: 20px;
+  font-size: 18px;
   background: #000000;
   /*.webix_el_button input, .webix_el_toggle input {
 		border: none;
@@ -1697,7 +1697,7 @@ div.webix_modal_cover {
 
   padding: 0px;
   text-align: center;
-  line-height: 48px;
+  line-height: 30px;
 }
 .webix_win_head > .webix_view > .webix_template .webix_el_button,
 .webix_win_head > .webix_view > .webix_template .webix_el_label,
@@ -1705,7 +1705,7 @@ div.webix_modal_cover {
   color: #ffffff;
 }
 .webix_win_head > .webix_view > .webix_template .webix_el_label {
-  font-size: 20px;
+  font-size: 18px;
 }
 .webix_win_head > .webix_view > .webix_template .webixtype_base,
 .webix_win_head > .webix_view > .webix_template .webixtype_prev,
@@ -2297,7 +2297,7 @@ div.webix_modal_cover {
 .webix_property_label_line {
   padding-left: 10px;
   color: #ffffff;
-  font-size: 20px;
+  font-size: 18px;
   background: #000000;
   /*.webix_el_button input, .webix_el_toggle input {
 		border: none;
@@ -2308,7 +2308,6 @@ div.webix_modal_cover {
 		background-color: @barButtonActiveColor;
 	}*/
 
-  line-height: 46px;
   line-height: 23px;
   border-bottom: 1px solid #ebebeb;
   line-height: 28px;
@@ -2319,7 +2318,7 @@ div.webix_modal_cover {
   color: #ffffff;
 }
 .webix_property_label_line .webix_el_label {
-  font-size: 20px;
+  font-size: 18px;
 }
 .webix_property_label_line .webixtype_base,
 .webix_property_label_line .webixtype_prev,
@@ -3461,7 +3460,7 @@ label.webix_required:after {
 /* Toolbar */
 .webix_layout_toolbar {
   color: #ffffff;
-  font-size: 20px;
+  font-size: 18px;
   background: #000000;
   /*.webix_el_button input, .webix_el_toggle input {
 		border: none;
@@ -3479,7 +3478,7 @@ label.webix_required:after {
   color: #ffffff;
 }
 .webix_layout_toolbar .webix_el_label {
-  font-size: 20px;
+  font-size: 18px;
 }
 .webix_layout_toolbar .webixtype_base,
 .webix_layout_toolbar .webixtype_prev,
@@ -3654,7 +3653,7 @@ label.webix_required:after {
 }
 .webix_toolbar.webix_layout_subbar {
   color: #ffffff;
-  font-size: 20px;
+  font-size: 18px;
   background: #000000;
   /*.webix_el_button input, .webix_el_toggle input {
 		border: none;
@@ -3672,7 +3671,7 @@ label.webix_required:after {
   color: #ffffff;
 }
 .webix_toolbar.webix_layout_subbar .webix_el_label {
-  font-size: 20px;
+  font-size: 18px;
 }
 .webix_toolbar.webix_layout_subbar .webixtype_base,
 .webix_toolbar.webix_layout_subbar .webixtype_prev,
@@ -5884,7 +5883,7 @@ label.webix_required:after {
 }
 /*[L]*//*[L]*/.webix_layout_toolbar.webix_toolbar {
   color: #ffffff;
-  font-size: 20px;
+  font-size: 18px;
   background: #000000;
   /*.webix_el_button input, .webix_el_toggle input {
 		border: none;
@@ -5902,7 +5901,7 @@ label.webix_required:after {
   color: #ffffff;
 }
 .webix_layout_toolbar.webix_toolbar .webix_el_label {
-  font-size: 20px;
+  font-size: 18px;
 }
 .webix_layout_toolbar.webix_toolbar .webixtype_base,
 .webix_layout_toolbar.webix_toolbar .webixtype_prev,
@@ -6103,14 +6102,14 @@ label.webix_required:after {
   position: relative;
   height: 19px;
   width: 19px;
-  margin: 15.5px 15px;
+  margin: 6.5px 6px;
 }
 .webix_accordionitem.collapsed .webix_accordionitem_button {
   float: right;
   position: relative;
   height: 19px;
   width: 19px;
-  margin-top: 14.5px;
+  margin-top: 5.5px;
 }
 .webix_accordionitem.horizontal.collapsed,
 .webix_accordionitem.collapsed {
@@ -6132,8 +6131,8 @@ label.webix_required:after {
   font-size: 24px;
   text-align: center;
   width: 24px;
-  height: 48px;
-  margin: 0 12px 0 12px;
+  height: 30px;
+  margin: 0 3px 0 3px;
 }
 .webix_accordionitem .webix_accordionitem_header .webix_accordionitem_button:before {
   content: '\f104';
@@ -6148,8 +6147,8 @@ label.webix_required:after {
   content: '\f107';
 }
 .webix_accordionitem.vertical > .webix_accordionitem_header .webix_accordionitem_button {
-  height: 45px;
-  margin: 0px 12px 0 12px;
+  height: 27px;
+  margin: 0px 3px 0 3px;
 }
 .webix_accordionitem.vertical > .webix_accordionitem_header .webix_accordionitem_button:before {
   content: '\f106';
@@ -6566,7 +6565,7 @@ div.webix_inp_static,
 div.webix_item_tab {
   border-color: #000000;
   padding-top: 3px;
-  font-size: 20px;
+  font-size: 18px;
 }
 div.webix_item_tab.webix_selected {
   padding-top: 2px;

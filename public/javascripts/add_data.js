@@ -290,3 +290,110 @@ function getRiskFactorData(aSelected){
 
 }
 
+//---unemployment data
+
+function sortPercent(a, b) {
+    return a.percent - b.percent
+}
+
+function rankPercent(aObj) {
+    //rank the percent values - where there is a tie take the average
+    var index = 0;
+    while (index < aObj.length) {
+
+        var same = 1
+        while (index + same < aObj.length) {
+            if (aObj[index].percent == aObj[index + same].percent) {
+                same++;
+            } else {
+                break
+            }
+        }
+
+        var avgRank = ((index + 1) + (index + same)) / 2;
+        for (var jndex = index; jndex < (index + same); jndex++) {
+            aObj[jndex].rank = avgRank;
+        }
+        index += same;
+    }
+    return aObj
+}
+
+function getRankBuckets(aObj){
+    aBuckets = [20, 40, 60, 80];
+    aRes = [];
+    for(var index in aBuckets){
+        aRes.push(aObj[Math.round(aObj.length / 100 * aBuckets[index])].rank);
+    }
+    return aRes
+}
+
+function getUnemploymentData(aSelected){
+
+    //create array of obj with id[percent] = sum of percent value  also array of
+    var oUnemployment = {};
+    var aObj = [];
+
+    for(var id in oEntities) {
+
+        oUnemployment[id] = {};
+        oUnemployment[id].rank = "NA"; //default to NA
+        var sumPercent = "NA"; //default to NA
+        for (var index in aSelected) {
+            if(oEntities[id].risks_data.hasOwnProperty(aSelected[index])) {
+                var val = oEntities[id].risks_data[aSelected[index]].percent;
+                var x = Number(val)
+                if (isNaN(x) == false) {
+                    //console.log(aSelected[index] + "-->" + x)
+                    if(sumPercent == "NA"){sumPercent = 0} //if there is data start at 0
+                    sumPercent += x;
+                }
+            }
+        }
+
+        oUnemployment.percent = sumPercent;
+        if(sumPercent != "NA"){
+            var obj = {};
+            obj.id = id;
+            obj.percent = sumPercent;
+            aObj.push(obj);
+        }
+    }
+
+    //rank data
+    aObj.sort(sortPercent);  //sort array of entity objects
+    aObj = rankPercent(aObj);  //rank data (where there are ties take the average
+
+    //add ranks to object
+    for(var index in aObj){
+        var id = aObj[index].id
+        var rank = aObj[index].rank
+        oUnemployment[id].rank = rank
+    }
+
+    //console.log("oUnemployment*****************")
+    //console.log(oUnemployment)
+    //
+    //console.log("aObj***********")
+    //console.log(aObj)
+
+    //get buckets
+    if(aSelected.length > 0) {
+        var aBuckets = getRankBuckets(aObj);
+    } else {
+        var aBuckets = []
+    }
+    //console.log("buckets*************")
+    //console.log(aBuckets)
+
+    var aPath = ["rank"];
+    var up = true;
+    addColors(aBuckets, up, aPath, oUnemployment);
+    addKey(aStandardKey, aKeyLightness);
+
+}
+
+
+
+
+
