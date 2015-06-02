@@ -11,6 +11,7 @@ app.use(bodyParser.json({limit: (5*1024*1000) }));
 
 var mapStyle = require("./data/styledmap.json");
 var oLaTopo = require("./data/yhLaTopo.json");
+var oLaRegionLookup = require("./data/LA_Region_Lookup.json")
 var sQuarter = "2014Q4";
 
 var cdo = require("./create_data_objects.js");
@@ -23,6 +24,7 @@ cdo.getDataObjects(function(oEntities, oNational) {
       quarter: sQuarter,
       mapStyle: mapStyle,
       topoLa: oLaTopo,
+      laRegionLookup: oLaRegionLookup,
       entities: oEntities,
       national: oNational
     });
