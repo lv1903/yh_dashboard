@@ -178,7 +178,7 @@ function getData(sActive, dateIndex){
       var up = true;
       var aPath = ["homeless_data", year + quarter, "p1e", "percent"];
       addColors(aBuckets, up, aPath, oEntities );
-      addKey(aStandardKey, aKeyLightness);
+//      addKey(aStandardKey, aKeyLightness);
   }
 
   if (sActive === "P1E_Missing"){
@@ -187,7 +187,7 @@ function getData(sActive, dateIndex){
       var up = true; //good is low
       var aPath = ["homeless_data", "p1e_missing_count"];
       addColors(aBuckets, up, aPath, oEntities );
-      addKey(aMissingDataKey, aMissingLightness);
+//      addKey(aMissingDataKey, aMissingLightness);
   }
   //
   //if(sActive == $("#btn_Prevention").html()){
