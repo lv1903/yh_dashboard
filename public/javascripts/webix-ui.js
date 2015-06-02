@@ -73,7 +73,7 @@ centrePoint.uiHomelessnessFeatureView = {
   body: {
         id: "homelessnessFeatures",
         view: "template",
-        minWidth: 200,
+        minWidth: 300,
         maxWidth: 1000,
         autoheight: true,
         template: centrePoint.renderFeatureInfo
@@ -85,10 +85,11 @@ centrePoint.uiHomelessnessMap = {
   id: "homelessnessMap",
   view: "google-map",
   //minWidth: 300
-  minWidth: 200,
+  minWidth: 300,
   maxWidth: 1000,
   autoheight: true
 };
+
 
 //************************************************************************
 // Missing data UI
@@ -217,7 +218,7 @@ centrePoint.uiMainLayout = {
       type: "space",
       cols: [
         {
-          minWidth: 300,
+          minWidth: 400,
           //maxWidth: 700,
           rows: [
             {

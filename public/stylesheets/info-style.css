@@ -1,6 +1,6 @@
 #infoCanvas{
-    max-width: 500px;
-    margin: 5px;
+    /*max-width: 500px;*/
+    margin-right: 10px;
 }
 
 .titleText {
@@ -37,7 +37,7 @@
     font-family: Arial;
     font-size: 15px;
     color: #666666;
-    margin: 15px 0 15px 0;
+    margin: 15px 0px 15px 0;
     line-height: 18px;
     text-align: justify;
 }
@@ -87,7 +87,7 @@ hr{
 }
 
 .bulletImg{
-    width: 30px;
+    width: 40px;
     float: left;
     margin-right: 10px;
 }

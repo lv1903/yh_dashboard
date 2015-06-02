@@ -9,7 +9,7 @@ var aDates = [
 function addKey(aKeyValues, aLightnessValues){
 
     //close the info box if there is one
-    infobox.close();
+    //infobox.close();
 
     var ele = document.getElementById("keyContainer")
     if(ele != null) {
@@ -18,10 +18,11 @@ function addKey(aKeyValues, aLightnessValues){
 
     var r = 10;
     var padding = 2;
-    var sidepadding = 5;
+    var heightpadding = 3;
     var fontsize = 18;
-    var h = (r * 2 + padding) + (aKeyValues.length * 2 * r);
-    var w = 100;
+
+    var w =  (r * 2 + 2 * padding) + (aKeyValues.length * r);
+    var h = 24;
 
     var ele = document.createElement("div");
 
@@ -33,26 +34,24 @@ function addKey(aKeyValues, aLightnessValues){
         .on("click", function(){
             centrePoint.showKeyInfo()
         })
-
         .append("svg")
         .attr("id", "keyCanvas")
-        .attr("viewBox", "0 0 " + w + " " + (h) )
-        .classed("svg-content-responsive", true)
-
+        .attr("width", w)
+        .attr("height", h)
 
 
     svg.append("circle")
         .attr("id", "keyQuestionMark")
-        .attr("cx",  w/2)
-        .attr("cy",  r)
+        .attr("cx", (aKeyValues.length * r) + r + padding )
+        .attr("cy",  r + heightpadding)
         .attr("r", r)
         .attr("fill", "black")
 
 
     svg.append("text")
         .text("?")
-        .attr("x", w/2)
-        .attr("y", r + 7)
+        .attr("x", (aKeyValues.length * r) + r + padding)
+        .attr("y", r + 9)
         .attr("font-size", fontsize + "px")
         .attr("font-weight", "bold")
         .attr("text-anchor", "middle")
@@ -63,34 +62,34 @@ function addKey(aKeyValues, aLightnessValues){
         .data(aKeyValues)
         .enter()
         .append("rect")
-        .attr("x", sidepadding)
-        .attr("y", function(d, i){
-            return (r * 2 + padding) + (i * 2 * r);
+        .attr("y", heightpadding)
+        .attr("x", function(d, i){
+            return (padding) + (i * r);
         })
-        .attr("height", r * 2 - padding)
-        .attr("width", w - (2 * sidepadding))
+        .attr("width", r  - padding)
+        .attr("height", h - heightpadding)
         .attr("fill", function(d, i){
             return "hsla(10, 90%, "+ aLightnessValues[i] +"%, 1)"
         })
         .attr("stroke", "black")
 
-    svg.selectAll("text.labels")
-        .data(aKeyValues)
-        .enter()
-        .append("text")
-        .text(function(d) {
-            console.log(d)
-            return d;
-        })
-        .attr("text-anchor", "middle")
-        .attr("x", w/2)
-        .attr("y", function(d, i) {
-            return (r * 2 + fontsize) + (i * 2 * r) - 2;
-        })
-        .attr("font-family", "Arial")
-        .attr("font-size", fontsize - 4 + "px")
-        .attr("fill", "black");
-
+    //svg.selectAll("text.labels")
+    //    .data(aKeyValues)
+    //    .enter()
+    //    .append("text")
+    //    .text(function(d) {
+    //        console.log(d)
+    //        return d;
+    //    })
+    //    .attr("text-anchor", "middle")
+    //    .attr("x", w/2)
+    //    .attr("y", function(d, i) {
+    //        return (r * 2 + fontsize) + (i * 2 * r) - 2;
+    //    })
+    //    .attr("font-family", "Arial")
+    //    .attr("font-size", fontsize - 4 + "px")
+    //    .attr("fill", "black");
+    //
     $$("homelessnessMap")._contentobj.appendChild(ele.firstChild);
 }
 

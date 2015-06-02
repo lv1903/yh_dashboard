@@ -144,98 +144,54 @@ var infobox = new InfoBox();
     showFeature();
   };
 
-  centrePoint.showInfoBox = function(){
-      infobox.close()
-      var gmap = $$("homelessnessMap").map;
-      infobox =  new InfoBox();
-      var contentString ="<div><p>Select data to show</br>from the side bar.</p><p>Or click on your local area on</br>for more details.</p></div>"
-      infobox.setContent(contentString)
-      var myOptions = {
-          disableAutoPan: true,
-          maxWidth: 200,
-          pixelOffset: new google.maps.Size(-100, -100),
-          zIndex: 200,
 
-          boxStyle: {
-              border: "1px solid grey",
-              boxShadow:  '0 5px 5px rgba(0,0,0,.3)',
-              textAlign: "center",
-              fontSize: "12pt",
-              color: "black",
-              font: "Arial",
-              background: "white",
-              opacity: 0.85,
-              //width: w,
-              padding: '5px'
-          },
-          closeBoxMargin: "12px 4px 2px 2px",
-          closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
-          infoBoxClearance: new google.maps.Size(1, 1)
-      }
-      infobox.setPosition(new google.maps.LatLng(53,-2.5))
-      infobox.setOptions(myOptions)
-      infobox.open(gmap)
-  }
 
   centrePoint.showKeyInfo = function() {
-      infobox.close();
-      var gmap = $$("homelessnessMap").map;
-      infobox = new InfoBox();
-
-      var contentString;
+      var template
       if (false === $$("homelessnessView").config.collapsed) {
-
-          contentString = "<div><h4>Map Key</div>"
-                + "<div style='height:200px; width:200px; overflow:auto'>"
-                + "<div style='height:200px'>"
-                + "<p>The local authorities were ranked according to their reported rate of offical youth homelessness.</p>"
-                + "<p>The worst category refers to the 20% of authorities with the highest levels of youth homelessness.</p>"
-                + "<p>The best category refers to the 20% of authorities with the lowest levels of youth homelessness.</p>"
-                + "<p>The colours in between refer to three intervening fifths of local authorities.</p>"
-                + "</div></div>";
+          template = "html->homelessKeyText"
       } else if (false === $$("missingView").config.collapsed) {
-          contentString = "<div><h4>Map Key</div>"
-                + "<div style='height:100px; width:200px; overflow:auto'>"
-                + "<p>How many months of official youth homelessness data are missing.</p>"
-                + "</div></div>";
+          template = "html->missingKeyText"
+      } else if (false === $$("unemploymentView").config.collapsed) {
+          template = "html->unemploymentKeyText"
       } else {
-          contentString = "<div><h4>Map Key</div>"
-                + "<div style='height:200px; width:200px; overflow:auto'>"
-                + "<div style='height:200px'>"
-                + "<p>The local authorities are ranked for each of the related factor that has been selected.</p>"
-                + "<p>An average rank is then calculated for the selected factors.</p>"
-                + "<p>The worst 20% category refers to authorities that on average rank in the worst 20%.</p>"
-                + "<p>The best 20% category refers to authorities that on average rank in the best 20%.</p>"
-                + "<p>The colours in between refer to averages in the three intervening fifths.</p>"
-                + "</div></div>";
+          template = "html->riskFactorKeyText"
       }
 
+      var popupWidth =   $$("homelessnessMap").$width * .8;
+      var popupHeight = $$("homelessnessMap").$width * .8;
+      webix.ui({
+          view:"popup",
+          id:"keyPopup",
+          //scroll: "y",
+          //width: popupWidth,
+          //height: popupHeight,
+          modal: true,
+          css: "popup_box",
+          body: {
+              view: "layout",
+              rows:[
+                  {
+                      view: "button",
+                      width: 30,
+                      height: 30,
+                      align: 'right',
+                      label: "X",
+                      click: "$$('keyPopup').close();"
+                  },
+                  {
+                      width: popupWidth,
+                      //height: popupHeight,
+                      template: template}
+              ]
+          }
+      }).show($$("homelessnessMap")._contentobj, {pos: "left",
+          x:  $$("homelessnessMap").$width / 2 + $$("keyPopup").$width / 2,
+          y: $$("homelessnessMap").$height / 3 -  $$("keyPopup").$height / 2
+      })
 
-      infobox.setContent(contentString)
-      var myOptions = {
-          disableAutoPan: true,
-          maxWidth: 200,
-          pixelOffset: new google.maps.Size(-75, -100),
-          zIndex: 200,
 
-          boxStyle: {
-              border: "1px solid grey",
-              boxShadow: '0 5px 5px rgba(0,0,0,.3)',
-              textAlign: "left",
-              fontSize: "12px",
-              color: "black",
-              font: "Arial",
-              background: "white",
-              opacity: 0.9,
-              padding: '5px'
-          },
-          closeBoxMargin: "0",//"0px 4px 2px 2px",
-          closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
-          infoBoxClearance: new google.maps.Size(1, 1)
-      }
-      infobox.setPosition(new google.maps.LatLng(53, -2.5))
-      infobox.setOptions(myOptions)
-      infobox.open(gmap)
+
   }
 
   // Enable webix debugging.
@@ -275,10 +231,45 @@ var infobox = new InfoBox();
       webix.ui(centrePoint.uiPageLayout);
     }
 
-      //add ocdp logo
-      var ele = document.createElement("div");
-      ele.innerHTML = "<div class='ocdp_floating_logo'><a target='_blank', href='http://nquiringminds.com/'><img src='/images/ocdp.png' /></div>";
-      $$("homelessnessMap")._contentobj.appendChild(ele.firstChild);
+    //add ocdp logo
+    var ele = document.createElement("div");
+    ele.innerHTML = "<div class='ocdp_floating_logo'><a target='_blank', href='http://nquiringminds.com/'><img src='/images/ocdp.png' /></div>";
+    $$("homelessnessMap")._contentobj.appendChild(ele.firstChild);
+
+
+
+    //add initial popup telling users what to do
+    var popupWidth = 250;
+    var popupHeight = 175;
+    webix.ui({
+        view:"popup",
+        id:"initialPopup",
+        width: popupWidth,
+        height: popupHeight,
+        modal: true,
+        css: "popup_box",
+        body: {
+            view: "layout",
+            rows:[
+                {
+                    view: "button",
+                    //css: "popup_close_btn",
+                    width: 30,
+                    height: 30,
+                    align: 'right',
+                    label: "X",
+                    click: "$$('initialPopup').close();"
+                },
+                {
+                    width: 250,
+                    template: "html->initialPopupText"}
+            ]
+        }
+    }).show($$("homelessnessMap")._contentobj, {pos: "left",
+                                                x:  $$("homelessnessMap").$width / 2 + popupWidth / 2,
+                                                y: $$("homelessnessMap").$height / 3 -  $$("initialPopup").$height / 2
+    })
+
 
 
     // Add listeners for click, hover and idle events.
@@ -286,7 +277,7 @@ var infobox = new InfoBox();
     gmap.data.addListener('mouseover', onMouseOverMap);
     gmap.data.addListener('mouseout', onMouseOffMap);
     gmap.data.addListener('click', onFeatureClick);
-    gmap.data.addListener('click', function(){infobox.close()});
+    //gmap.data.addListener('click', function(){infobox.close()});
     gmap.addListener('idle', clearMapBusy);
 
 
@@ -309,7 +300,7 @@ var infobox = new InfoBox();
     }
 
     // add start up info box
-    centrePoint.showInfoBox()
+    //centrePoint.showInfoBox()
 
   });
 

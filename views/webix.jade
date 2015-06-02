@@ -46,8 +46,44 @@ html
                 a(target='_blank', href='https://www.nomisweb.co.uk/query/select/getdatasetbytheme.asp?opt=3&theme=&subgrp') Source
 
         //info text for risk factors
-       div.cp_hidden(id="riskFactorInfoText")
-           p Select the factors related to youth homelessness that you want to map and see which areas are most affected.
+        div.cp_hidden(id="riskFactorInfoText")
+            p Select the factors related to youth homelessness that you want to map and see which areas are most affected.
 
         div.cp_hidden(id="noFeatureData")
             p Click on a region of the map to see details of the population.
+
+        div.cp_hidden(id="initialPopupText")
+            p Select data to show from the side bar.
+            p Or click on your local area on for more details.
+
+
+        div.cp_hidden(id="homelessKeyText")
+            div(style='height:300px; overflow:auto')
+                div(style='height:300px')
+                    p The local authorities were ranked according to their reported rate of offical youth homelessness.
+                    p The dark red category refers to the 20% of authorities with the highest levels of youth homelessness.
+                    p The light pink category refers to the 20% of authorities with the lowest levels of youth homelessness.
+                    p The colours in between refer to three intervening fifths of local authorities.
+                    p And white means there was no data available.
+
+        div.cp_hidden(id="missingKeyText")
+            p How many months of official youth homelessness data are missing.
+            p Dark red means the local authority has 12 months of missing data.
+            p White means the local authority's data is up to date.
+            p The colors in between from dark to light are 9, 6 and 3 months of missing data.
+
+        div.cp_hidden(id="unemploymentKeyText")
+            p The local authorities are ranked according to the rate of young people claiming Jobseekers Allowance.
+            p The dark red category refers to the 20% of authorities with the highest claiment counts.
+            p The light pink category refers to the 20% of authorities with the lowest claiment counts.
+            p The colours in between refer to claiment counts in the three intervening fifths.
+            p And white means there was no data available.
+
+        div.cp_hidden(id="riskFactorsKeyText")
+            p The local authorities are ranked for each of the related factor that has been selected.
+            p An average rank is then calculated for the selected factors.
+            p The worst 20% category refers to authorities that on average rank in the worst 20%.
+            p The best 20% category refers to authorities that on average rank in the best 20%.
+            p The colours in between refer to averages in the three intervening fifths.
+            p And white means there was no data available.
+
