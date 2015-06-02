@@ -34,6 +34,7 @@ cdo.getDataObjects(function(oEntities, oNational) {
     var featureId = req.params["id"];
 
     res.render("webix", {
+      activeView: "feature",
       quarter: sQuarter,
       mapStyle: mapStyle,
       topoLa: oLaTopo,
@@ -63,6 +64,7 @@ cdo.getDataObjects(function(oEntities, oNational) {
     console.log("local");
 
     res.render('localHead', {
+      activeView: "feature",
       oData: oData,
       oNational: oNational
     })
@@ -72,7 +74,18 @@ cdo.getDataObjects(function(oEntities, oNational) {
       res.render('source', {
           activeFeature: "sources"
       })
-  })
+  });
+
+  app.get("/welcome", function(req, res, next) {
+    res.render('webix', {
+      activeView: "welcome",
+      quarter: sQuarter,
+      mapStyle: mapStyle,
+      topoLa: oLaTopo,
+      entities: oEntities,
+      national: oNational
+    });
+  });
 
 });
 

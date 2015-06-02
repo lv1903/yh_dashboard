@@ -7,6 +7,7 @@
 if (typeof window.centrePoint === "undefined") {
   centrePoint = {};
 }
+centrePoint.barHeight = 35;
 
 // Search form used in non-touch scenarios.
 centrePoint.uiSearchForm = {
@@ -15,6 +16,13 @@ centrePoint.uiSearchForm = {
     { view: "search", placeholder: "search", on: { onChange: findAddress } },
     {}
   ]
+};
+
+centrePoint.uiFloatingSearch = {
+  view: "search",
+    container: "searchBox",
+  placeholder: "search",
+  on: { onChange: findAddress }
 };
 
 // Header used in non-touch scenarios.
@@ -28,6 +36,16 @@ centrePoint.uiHeader = {
   ]
 };
 
+centrePoint.uiLegendButton = {
+  view: "button",
+  type: "iconButton",
+  icon: "key",
+  label: "key",
+  width: 70,
+  container: "keyBox",
+  on: { onItemClick: centrePoint.onLegendClick }
+};
+
 //************************************************************************
 // Youth homelessness UI
 //************************************************************************
@@ -36,7 +54,7 @@ centrePoint.uiHeader = {
 centrePoint.uiHomelessnessSideBar = {
   id: "homelessness",
   view: "scrollview",
-  scroll: webix.env.touch ? "y" : false,
+  scroll: "y", //webix.env.touch ? "y" : false,
   body: {
     rows: [
       {
@@ -69,27 +87,71 @@ centrePoint.uiHomelessnessSideBar = {
 centrePoint.uiHomelessnessFeatureView = {
   id: "homelessnessFeatureView",
   view: "scrollview",
-  //scroll: "y",
+  scroll: "y",
   body: {
-        id: "homelessnessFeatures",
-        view: "template",
-        minWidth: 300,
-        maxWidth: 1000,
-        autoheight: true,
-        template: centrePoint.renderFeatureInfo
+    id: "homelessnessFeatures",
+    view: "template",
+    autoheight: true,
+    template: centrePoint.renderFeatureInfo
   }
 };
 
 // Main map view.
 centrePoint.uiHomelessnessMap = {
   id: "homelessnessMap",
-  view: "google-map",
-  //minWidth: 300
-  minWidth: 300,
-  maxWidth: 1000,
-  autoheight: true
+  view: "google-map"
 };
 
+centrePoint.uiSourceView = {
+  id: "sourceView",
+  view: "scrollview",
+  scroll: "y",
+  body: {
+    autoheight: true,
+    template: "html->sourceView"
+  }
+};
+
+centrePoint.uiWelcomeView = {
+  id: "welcomeView",
+  type: "clean",
+  rows: [
+    {
+      template: "html->welcomeInfo"
+    },
+    {
+      view: "button",
+      label: "got it!",
+      width: 200,
+      align: "center",
+      on: { onItemClick: centrePoint.accordionViewChanged }
+    },
+    {
+      gravity: 0.01
+    }
+  ]
+
+};
+
+centrePoint.uiHomelessnessKeyView = {
+  id: "homelessnessKeyView",
+  template: "html->homelessnessKeyText"
+};
+
+centrePoint.uiMissingKeyView = {
+  id: "missingKeyView",
+  template: "html->missingKeyText"
+};
+
+centrePoint.uiUnemploymentKeyView = {
+  id: "unemploymentKeyView",
+  template: "html->unemploymentKeyText"
+};
+
+centrePoint.uiRiskFactorsKeyView = {
+  id: "riskFactorsKeyView",
+  template: "html->riskFactorsKeyText"
+};
 
 //************************************************************************
 // Missing data UI
@@ -98,7 +160,6 @@ centrePoint.uiHomelessnessMap = {
 // Missing data side-bar.
 centrePoint.uiMissingSideBar = {
   id: "missing",
-  borderless: true,
   template: "html->missingDataInfoText"
 };
 
@@ -211,33 +272,38 @@ centrePoint.uiRiskFactorsSideBar = {
 
 centrePoint.uiMainLayout = {
   id: "rootLayout",
-  maxHeight: 700,
-  maxWidth: 1000,
+  type: "line",
   rows: [
     {
-      type: "space",
+      responsive: "rootLayout",
+      type: "line",
       cols: [
         {
-          minWidth: 400,
-          //maxWidth: 700,
           rows: [
             {
               id: "mainHeader",
               view: "toolbar",
-              height: 35,
+              height: centrePoint.barHeight,
               elements: [
-                { view: "button", id: "mapButton", type: "iconButton", icon: "chevron-left", label: "map", width: 70, on: { onItemClick: centrePoint.viewChanged } },
+                { view: "button", id: "mapButton", type: "iconButton", icon: "chevron-left", label: "map", width: 80, on: { onItemClick: centrePoint.accordionViewChanged } },
                 { view: "label", id: "featureLabel", label: "Official youth homelessness"},
-                { view: "button", id: "resetButton", borderless: true, type: "iconButton", icon: "refresh", label: "reset map", width: 110, on: { onItemClick: resetMap } }
+                { view: "button", id: "resetButton", type: "iconButton", icon: "refresh", label: "reset map", width: 110, on: { onItemClick: resetMap } }
               ]
 
             },
             {
               id: "mainPanelView",
               view: "multiview",
+              fitBiggest: true,
               cells: [
                 centrePoint.uiHomelessnessMap,
-                centrePoint.uiHomelessnessFeatureView
+                centrePoint.uiHomelessnessFeatureView,
+                centrePoint.uiSourceView,
+                centrePoint.uiHomelessnessKeyView,
+                centrePoint.uiMissingKeyView,
+                centrePoint.uiUnemploymentKeyView,
+                centrePoint.uiRiskFactorsKeyView,
+                centrePoint.uiWelcomeView
               ]
             }
           ]
@@ -245,41 +311,39 @@ centrePoint.uiMainLayout = {
         {
           view: "accordion",
           id: "viewAccordion",
-
-          width: 310,
+          minWidth: 310,
+          gravity: 0.01,
           type: "line",
           multi: false,
-          responsive: "rootLayout",
           rows: [
-
             {
               header: "Official youth homelessness",
               id: "homelessnessView",
-              headerAltHeight: 30,
-              headerHeight: 30,
+              headerAltHeight: centrePoint.barHeight,
+              headerHeight: centrePoint.barHeight,
               body: centrePoint.uiHomelessnessSideBar
             },
             {
               header: "How much data is missing",
               id: "missingView",
-              headerAltHeight: 30,
-              headerHeight: 30,
+              headerAltHeight: centrePoint.barHeight,
+              headerHeight: centrePoint.barHeight,
               collapsed: true,
               body: centrePoint.uiMissingSideBar
             },
             {
               header: "Youth unemployment",
               id: "unemploymentView",
-              headerAltHeight: 30,
-              headerHeight: 30,
+              headerAltHeight: centrePoint.barHeight,
+              headerHeight: centrePoint.barHeight,
               collapsed: true,
               body: centrePoint.uiUnemploymentSideBar
             },
             {
               header: "Related factors",
               id: "riskFactorsView",
-              headerAltHeight: 30,
-              headerHeight: 30,
+              headerAltHeight: centrePoint.barHeight,
+              headerHeight: centrePoint.barHeight,
               collapsed: true,
               body: centrePoint.uiRiskFactorsSideBar
             }
@@ -313,6 +377,3 @@ centrePoint.uiPageLayout = {
     }
   ]
 };
-
-
-
