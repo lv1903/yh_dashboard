@@ -83,6 +83,7 @@ if (typeof window.centrePoint === "undefined") {
         $$("un_" + name).setValue(this.getValue());
       }
     }
+    showView("map");
     centrePoint.unemploymentSelection();
   };
 
@@ -109,6 +110,8 @@ if (typeof window.centrePoint === "undefined") {
       newMapView = "homelessness";
     } else if (false === $$("missingView").config.collapsed) {
       newMapView = "missing";
+    } else if (false === $$("unemploymentView").config.collapsed) {
+      newMapView = "unemployment";
     } else {
       newMapView = "riskFactors";
     }
@@ -127,6 +130,8 @@ if (typeof window.centrePoint === "undefined") {
           case "missing":
             getHomelessnessData("P1E_Missing", 0);
             break;
+          case "unemploymentView":
+            centrePoint.unemploymentSelection()
           case "riskFactors":
             centrePoint.riskFactorSelection();
             break;
@@ -201,7 +206,10 @@ if (typeof window.centrePoint === "undefined") {
         title = "Official youth homelessness"; // + aDates[index][0] + "/" + aDates[index][1];
         break;
       case "missing":
-        title = "Missing data";
+        title = "How much data is missing";
+        break;
+      case "unemployment":
+        title = "Youth unemployment";
         break;
       case "riskFactors":
         title = "Index of related factors";
@@ -221,7 +229,7 @@ if (typeof window.centrePoint === "undefined") {
 
   function loadMap() {
     if (!centrePoint.mapInitialised) {
-      if (centrePoint.useTouch) {
+      if(centrePoint.useTouch) {
         // In touch mode, add the logo and search box as overlays on the map view
         // to optimise space.
         var ele = document.createElement("div");
@@ -237,12 +245,18 @@ if (typeof window.centrePoint === "undefined") {
         webix.ui(centrePoint.uiFloatingSearch);
       }
 
-      ele = document.createElement("div");
-      ele.innerHTML = "<div class='cp_floating_key' id='keyBox' />";
+      //add ocdp logo
+      var ele = document.createElement("div");
+      ele.innerHTML = "<div class='ocdp_floating_logo'><a target='_blank', href='http://nquiringminds.com/'><img src='/images/ocdp.png' /></div>";
       $$("homelessnessMap")._contentobj.appendChild(ele.firstChild);
 
+
+      //ele = document.createElement("div");
+      //ele.innerHTML = "<div class='cp_floating_key' id='keyBox' />";
+      //$$("homelessnessMap")._contentobj.appendChild(ele.firstChild);
+
       // Create the legend ui
-      webix.ui(centrePoint.uiLegendButton);
+      //webix.ui(centrePoint.uiLegendButton);
 
       // Add listeners for click, hover and idle events.
       var gmap = $$("homelessnessMap").map;
@@ -253,8 +267,11 @@ if (typeof window.centrePoint === "undefined") {
 
       // Initialise the map data.
       initialiseMap(gmap);
-
       centrePoint.mapInitialised = true;
+
+
+      //set zoom
+      //gmap.setOptions({zoom: mapZoom()});
 
       centrePoint.accordionViewChanged();
     }

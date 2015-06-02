@@ -7,7 +7,7 @@
 if (typeof window.centrePoint === "undefined") {
   centrePoint = {};
 }
-centrePoint.barHeight = 35;
+centrePoint.barHeight = 30;
 
 // Search form used in non-touch scenarios.
 centrePoint.uiSearchForm = {
@@ -36,15 +36,15 @@ centrePoint.uiHeader = {
   ]
 };
 
-centrePoint.uiLegendButton = {
-  view: "button",
-  type: "iconButton",
-  icon: "key",
-  label: "key",
-  width: 70,
-  container: "keyBox",
-  on: { onItemClick: centrePoint.onLegendClick }
-};
+//centrePoint.uiLegendButton = {
+//  view: "button",
+//  type: "iconButton",
+//  icon: "key",
+//  label: "key",
+//  width: 70,
+//  container: "keyBox",
+//  on: { onItemClick: centrePoint.onLegendClick }
+//};
 
 //************************************************************************
 // Youth homelessness UI
@@ -135,21 +135,25 @@ centrePoint.uiWelcomeView = {
 
 centrePoint.uiHomelessnessKeyView = {
   id: "homelessnessKeyView",
+  scroll: "y",
   template: "html->homelessnessKeyText"
 };
 
 centrePoint.uiMissingKeyView = {
   id: "missingKeyView",
+  scroll: "y",
   template: "html->missingKeyText"
 };
 
 centrePoint.uiUnemploymentKeyView = {
   id: "unemploymentKeyView",
+  scroll: "y",
   template: "html->unemploymentKeyText"
 };
 
 centrePoint.uiRiskFactorsKeyView = {
   id: "riskFactorsKeyView",
+  scroll: "y",
   template: "html->riskFactorsKeyText"
 };
 
@@ -236,7 +240,13 @@ centrePoint.uiRiskFactorsSideBar = {
           label: "Youth unemployment"
       },
       {template: "Social care", type: "section"},
-      {view: "checkbox", id: "rf_care", name: "care", label: "Children in care"},
+      {
+          view: "checkbox",
+          id: "rf_care",
+          name: "care",
+          label: "Children in care",
+          value: 1
+      },
       {template: "Environment", type: "section"},
       {view: "checkbox", id: "rf_deprivation", name: "deprivation", label: "Index of deprivation"},
       {template: "Education", type: "section"},
@@ -273,6 +283,7 @@ centrePoint.uiRiskFactorsSideBar = {
 centrePoint.uiMainLayout = {
   id: "rootLayout",
   type: "line",
+  maxHeight: 800,
   rows: [
     {
       responsive: "rootLayout",
@@ -285,7 +296,7 @@ centrePoint.uiMainLayout = {
               view: "toolbar",
               height: centrePoint.barHeight,
               elements: [
-                { view: "button", id: "mapButton", type: "iconButton", icon: "chevron-left", label: "map", width: 80, on: { onItemClick: centrePoint.accordionViewChanged } },
+                { view: "button", id: "mapButton",  type: "iconButton", icon: "chevron-left", label: "map", width: 80, on: { onItemClick: centrePoint.accordionViewChanged } },
                 { view: "label", id: "featureLabel", label: "Official youth homelessness"},
                 { view: "button", id: "resetButton", type: "iconButton", icon: "refresh", label: "reset map", width: 110, on: { onItemClick: resetMap } }
               ]
@@ -294,6 +305,7 @@ centrePoint.uiMainLayout = {
             {
               id: "mainPanelView",
               view: "multiview",
+              minWidth: 400,
               fitBiggest: true,
               cells: [
                 centrePoint.uiHomelessnessMap,

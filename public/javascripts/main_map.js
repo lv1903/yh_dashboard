@@ -3,7 +3,7 @@
 var map;
 var oGeoLa = topojson.feature(oLaTopo, oLaTopo.objects.collection);
 var initialCenter = new google.maps.LatLng(53,-2.5);
-var initialZoom = 6;
+var initialZoom;
 
 function getIdList(oGeo){
     var aList = [];
@@ -14,17 +14,14 @@ function getIdList(oGeo){
 }
 var aLaList = getIdList(oGeoLa);
 
-//function extend_bounds(bounds, arr){
-//    arr.forEach(function(path){
-//        path.getArray().forEach(function(latLng){
-//            bounds.extend(latLng);
-//        });
-//    });
-//    return bounds
-//}
-
 function initialiseMap(gmap) {
   map = gmap;
+
+  if ($$("homelessnessMap").$height < 330) {
+    initialZoom = 5;
+  } else {
+    initialZoom = 6;
+  }
 
   map.setOptions({
     center: initialCenter,

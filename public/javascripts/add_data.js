@@ -8,8 +8,7 @@ var aDates = [
 
 function addKey(aKeyValues, aLightnessValues){
 
-    //close the info box if there is one
-    //infobox.close();
+    console.log("here")
 
     var ele = document.getElementById("keyContainer")
     if(ele != null) {
@@ -32,7 +31,7 @@ function addKey(aKeyValues, aLightnessValues){
         .classed("svg-container", true)
         .attr("id", "keyContainer")
         .on("click", function(){
-            centrePoint.showKeyInfo()
+            centrePoint.onLegendClick()
         })
         .append("svg")
         .attr("id", "keyCanvas")
@@ -73,23 +72,6 @@ function addKey(aKeyValues, aLightnessValues){
         })
         .attr("stroke", "black")
 
-    //svg.selectAll("text.labels")
-    //    .data(aKeyValues)
-    //    .enter()
-    //    .append("text")
-    //    .text(function(d) {
-    //        console.log(d)
-    //        return d;
-    //    })
-    //    .attr("text-anchor", "middle")
-    //    .attr("x", w/2)
-    //    .attr("y", function(d, i) {
-    //        return (r * 2 + fontsize) + (i * 2 * r) - 2;
-    //    })
-    //    .attr("font-family", "Arial")
-    //    .attr("font-size", fontsize - 4 + "px")
-    //    .attr("fill", "black");
-    //
     $$("homelessnessMap")._contentobj.appendChild(ele.firstChild);
 }
 
@@ -178,7 +160,7 @@ function getData(sActive, dateIndex){
       var up = true;
       var aPath = ["homeless_data", year + quarter, "p1e", "percent"];
       addColors(aBuckets, up, aPath, oEntities );
-//      addKey(aStandardKey, aKeyLightness);
+      addKey(aStandardKey, aKeyLightness);
   }
 
   if (sActive === "P1E_Missing"){
@@ -187,7 +169,7 @@ function getData(sActive, dateIndex){
       var up = true; //good is low
       var aPath = ["homeless_data", "p1e_missing_count"];
       addColors(aBuckets, up, aPath, oEntities );
-//      addKey(aMissingDataKey, aMissingLightness);
+      addKey(aMissingDataKey, aMissingLightness);
   }
   //
   //if(sActive == $("#btn_Prevention").html()){
