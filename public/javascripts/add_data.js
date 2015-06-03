@@ -132,11 +132,16 @@ function selectcolor(n, aBuckets, up){
 
 
 function addColors(aBuckets, up, aPath, obj){
+    console.log("add colors obj:")
+    console.log(obj["E07000240"])
     map.data.setStyle(function(feature) {
         var id = feature.getProperty('geo_code');
         //console.log(aPath[1])
         //console.log(oEntities[id][aPath[0]])
         var n = jsonPath(0, aPath, obj[id]);
+
+        if(id == "E07000240"){console.log(id + " n:");console.log(obj[id]); console.log(n); console.log(aPath)}
+
         if(n == 0){n = "zero"} //to give white color
         var color = selectcolor(n, aBuckets, up);
         return {
@@ -213,6 +218,9 @@ function getRiskFactorData(aSelected){
     riskOrder.mentalhealth = true;
     riskOrder.truancy = true;
     riskOrder.unemployment_total = true;
+    riskOrder["unemployment_0-6m"] = true;
+    riskOrder["unemployment_6-12m"] = true;
+    riskOrder.unemployment_over12m = true;
 
     var oRiskIndex = {};
     for(id in oEntities) {
@@ -265,6 +273,7 @@ function getRiskFactorData(aSelected){
 
     var up = true;
     aPath = ["average"];
+    console.log("risk factors calls add colors")
     addColors(aBuckets, up, aPath, oRiskIndex)
     addKey(aStandardKey, aKeyLightness);
     //$(".riskFactorsModal").modal("hide");
@@ -369,6 +378,9 @@ function getUnemploymentData(aSelected){
 
     var aPath = ["rank"];
     var up = true;
+    console.log("oUnemployment:")
+    console.log(oUnemployment)
+    console.log("unemployment calls add colors")
     addColors(aBuckets, up, aPath, oUnemployment);
     addKey(aStandardKey, aKeyLightness);
 

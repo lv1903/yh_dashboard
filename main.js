@@ -11,7 +11,6 @@ app.use(bodyParser.json({limit: (5*1024*1000) }));
 
 var mapStyle = require("./data/styledmap.json");
 var oLaTopo = require("./data/yhLaTopo.json");
-var oLaRegionLookup = require("./data/LA_Region_Lookup.json")
 var sQuarter = "2014Q4";
 
 var cdo = require("./create_data_objects.js");
@@ -19,12 +18,19 @@ var cdo = require("./create_data_objects.js");
 cdo.getDataObjects(function(oEntities, oNational) {
   console.log("got data objects");
 
+var dProblemBoundaries = {
+    "E07000242": "pb",
+    "E06000057": "pb",
+    "E07000240": "pb",
+    "E07000241": "pb",
+    "E07000243": "pb"
+}
+
   app.get("/", function(req,res) {
     res.render("webix", {
       quarter: sQuarter,
       mapStyle: mapStyle,
       topoLa: oLaTopo,
-      laRegionLookup: oLaRegionLookup,
       entities: oEntities,
       national: oNational
     });
@@ -45,14 +51,21 @@ cdo.getDataObjects(function(oEntities, oNational) {
   });
 
   app.get('/ajaxFeature/:id', function(req, res) {
-    var id = req.params["id"];
-    var oData = oEntities[id];
 
-    var yhCount = oData.homeless_data["2014Q4"].p1e.count;
-    res.render('feature', {
-      oData: oData,
-      oNational: oNational
-    })
+      var id = req.params["id"];
+
+      if(dProblemBoundaries.hasOwnProperty(id)) {
+          res.render('feature_error')
+
+      } else {
+
+          var oData = oEntities[id];
+          var yhCount = oData.homeless_data["2014Q4"].p1e.count;
+          res.render('feature', {
+              oData: oData,
+              oNational: oNational
+          })
+      }
   });
 
   app.get('/local/:id', function(req, res){

@@ -130,8 +130,9 @@ if (typeof window.centrePoint === "undefined") {
           case "missing":
             getHomelessnessData("P1E_Missing", 0);
             break;
-          case "unemploymentView":
+          case "unemployment":
             centrePoint.unemploymentSelection()
+            break
           case "riskFactors":
             centrePoint.riskFactorSelection();
             break;

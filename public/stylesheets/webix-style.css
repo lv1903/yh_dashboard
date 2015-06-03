@@ -126,4 +126,5 @@ html {
      bottom: 30px;
      right: 10px;
      z-index: 9000;
+     cursor: pointer;
 }

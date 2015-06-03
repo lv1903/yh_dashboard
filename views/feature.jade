@@ -31,8 +31,6 @@
 
 #infoCanvas
 
-    //h1#Name #{oData.name} #{oData.id}
-
     #title.headParent
         p.titleText Youth Homelessness in your area
 
@@ -112,11 +110,11 @@
     - var core_priority = oData.homeless_data["2014Q1"].core_priority.count;
     - var core_non_priority = oData.homeless_data["2014Q1"].core_non_priority.count;
 
-    -console.log(oLaRegionLookup)
-
     #priorityRate.normText For example #{''}
         span.bigNumber #{core_priority + core_non_priority}
-        span.normText #{''} were housed in REGION?. Only #{''}
+        span.normText #{''} were housed in the
+        span.nameText #{''} #{oData.region}
+        span.normText . Of these only #{''}
         span.bigNumber #{Math.round(core_priority /(core_priority + core_non_priority) * 100)}%
         span.normText #{''} of these young people had met official criteria and are included in official statistics.
 

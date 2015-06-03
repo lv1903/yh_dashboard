@@ -11,7 +11,6 @@ html
         script.
             var sQuarter = !{JSON.stringify(quarter)};
             var oLaTopo = !{JSON.stringify(topoLa)};
-            //var oLaRegionLookup = !{JSON.stringify(laRegionLookup)};
             var mapStyle = !{JSON.stringify(mapStyle)};
             var oEntities = !{JSON.stringify(entities)};
             var oNational = !{JSON.stringify(national)};
@@ -24,6 +23,10 @@ html
         script(type="text/javascript").
             var preLoadView = '#{ activeView ? activeView : "map" }';
             var preLoadFeature = '#{ activeFeature ? activeFeature : "" }';
+
+        script.
+            console.log(oEntities)
+
     body
         // info text for the homelessness data
         div.cp_hidden(id="homelessnessInfoText")

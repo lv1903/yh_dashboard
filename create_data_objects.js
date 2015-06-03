@@ -233,7 +233,10 @@ function getCoreData(oEntities, oNational, callback){
                 var doc = docs[index];
                 var id = doc.id;
 
+
                 if(oEntities.hasOwnProperty(doc.id)){
+
+                    oEntities[id].region = doc.value.region;
 
                     for(Q in doc.value.data.quarterly_data){
 
