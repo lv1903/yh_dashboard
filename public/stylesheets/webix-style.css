@@ -110,16 +110,9 @@ html {
     border-color: black;
 }
 
-/*.webix_accordionitem_header #riskFactorsInfo{*/
-    /*color: red;*/
-    /*height: 20px;*/
-    /*headerAltHeight: 50px;*/
-    /*headerHeight: 48px;*/
-/*}*/
-
-/*.webix_view .webix_control .webix_el_button {*/
-    /*margin-top: 0;*/
-/*}*/
+.webix_img_btn_abs .webixtype_base{
+    height: 20px;
+}
 
 #keyContainer {
      position: absolute;

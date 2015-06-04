@@ -5,6 +5,8 @@ var oGeoLa = topojson.feature(oLaTopo, oLaTopo.objects.collection);
 var initialCenter = new google.maps.LatLng(53,-2.5);
 var initialZoom;
 
+var marker = "no marker";
+
 function getIdList(oGeo){
     var aList = [];
     for(var index = 0; index < oGeo.features.length; index++){
@@ -40,6 +42,12 @@ function initialiseMap(gmap) {
 }
 
 function resetMap() {
+
+    if(marker != "no marker"){
+        marker.setMap(null);
+        marker = "no marker";
+    }
+
     map.setCenter(initialCenter);
     var zoom;
     if($$("homelessnessMap").$height < 330){

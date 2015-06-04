@@ -231,7 +231,7 @@ centrePoint.uiRiskFactorsSideBar = {
   elements: [
       //{view: "checkbox", label: "Select all", on: {onItemClick: centrePoint.riskFactorSelectAll}},
       {template: "html->riskFactorInfoText", height: 60, css: "cp_riskFactorIntro" },
-      {view: "button", value: "more details...", on: { onItemClick: centrePoint.onSourceClick }},
+      {view: "button", value: "more details...", inputWidth: 120, on: { onItemClick: centrePoint.onSourceClick }},
       {template: "Economy", type: "section"},
       {
           view: "checkbox",

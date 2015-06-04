@@ -5,6 +5,8 @@ if (typeof window.centrePoint === "undefined") {
   centrePoint = {};
 }
 
+
+
 (function() {
   var activeMap = "";
   var activeFeatureId = "";
@@ -162,6 +164,7 @@ if (typeof window.centrePoint === "undefined") {
   webix.ready(function() {
     if (centrePoint.useTouch) {
       // On a touch-screen device.
+      webix.Touch.limit();
       webix.ui.fullScreen();
 
       // Create the webix ui.
@@ -177,6 +180,9 @@ if (typeof window.centrePoint === "undefined") {
     $$("viewAccordion").attachEvent("onAfterExpand",  centrePoint.accordionViewChanged);
 
     activeFeatureId = preLoadFeature;
+
+
+
     showView(preLoadView);
   });
 
@@ -200,6 +206,8 @@ if (typeof window.centrePoint === "undefined") {
   }
 
   function setHeaderTitle() {
+
+    //alert("here")
     var title = "";
     switch (activeMap) {
       case "homelessness":
@@ -282,6 +290,7 @@ if (typeof window.centrePoint === "undefined") {
     if (!webix.env.touch) {
       activeFeatureId = event.feature.getProperty('geo_code');
       activeFeatureName = event.feature.getProperty('geo_label');
+      console.log(activeFeatureName)
       setHeaderTitle();
     }
   }
@@ -308,6 +317,8 @@ if (typeof window.centrePoint === "undefined") {
     $$("mapButton").show();
     $$("resetButton").hide();
     $$("viewAccordion").show();
+
+
 
     switch(view) {
       case "map":
@@ -336,6 +347,16 @@ if (typeof window.centrePoint === "undefined") {
         $$("mainPanelView").setValue(activeMap + "KeyView");
         break;
     }
+
+    //--Hack to over ride webix javascript coding of margin and height
+    $$("mapButton")._contentobj.style["margin-top"] = "0px";
+    $$("mapButton")._contentobj.style["height"] = "30px";
+    $$("mapButton")._contentobj.childNodes[0].style["height"] = "30px";
+
+    $$("resetButton")._contentobj.style["margin-top"] = "0px";
+    $$("resetButton")._contentobj.style["height"] = "30px";
+    $$("resetButton")._contentobj.childNodes[0].style["height"] = "30px";
+
     setHeaderTitle();
   }
 }());

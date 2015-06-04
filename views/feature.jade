@@ -29,6 +29,9 @@
 -   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 - }
 
+
+
+
 #infoCanvas
 
     #title.headParent
@@ -344,11 +347,12 @@
 
         //------------------------------------------------------
 
-        #healthDiv
+        #emailDiv
             img.bulletImg(src="/images/mail-red.png")
             p.normText If you would like to find out more about how Centrepoint supports homeless young #{''}
                 span people and how you can get involved, please contact the Policy and Public Affairs team: #{''}
-                span policy@centrepoint.org.
+                span.nameText(onclick='window.location = "mailto:policy@centrepoint.org?subject=Youth homelessness your area"') policy@centrepoint.org
+                span.normText .
 
         hr
 
