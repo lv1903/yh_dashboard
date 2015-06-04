@@ -6,6 +6,7 @@ html
         script(type="text/javascript", src="/webix/webix_debug.js")
         script(type="text/javascript", src="http://maps.google.com/maps/api/js?sensor=true")
         script(type="text/javascript", src="/javascripts/webix-googlemap.js")
+
         script(src="http://d3js.org/d3.v3.min.js")
         script(src="http://d3js.org/topojson.v1.min.js")
         script.
@@ -32,8 +33,8 @@ html
         div.cp_hidden(id="homelessnessInfoText")
             p 16-24 year olds accepted as eligible, unintentionally homeless and in priority need.
             p This data will not include most single homeless people as they are not classed as in priority need.
-            p Where the DCLG has supressed counts of less than 5 they are reported as not available.
-            p Where the count is less than 5 we have reported 5.
+            p Where the DCLG has supressed counts of fewer than 5 they are reported as not available.
+            p Where the count is fewer than 5 we have reported 5.
             p
                 a(target="_blank" href='https://www.gov.uk/government/statistical-data-sets/live-tables-on-homelessness#detailed-local-authority-level-responses') Source
 
@@ -59,31 +60,31 @@ html
         div.cp_hidden(id="sourceView")
             h2 Economy
             h3 Youth Unemployment
-            p Count of young people aged 16 to 24 claiming job seekers allowance.
+            p Count of young people aged 16 to 24 claiming Jobseekers Allowance.
             a(target='_blank', href='https://www.nomisweb.co.uk/query/select/getdatasetbytheme.asp?opt=3&theme=&subgrp') Source
             hr
             h2 Social care
             h3 Children in care
-            p Rate of children 18 and under years old looked after by their local authority in year ending 31st March 2014.
-            p Non Metropolitan Districts record their County's value
+            p Rate of children 18 and under looked after by their local authority in year ending 31st March 2014.
+            p Non Metropolitan Districts record their County's value.
             a(target='_blank',href='https://www.gov.uk/government/statistics/children-looked-after-in-england-including-adoption--2') Source
             hr
             h2 Enviroment
             h3 Index of deprivation
             p The concentration of deprivation relative to other local authorities.
-            p Calculated by comparing most deprived areas in each authority.
+            p Calculated by comparing most deprived areas in each authority, according to their relative rankings on a number of different measures of deprivation.
             a(href='https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/6884/1871689.xls') Source
             hr
             h2 Education
             h3 2 or more A levels or equivalent
-            p Percentage of 19 year olds educated to level 3 in the local authority. Level 3 education equates to achievement of 2 or more A-levels or equivalent size vocational qualifications."
-            p Non Metropolitan Districts record their County's value
+            p Percentage of 19 year olds educated to level 3 in the local authority. Level 3 education equates to achievement of 2 or more A-levels or equivalent size vocational qualifications.
+            p Non Metropolitan Districts record their County's value.
             a(href='https://www.gov.uk/government/statistics/level-2-and-3-attainment-by-young-people-aged-19-in-2014') Source
             br
             br
             h3 Achievement gap
-            p Difference in percentages of children eligible for free school meals (FSM) or with special educational needs (SEN) attaining level 3 from children not eligible for FSM or SEN attaining level 3. Level 3 education equates to achievement of 2 or more A-levels or equivalent size vocational qualifications."
-            p Non Metropolitan Districts record their County's value
+            p Difference in percentages of children eligible for free school meals (FSM) or with special educational needs (SEN) attaining level 3 from children not eligible for FSM or SEN attaining level 3. Level 3 education equates to achievement of 2 or more A-levels or equivalent size vocational qualifications.
+            p Non Metropolitan Districts record their County's value.
             a(href='https://www.gov.uk/government/statistics/level-2-and-3-attainment-by-young-people-aged-19-in-2014') Source
             br
             br
@@ -116,7 +117,8 @@ html
                     img(src="/images/welcomeMap.png", alt="welcome map")
             p Use the side-bar on the right to select and filter the data that is shown.
             p Click on the map to see more details for the local area.
-            p This visualisation was built using the <a href='//nquiringminds.com/nquiringminds-selected-as-data-integration-platform-for-uk-future-cities-program/'>Open City Data Platform (OCDP)</a>, developed by <a href='//nqminds.com'>NQuiringMinds</a>. The OCDP is a data integration platform that connects data sets and data sources. It is built using open, non-proprietary application programming interfaces and data formats in order to maximise the interoperability between data and services.
+            p This visualisation was built using the <a href='//nquiringminds.com/nquiringminds-selected-as-data-integration-platform-for-uk-future-cities-program/'>Open City Data Platform (OCDP)</a>.
+                //, developed by <a href='//nqminds.com'>NQuiringMinds</a>. The OCDP is a data integration platform that connects data sets and data sources. It is built using open, non-proprietary application programming interfaces and data formats in order to maximise the interoperability between data and services.
             p
                 a(href='//nquiringminds.com/nquiringminds-selected-as-data-integration-platform-for-uk-future-cities-program/')
                     img(alt="ocdp logo", height="30", src="/images/ocdp.png")

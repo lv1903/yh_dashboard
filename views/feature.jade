@@ -32,7 +32,7 @@
 #infoCanvas
 
     #title.headParent
-        p.titleText Youth Homelessness in your area
+        p.titleText Youth homelessness in your area
 
     //---------------------------------
 
@@ -53,24 +53,33 @@
     #p1e
     if oData.homeless_data.p1e_missing_count > 0
 
-        #missingMonths.normText
+        #missingMonths.normText It's been #{''}
             span.bigNumber #{oData.homeless_data.p1e_missing_count} #{''}
-            span.normText months since #{oData.name} reported.
+            span.normText months since #{''}
+            span.nameText #{oData.name} #{''}
+            span.normText last reported the number of young people accepted as homeless.
 
         - var n = oData.homeless_data.p1e_last_count;
+        - var rate;
+        - if(n != "-"){
+        -   rate = Math.round(n / oData.population_16to24 * 10000);
+        - }
         - var a = oNational.homeless_data["2014Q4"].p1e.quintiles;
         - var color = "color:" + selectcolor(n, a, true);
 
         if(n == "-")
-            #lastP1eCount.normText The last reported count was less than 5 over a 3 month period.
+            #lastP1eCount.normText The last reported count was less than 5 young people over a 3 month period.
         else
             #lastP1eCount.normText The last reported count was #{''}
                 span.bigNumber #{n}
-                span.normText #{''} over a 3 month period.
+                span.normText #{''} young people over a 3 month period. This was a rate of #{''}
+                span.bigNumber #{rate} #{''}
+                span.normText young people per 10,000 16-24 year olds every 3 months.
 
     else
 
         - var n = oData.homeless_data["2014Q4"].p1e.count;
+        - var rate = Math.round(n / oData.population_16to24 * 10000)
         - var a = oNational.homeless_data["2014Q4"].p1e.quintiles;
         - var color = "color:" + selectcolor(n, a, true);
 
@@ -82,10 +91,11 @@
                 span.normText #{''} homeless young people reported in #{oData.name} in the last 3 months.
 
             #p1eRate.normText This is a rate of #{''}
-                span.bigNumber #{Math.round(oData.homeless_data["2014Q4"].p1e.percent * 100)}
+                //span.bigNumber #{Math.round(oData.homeless_data["2014Q4"].p1e.percent * 100)}
+                span.bigNumber #{rate}
                 span.normText #{''} young people per 10,000 being reported as homeless every 3 months.
 
-    #p1eNationalRate.normText The national average is #{''}
+    #p1eNationalRate.normText Compared to a national average of #{''}
         span.bigNumber #{Math.round(oNational.homeless_data["2014Q4"].p1e.median * 100)}
         span.normText  #{''} per 10,000 16-24 year olds.
 
@@ -104,19 +114,18 @@
         img.bulletImg(src="/images/red-house.png")
         p.normText It only includes those in ‘priority need’ such as care leavers and people with children, #{''}
             span.normText and so will not include most single homeless young people.
-    p.normText The actual real number of young #{''}
-        span.normText homeless young people is likely to be much higher.
+    p.normText The actual real number of homeless young people is likely to be much higher.
 
     - var core_priority = oData.homeless_data["2014Q1"].core_priority.count;
     - var core_non_priority = oData.homeless_data["2014Q1"].core_non_priority.count;
 
     #priorityRate.normText For example #{''}
         span.bigNumber #{core_priority + core_non_priority}
-        span.normText #{''} were housed in the
-        span.nameText #{''} #{oData.region}
-        span.normText . Of these only #{''}
+        span.normText #{''} young people were housed in the
+        span.nameText #{''} #{oData.region} #{''}
+        span.normText in the first three months of 2014 by housing associations because they were homeless. Only #{''}
         span.bigNumber #{Math.round(core_priority /(core_priority + core_non_priority) * 100)}%
-        span.normText #{''} of these young people had met official criteria and are included in official statistics.
+        span.normText #{''} of these young people met official criteria and were included in the official homelessness statistics.
 
     hr
 
@@ -142,6 +151,11 @@
 
     #risk
 
+        #unemployment.headParent
+            p.headTextSmall Youth unemployment
+
+        //----Total unemployment
+
         - var risk = "unemployment_total"
         - var n = Math.round(Number(oData.risks_data[risk].percent)* 10) / 10; // want 1 decimal place
         - var a = oNational.risks_data[risk].quintiles
@@ -151,13 +165,13 @@
         //p.headText Youth on Job Seekers Allowance
         p.normText
             span.bigNumber #{n}%
-            span.normText  #{''} of 16-24 year olds are claiming Jobseeker's Allowance in #{''}
+            span.normText  #{''} of 16 to 24 year olds are claiming Jobseeker’s Allowance in #{''}
             span.nameText #{oData.name}
             span.normText . This compares to #{''}
             span.bigNumber #{nAvg}%
             span.normText #{''} nationally.
 
-        //------------------------------------------------
+        //-----Over 12 months unemployemnt
 
         - var risk = "unemployment_over12m"
         - var n = Math.round(Number(oData.risks_data[risk].percent)* 10) / 10; // want 1 decimal place
@@ -167,8 +181,7 @@
 
         p.normText
             span.bigNumber #{n}%
-            span.normText  #{''} of 16-24 year olds have been claiming Jobseeker's Allowance for over 12 months. #{''}
-            span.normText This compares to #{''}
+            span.normText  #{''} of 16 to 24 year olds are claiming Jobseeker’s Allowance for more than 12 months. This compared to #{''}
             span.bigNumber #{nAvg}%
             span.normText #{''} nationally.
 
@@ -179,11 +192,11 @@
         #otherFactorsText
 
             #other.headParent
-                p.headTextSmall Other factors related to youth homelessness
+                p.headTextSmall Other factors relating to youth homelessness
 
             #riskDiv
                 img.bulletImg(src="/images/risk-red.png")
-                p.normText Homeless young people are affected by the following factors in a disproportionately negative way but are less likely to access the positive opportunities available to young people.
+                p.normText Homeless young people are affected by the following factors in a disproportionately negative way and are less likely to be able to access the positive opportunities available to other young people.
 
         #social.headParent
             p.headText Social care
@@ -196,7 +209,7 @@
 
         p.normText
             span.bigNumber #{n}
-            span.normText #{''} per 10,000 are in care in #{''}
+            span.normText #{''} per 10,000 children are in care in #{''}
             span.nameText #{oData.name}
             span.normText , compared to the national average of #{''}
             span.bigNumber #{nAvg}
@@ -222,7 +235,7 @@
                 span.bigNumber #{n}
                 span.normText #{''} out of #{''}
                 span.bigNumber 326
-                span.normText #{''} local authorities. Where low ranks indicate high levels of deprivation.
+                span.normText #{''} local authorities, where low ranks indicate high levels of deprivation.
 
         hr
 
@@ -263,17 +276,17 @@
         //------------------------------------------------
 
         - var risk = "apprenticeship"
-        - var n = Math.round(Number(oData.risks_data[risk].percent)* 10) / 10; // want 1 decimal place
+        - var n = Math.round(Number(oData.risks_data[risk].percent) * 10); //
         - var a = oNational.risks_data[risk].quintiles
         - var color = "color:" + selectcolor(n, a, false);
-        - var nAvg = Math.round(oNational.risks_data[risk].median* 10) / 10; // want 1 decimal place;
+        - var nAvg = Math.round(oNational.risks_data[risk].median * 10); // want 1 decimal place;
 
         p.normText
             span.bigNumber #{n}
-            span.normText  #{''} young people per 1,000 have started an apprenticeship in the last year, #{''}
+            span.normText  #{''} young people per 10,000 have started an apprenticeship in the last year, #{''}
             span.normText compared to the national average of #{''}
             span.bigNumber #{nAvg}
-            span.normText #{''} per 1,000.
+            span.normText #{''} per 10,000.
 
         //------------------------------------------------
 
@@ -307,18 +320,18 @@
             img.bulletImg(src="/images/healthbuilding-red.png")
             p.normText There are #{''}
                 span.bigNumber #{n}
-                span.normText #{''} emergency hospital admissions for under 24s per 10,000 every year #{''}
-                span.normText compred to the national average of #{''}
+                span.normText #{''} emergency hospital admissions for under 24s per 10,000 per year, #{''}
+                span.normText compared to the national average of #{''}
                 span.bigNumber #{nAvg}
                 span.normText #{''} per 10,000.
 
         //-------------------------------------------------
 
         - var risk = "mentalhealth";
-        - var n = Math.round(Number(oData.risks_data[risk].percent)* 10);
+        - var n = Math.round(Number(oData.risks_data[risk].percent)* 10) / 10;
         - var a = oNational.risks_data[risk].quintiles
         - var color = "color:" + selectcolor(n, a, true);
-        - var nAvg = Math.round(oNational.risks_data[risk].median* 10);
+        - var nAvg = Math.round(oNational.risks_data[risk].median* 10) / 10;
 
         p.normText
             span.bigNumber #{n}%
@@ -335,7 +348,7 @@
             img.bulletImg(src="/images/mail-red.png")
             p.normText If you would like to find out more about how Centrepoint supports homeless young #{''}
                 span people and how you can get involved, please contact the Policy and Public Affairs team: #{''}
-                span policy@centrepoint.org
+                span policy@centrepoint.org.
 
         hr
 
