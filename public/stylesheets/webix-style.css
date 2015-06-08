@@ -110,9 +110,9 @@ html {
     border-color: black;
 }
 
-.webix_img_btn_abs .webixtype_base{
-    height: 20px;
-}
+/*.webix_img_btn_abs .webixtype_base{*/
+    /*height: 20px;*/
+/*}*/
 
 #keyContainer {
      position: absolute;

@@ -297,6 +297,11 @@ centrePoint.uiMainLayout = {
               height: centrePoint.barHeight,
               elements: [
                 { view: "button", id: "mapButton",  type: "iconButton", icon: "chevron-left", label: "map", width: 80, on: { onItemClick: centrePoint.accordionViewChanged } },
+                { view: "label", id: "mapButtonRight", label: "|", width: 20},
+                { view: "button", id: "mailButton",  type: "iconButton", icon: "envelope-o", label: "mail", width: 80, on: { onItemClick: centrePoint.createMail } },
+                { view: "label", id: "mailButtonRight", label: "|", width: 20},
+                { view: "button", id: "pdfButton",  type: "iconButton", icon: "file-pdf-o", label: "pdf", width: 80, on: { onItemClick: centrePoint.createPdf } },
+                //{ view: "icon", id: "mailButton",  type: "icon", icon: "mail", width: 80}, //, on: { onItemClick: centrePoint.accordionViewChanged } },
                 { view: "label", id: "featureLabel", label: "Official youth homelessness"},
                 { view: "button", id: "resetButton", type: "iconButton", icon: "refresh", label: "reset map", width: 110, on: { onItemClick: resetMap } }
               ]

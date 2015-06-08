@@ -147,6 +147,12 @@ if (typeof window.centrePoint === "undefined") {
     }
   };
 
+  centrePoint.createPdf = function(){
+      //alert(activeFeatureId)
+      webix.ajax().get("/featurePdf/" + activeFeatureId)
+
+  }
+
   centrePoint.onSourceClick = function() {
     showView("source");
   };
@@ -315,6 +321,10 @@ if (typeof window.centrePoint === "undefined") {
 
   function showView(view) {
     $$("mapButton").show();
+    $$("mapButtonRight").show();
+    $$("mailButton").show();
+    $$("mailButtonRight").show();
+    $$("pdfButton").show();
     $$("resetButton").hide();
     $$("viewAccordion").show();
 
@@ -323,6 +333,10 @@ if (typeof window.centrePoint === "undefined") {
     switch(view) {
       case "map":
         $$("mapButton").hide();
+        $$("mapButtonRight").hide();
+        $$("mailButton").hide();
+        $$("mailButtonRight").hide();
+        $$("pdfButton").hide();
         $$("resetButton").show();
         $$("mainPanelView").setValue("homelessnessMap");
         loadMap();
@@ -330,6 +344,7 @@ if (typeof window.centrePoint === "undefined") {
         break;
       case "feature":
         // Get feature view to render with new selection.
+        //$$("mailButton").show();
         $$("homelessnessFeatures").refresh();
         // Make sure feature view is visible.
         $$("homelessnessFeatureView").scrollTo(0,0);
@@ -349,13 +364,21 @@ if (typeof window.centrePoint === "undefined") {
     }
 
     //--Hack to over ride webix javascript coding of margin and height
-    $$("mapButton")._contentobj.style["margin-top"] = "0px";
-    $$("mapButton")._contentobj.style["height"] = "30px";
-    $$("mapButton")._contentobj.childNodes[0].style["height"] = "30px";
+    var aBtns = [$$("mapButton"), $$("resetButton"), $$("mailButton"), $$("pdfButton")];
+    for(var index in aBtns){
+        var ele = aBtns[index];
+        ele._contentobj.style["margin-top"] = "0px";
+        ele._contentobj.style["height"] = "30px";
+        ele._contentobj.childNodes[0].style["height"] = "30px";
 
-    $$("resetButton")._contentobj.style["margin-top"] = "0px";
-    $$("resetButton")._contentobj.style["height"] = "30px";
-    $$("resetButton")._contentobj.childNodes[0].style["height"] = "30px";
+    }
+
+
+
+    //
+    //$$("resetButton")._contentobj.style["margin-top"] = "0px";
+    //$$("resetButton")._contentobj.style["height"] = "30px";
+    //$$("resetButton")._contentobj.childNodes[0].style["height"] = "30px";
 
     setHeaderTitle();
   }
