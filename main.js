@@ -141,37 +141,38 @@ function nextSet(page, index, arrSet, callback){
 
   app.get("/featurePdf/:id", function(req, res) {
 
+      console.log("getting pdf")
+
       var id = req.params["id"];
       var address = 'http://dev1.ubiapps.com:3004/local/' + id;
       var output = 'centrePoint_' + id + '.pdf';
 
+      var file = path.join(__dirname, output);
+      //console.log("pdf: " + file)
+
+      //fs.stat(file, function(err, stat) {
+      //    if(err == null) {
+      //        console.log('File exists');
+      //    } else {
+      //        console.log(err.message);
+      //    }
+      //});
+      //
+      //res.download(file)
+
 
       phantom.create(function (ph) {
+          console.log("creating page")
           ph.createPage(function (page) {
               page.open(address, function (status) {
                   nextSet(page, 0, arrSet, function(page){
+                      console.log("rendering page")
                       page.render(output, function(result){
-
-                          console.log('pdf ' + id)
-
-                          var filename = output;
-                          var filePath = "C:/dev/yh_dashboard/" + filename
-
-                          console.log(filePath)
-
-                          res.download(filePath)
-
-                          //res.setHeader('Content-type', "application/pdf");
-                          //fs.readFile(filePath, function (err, data) {
-                          //    // if the file was readed to buffer without errors you can delete it to save space
-                          //    if (err) throw err;
-                          //    fs.unlink(filePath);
-                          //    // send the file contents
-                          //    res.send(data);
-                          //    ph.exit();
-                          //});
-
-
+                          //var file = path.join(__dirname, output);
+                          console.log("pdf: " + file)
+                          res.download(file, "test.pdf", function(err){
+                            if(err){console.log(err.message)}
+                          })
                       })
                   });
               });

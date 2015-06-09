@@ -151,6 +151,7 @@ if (typeof window.centrePoint === "undefined") {
       //alert(activeFeatureId)
       webix.ajax().get("/featurePdf/" + activeFeatureId)
 
+
   }
 
   centrePoint.onSourceClick = function() {
