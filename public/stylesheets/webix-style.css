@@ -78,7 +78,8 @@ html {
 }
 
 .cp_welcomeMap {
-    float: right;
+    margin-left: 20px;
+    /*float: right;*/
 }
 
 .cp_welcomeMap img {
@@ -88,17 +89,6 @@ html {
 .webix_accordionitem {
     text-align: justify;
 }
-
-/*.webix_accordionitem_header {*/
-    /*background: red;*/
-    /*top: 2px;*/
-/*}*/
-
-/*.cp_furtherInfo .webix_accordionitem_header.collapsed{*/
-    /*font-size: 15px;*/
-    /*background: #D04627;*/
-    /*color: white;*/
-    /*padding-bottom: 8px;*/
 
 .webix_view.cp_riskFactorIntro p {
     padding: 0;
@@ -110,14 +100,35 @@ html {
     border-color: black;
 }
 
-/*.webix_img_btn_abs .webixtype_base{*/
-    /*height: 20px;*/
-/*}*/
-
 #keyContainer {
      position: absolute;
      bottom: 30px;
      right: 10px;
      z-index: 9000;
      cursor: pointer;
+}
+
+#homelessnessKeyContainer {
+    height: 20px;
+}
+
+.nodataImg {
+    margin: 30px;
+    margin-left: 60px;
+    width: 80px;
+}
+
+.noDataButton{
+    margin: 20px;
+    margin-left: 50px;
+    padding: 10px;
+    font-size: 15px;
+    border: none;
+    background: #D04627;
+    color: white;
+
+}
+
+.webix_view button{
+    border-radius: 0;
 }

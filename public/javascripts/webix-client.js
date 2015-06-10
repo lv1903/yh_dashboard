@@ -5,7 +5,8 @@ if (typeof window.centrePoint === "undefined") {
   centrePoint = {};
 }
 
-
+// flag for returning to map view
+var lastActiveView; //= $$("homelessnessView");
 
 (function() {
   var activeMap = "";
@@ -104,9 +105,21 @@ if (typeof window.centrePoint === "undefined") {
     getUnemploymentData(selected);
   };
 
+  centrePoint.backToMap = function(){
+    console.log(lastActiveView)
+    if(typeof lastActiveView != "undefined") {
+        lastActiveView.expand()
+        $$("blankView").collapse()
+    }
+    centrePoint.accordionViewChanged()
+  }
+
 
 
   centrePoint.accordionViewChanged = function() {
+
+    $$("sourceDetailsButton").show()
+
     var newMapView;
     if (false === $$("homelessnessView").config.collapsed) {
       newMapView = "homelessness";
@@ -149,12 +162,25 @@ if (typeof window.centrePoint === "undefined") {
 
   centrePoint.createPdf = function(){
       //alert(activeFeatureId)
-      webix.ajax().get("/featurePdf/" + activeFeatureId)
-
+      //webix.ajax().get("/featurePdf/" + activeFeatureId)
+      window.location.href = "/featurePdf/" + activeFeatureId
 
   }
 
+  centrePoint.createMail = function(){
+
+      var pdfUrl = document.location.origin + "/featurePdf/" + activeFeatureId;
+      var appUrl = document.location.origin
+
+      //var bodyText = Please have a look at Centerpoint's <a href=" + pdfUrl + ">fact sheet</a> about youth homelessness in your area.</p>" +
+      //    "<p>And visit the <a href=" + appUrl + ">full app</a>.</p>"
+      //    "<div>"
+
+      window.location = "mailto: ?subject=Youth homelessness in your area &body=" + "bodyText"
+  }
+
   centrePoint.onSourceClick = function() {
+    $$("sourceDetailsButton").hide()
     showView("source");
   };
 
@@ -266,7 +292,6 @@ if (typeof window.centrePoint === "undefined") {
       ele.innerHTML = "<div class='ocdp_floating_logo'><a target='_blank', href='http://nquiringminds.com/'><img src='/images/ocdp.png' /></div>";
       $$("homelessnessMap")._contentobj.appendChild(ele.firstChild);
 
-
       //ele = document.createElement("div");
       //ele.innerHTML = "<div class='cp_floating_key' id='keyBox' />";
       //$$("homelessnessMap")._contentobj.appendChild(ele.firstChild);
@@ -311,6 +336,24 @@ if (typeof window.centrePoint === "undefined") {
   }
 
   function onFeatureClick(event){
+    //save active view name
+    if (false === $$("homelessnessView").config.collapsed) {
+      lastActiveView =  $$("homelessnessView");
+    } else if (false === $$("missingView").config.collapsed) {
+      lastActiveView = $$("missingView");
+    } else if (false === $$("unemploymentView").config.collapsed) {
+      lastActiveView = $$("unemploymentView");
+    } else {
+        lastActiveView = $$("riskFactorsView");
+    }
+
+    $$("homelessnessView").collapse();
+    $$("missingView").collapse();
+    $$("unemploymentView").collapse();
+    $$("riskFactorsView").collapse();
+    $$("blankView").expand();
+
+
     // Get feature details.
     activeFeatureId = event.feature.getProperty('geo_code');
     activeFeatureName = event.feature.getProperty('geo_label');
@@ -323,8 +366,8 @@ if (typeof window.centrePoint === "undefined") {
   function showView(view) {
     $$("mapButton").show();
     $$("mapButtonRight").show();
-    $$("mailButton").show();
-    $$("mailButtonRight").show();
+    //$$("mailButton").show();
+    //$$("mailButtonRight").show();
     $$("pdfButton").show();
     $$("resetButton").hide();
     $$("viewAccordion").show();
@@ -335,8 +378,8 @@ if (typeof window.centrePoint === "undefined") {
       case "map":
         $$("mapButton").hide();
         $$("mapButtonRight").hide();
-        $$("mailButton").hide();
-        $$("mailButtonRight").hide();
+        //$$("mailButton").hide();
+        //$$("mailButtonRight").hide();
         $$("pdfButton").hide();
         $$("resetButton").show();
         $$("mainPanelView").setValue("homelessnessMap");
@@ -355,17 +398,22 @@ if (typeof window.centrePoint === "undefined") {
         $$("mainPanelView").setValue("sourceView");
         break;
       case "welcome":
+        $$("mapButtonRight").hide();
+        $$("pdfButton").hide();
         $$("viewAccordion").hide();
         $$("mainPanelView").setValue("welcomeView");
         window.history.pushState(null,null,"/welcome");
         break;
       case "legend":
+        $$("mapButtonRight").hide();
+        $$("pdfButton").hide();
         $$("mainPanelView").setValue(activeMap + "KeyView");
         break;
     }
 
     //--Hack to over ride webix javascript coding of margin and height
-    var aBtns = [$$("mapButton"), $$("resetButton"), $$("mailButton"), $$("pdfButton")];
+    //var aBtns = [$$("mapButton"), $$("resetButton"), $$("mailButton"), $$("pdfButton")];
+    var aBtns = [$$("mapButton"), $$("resetButton"), $$("pdfButton")];
     for(var index in aBtns){
         var ele = aBtns[index];
         ele._contentobj.style["margin-top"] = "0px";

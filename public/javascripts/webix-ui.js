@@ -117,14 +117,18 @@ centrePoint.uiWelcomeView = {
   type: "clean",
   rows: [
     {
+      height: 450,
       template: "html->welcomeInfo"
     },
     {
       view: "button",
       label: "got it!",
-      width: 200,
-      align: "center",
+      width: 400,
+      align: "left",
       on: { onItemClick: centrePoint.accordionViewChanged }
+    },
+    {
+    template: "html->welcomeOCDPInfo"
     },
     {
       gravity: 0.01
@@ -136,25 +140,45 @@ centrePoint.uiWelcomeView = {
 centrePoint.uiHomelessnessKeyView = {
   id: "homelessnessKeyView",
   scroll: "y",
-  template: "html->homelessnessKeyText"
+  type: "clean",
+  rows: [
+      {template: "html->legendKeyText", height: 60},
+      {id: "homelessnessKeyContainer", height: 50},
+      {template: "html->homelessnessKeyText"}
+  ]
 };
 
 centrePoint.uiMissingKeyView = {
   id: "missingKeyView",
   scroll: "y",
-  template: "html->missingKeyText"
+    type: "clean",
+    rows: [
+      {template: "html->legendKeyText", height: 60},
+      {id: "missingKeyContainer", height: 50},
+      {template: "html->missingKeyText"}
+    ]
 };
 
 centrePoint.uiUnemploymentKeyView = {
   id: "unemploymentKeyView",
   scroll: "y",
-  template: "html->unemploymentKeyText"
+  type: "clean",
+  rows: [
+    {template: "html->legendKeyText", height: 60},
+    {id: "unemploymentKeyContainer", height: 50},
+    {template: "html->unemploymentKeyText"}
+  ]
 };
 
 centrePoint.uiRiskFactorsKeyView = {
   id: "riskFactorsKeyView",
   scroll: "y",
-  template: "html->riskFactorsKeyText"
+  type: "clean",
+  rows: [
+    {template: "html->legendKeyText", height: 60},
+    {id: "riskFactorsKeyContainer", height: 50},
+    {template: "html->riskFactorsKeyText"}
+  ]
 };
 
 //************************************************************************
@@ -231,7 +255,7 @@ centrePoint.uiRiskFactorsSideBar = {
   elements: [
       //{view: "checkbox", label: "Select all", on: {onItemClick: centrePoint.riskFactorSelectAll}},
       {template: "html->riskFactorInfoText", height: 60, css: "cp_riskFactorIntro" },
-      {view: "button", value: "more details...", inputWidth: 120, on: { onItemClick: centrePoint.onSourceClick }},
+      {view: "button", id: "sourceDetailsButton", value: "more details...", inputWidth: 150, on: { onItemClick: centrePoint.onSourceClick }},
       {template: "Economy", type: "section"},
       {
           view: "checkbox",
@@ -283,7 +307,7 @@ centrePoint.uiRiskFactorsSideBar = {
 centrePoint.uiMainLayout = {
   id: "rootLayout",
   type: "line",
-  maxHeight: 800,
+  //maxHeight: 800,
   rows: [
     {
       responsive: "rootLayout",
@@ -296,12 +320,11 @@ centrePoint.uiMainLayout = {
               view: "toolbar",
               height: centrePoint.barHeight,
               elements: [
-                { view: "button", id: "mapButton",  type: "iconButton", icon: "chevron-left", label: "map", width: 80, on: { onItemClick: centrePoint.accordionViewChanged } },
+                { view: "button", id: "mapButton",  type: "iconButton", icon: "chevron-left", label: "map", width: 80, on: { onItemClick: centrePoint.backToMap } },
                 { view: "label", id: "mapButtonRight", label: "|", width: 20},
-                { view: "button", id: "mailButton",  type: "iconButton", icon: "envelope-o", label: "mail", width: 80, on: { onItemClick: centrePoint.createMail } },
-                { view: "label", id: "mailButtonRight", label: "|", width: 20},
+                //{ view: "button", id: "mailButton",  type: "iconButton", icon: "envelope-o", label: "mail", width: 80, on: { onItemClick: centrePoint.createMail } },
+                //{ view: "label", id: "mailButtonRight", label: "|", width: 20},
                 { view: "button", id: "pdfButton",  type: "iconButton", icon: "file-pdf-o", label: "pdf", width: 80, on: { onItemClick: centrePoint.createPdf } },
-                //{ view: "icon", id: "mailButton",  type: "icon", icon: "mail", width: 80}, //, on: { onItemClick: centrePoint.accordionViewChanged } },
                 { view: "label", id: "featureLabel", label: "Official youth homelessness"},
                 { view: "button", id: "resetButton", type: "iconButton", icon: "refresh", label: "reset map", width: 110, on: { onItemClick: resetMap } }
               ]
@@ -363,6 +386,14 @@ centrePoint.uiMainLayout = {
               headerHeight: centrePoint.barHeight,
               collapsed: true,
               body: centrePoint.uiRiskFactorsSideBar
+            },
+            {
+              header: "blank",
+              id: "blankView",
+              headerAltHeight: 0,
+              headerHeight:0,
+              collapsed: true,
+              body: {}
             }
           ]
         }

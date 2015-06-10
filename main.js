@@ -145,21 +145,10 @@ function nextSet(page, index, arrSet, callback){
 
       var id = req.params["id"];
       var address = 'http://dev1.ubiapps.com:3004/local/' + id;
+
       var output = 'centrePoint_' + id + '.pdf';
 
-      var file = path.join(__dirname, output);
-      //console.log("pdf: " + file)
-
-      //fs.stat(file, function(err, stat) {
-      //    if(err == null) {
-      //        console.log('File exists');
-      //    } else {
-      //        console.log(err.message);
-      //    }
-      //});
-      //
-      //res.download(file)
-
+      var file = path.join(__dirname, "tmp/" + output);
 
       phantom.create(function (ph) {
           console.log("creating page")
@@ -167,11 +156,11 @@ function nextSet(page, index, arrSet, callback){
               page.open(address, function (status) {
                   nextSet(page, 0, arrSet, function(page){
                       console.log("rendering page")
-                      page.render(output, function(result){
-                          //var file = path.join(__dirname, output);
+                      page.render("tmp/" + output, function(result){
                           console.log("pdf: " + file)
-                          res.download(file, "test.pdf", function(err){
+                          res.download(file, output, function(err){
                             if(err){console.log(err.message)}
+                            fs.unlink(file)
                           })
                       })
                   });

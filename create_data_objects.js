@@ -155,8 +155,21 @@ function getP1EData(oEntities, oNational, callback){
                         }
 
                         oEntities[id].homeless_data[Q].p1e = {};
-                        oEntities[id].homeless_data[Q].p1e.count = doc.value.data.quarterly_data[Q].val_count;
-                        oEntities[id].homeless_data[Q].p1e.percent = doc.value.data.quarterly_data[Q].val_percent;
+                        var p1eCount = doc.value.data.quarterly_data[Q].val_count
+                        oEntities[id].homeless_data[Q].p1e.count = p1eCount;
+
+                        var p1ePercent;
+                        if(p1eCount == 0){
+                            p1ePercent = 0;
+                        } else if(isNaN(p1eCount) == false){
+                            p1ePercent = oEntities[id].homeless_data[Q].p1e.count / oEntities[id].population_16to24;
+                        } else if(p1eCount == "-") {
+                            p1ePercent = 2.5 / oEntities[id].population_16to24;
+                        } else {
+                            p1ePercent = "NA"
+                        }
+
+                        oEntities[id].homeless_data[Q].p1e.percent = p1ePercent;
                     }
                 }
             }
@@ -203,8 +216,11 @@ function getP1EData(oEntities, oNational, callback){
             aVals.sort().reverse();
             //console.log(aVals)
             var index = countMissing(0, aVals);
-            //if(missing_count == 0){missing_count = "up to date"}
-            oEntities[id].homeless_data.p1e_missing_count = index * 3;
+            if(index == 0){
+                oEntities[id].homeless_data.p1e_missing_count = "up to date"
+            } else {
+                oEntities[id].homeless_data.p1e_missing_count = index * 3;
+            }
             oEntities[id].homeless_data.p1e_last_count = aVals[index].split("|")[1]
         }
 

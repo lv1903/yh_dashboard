@@ -75,6 +75,52 @@ function addKey(aKeyValues, aLightnessValues){
     $$("homelessnessMap")._contentobj.appendChild(ele.firstChild);
 }
 
+function addLegendKey(aKeyValues, aLightnessValues, parentNode){
+
+    console.log("here")
+
+    var ele = document.getElementById("legendKeyContainer")
+    if(ele != null) {
+        ele.parentNode.removeChild(ele);
+    }
+
+    var r = 30;
+    var padding = 2;
+    var heightpadding = 3;
+    //var fontsize = 18;
+
+    var w =  (r * 2 + 2 * padding) + (aKeyValues.length * r);
+    var h = 48;
+
+    var ele = document.createElement("div");
+
+
+    var svg = d3.select(ele)//(".mapCanvas")
+        .append("div")
+        .classed("svg-container", true)
+        .attr("id", "legendKeyContainer")
+        .append("svg")
+        .attr("id", "legendKeyCanvas")
+        .attr("width", w)
+        .attr("height", h + 5)
+
+    svg.selectAll("rect")
+        .data(aKeyValues)
+        .enter()
+        .append("rect")
+        .attr("y", heightpadding)
+        .attr("x", function(d, i){
+            return (padding) + (i * r);
+        })
+        .attr("width", r  - padding)
+        .attr("height", h - heightpadding)
+        .attr("fill", function(d, i){
+            return "hsla(10, 90%, "+ aLightnessValues[i] +"%, 1)"
+        })
+        .attr("stroke", "black");
+
+    parentNode._contentobj.appendChild(ele.firstChild);
+}
 
 
 function jsonPath(index, aPath, parent_obj){
@@ -140,10 +186,13 @@ function addColors(aBuckets, up, aPath, obj){
         //console.log(oEntities[id][aPath[0]])
         var n = jsonPath(0, aPath, obj[id]);
 
-        if(id == "E07000240"){console.log(id + " n:");console.log(obj[id]); console.log(n); console.log(aPath)}
-
-        if(n == 0){n = "zero"} //to give white color
+        //if(n == 0){n = "zero"} //to give white color
         var color = selectcolor(n, aBuckets, up);
+
+        if(id == "E06000057"){
+            console.log(aBuckets)
+            console.log(id + " n:");console.log(obj[id]); console.log(n); console.log(aPath); console.log(color)
+        }
         return {
             fillColor: color,
             fillOpacity: 1,
@@ -166,6 +215,7 @@ function getData(sActive, dateIndex){
       var aPath = ["homeless_data", year + quarter, "p1e", "percent"];
       addColors(aBuckets, up, aPath, oEntities );
       addKey(aStandardKey, aKeyLightness);
+      addLegendKey(aStandardKey, aKeyLightness, $$("homelessnessKeyContainer"));
   }
 
   if (sActive === "P1E_Missing"){
@@ -175,33 +225,8 @@ function getData(sActive, dateIndex){
       var aPath = ["homeless_data", "p1e_missing_count"];
       addColors(aBuckets, up, aPath, oEntities );
       addKey(aMissingDataKey, aMissingLightness);
+      addLegendKey(aMissingDataKey, aMissingLightness, $$("missingKeyContainer"));
   }
-  //
-  //if(sActive == $("#btn_Prevention").html()){
-  //    aBuckets = oNational.homeless_data[year].prevention.quintiles;
-  //    var up = false;
-  //    var aPath = ["homeless_data", year, "prevention", "percent"];
-  //    addColors(aBuckets, up, aPath, oEntities );
-  //    //addKey(aStandardKey, aKeyLightness);
-  //}
-  //
-  //if(sActive == $("#btn_Core_Priority").html()){
-  //    aBuckets = oNational.homeless_data[year + quarter].core_priority.quintiles;
-  //    var up = true;
-  //    var aPath = ["homeless_data", year + quarter, "core_priority", "percent"];
-  //    addColors(aBuckets, up, aPath, oEntities );
-  //    //addKey(aStandardKey, aKeyLightness);
-  //}
-  //
-  //if(sActive == $("#btn_Core_Non_Priority").html()){
-  //    aBuckets = oNational.homeless_data[year + quarter].core_non_priority.quintiles;
-  //    var up = true;
-  //    var aPath = ["homeless_data", year + quarter, "core_non_priority", "percent"];
-  //    addColors(aBuckets, up, aPath, oEntities );
-  //    //addKey(aStandardKey, aKeyLightness);
-  //}
-  //
-
 }
 
 function getRiskFactorData(aSelected){
@@ -276,6 +301,7 @@ function getRiskFactorData(aSelected){
     console.log("risk factors calls add colors")
     addColors(aBuckets, up, aPath, oRiskIndex)
     addKey(aStandardKey, aKeyLightness);
+    addLegendKey(aStandardKey, aKeyLightness, $$("riskFactorsKeyContainer"));
     //$(".riskFactorsModal").modal("hide");
 
 }
@@ -383,6 +409,7 @@ function getUnemploymentData(aSelected){
     console.log("unemployment calls add colors")
     addColors(aBuckets, up, aPath, oUnemployment);
     addKey(aStandardKey, aKeyLightness);
+    addLegendKey(aStandardKey, aKeyLightness, $$("unemploymentKeyContainer"));
 
 }
 
