@@ -5,6 +5,7 @@ html
         link(rel="stylesheet", href="/stylesheets/webix-style.css", type="text/css")
         script(type="text/javascript", src="/webix/webix_debug.js")
         script(type="text/javascript", src="http://maps.google.com/maps/api/js?sensor=true")
+        script(src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js")
         script(type="text/javascript", src="/javascripts/webix-googlemap.js")
         script(src="http://d3js.org/d3.v3.min.js")
         script(src="http://d3js.org/topojson.v1.min.js")
@@ -140,6 +141,7 @@ html
                 //, developed by <a href='//nqminds.com'>NQuiringMinds</a>. The OCDP is a data integration platform that connects data sets and data sources. It is built using open, non-proprietary application programming interfaces and data formats in order to maximise the interoperability between data and services.
             p
                 a(href='//nquiringminds.com/nquiringminds-selected-as-data-integration-platform-for-uk-future-cities-program/')
+                    img.ocdp_welcome_logo(src='/images/ocdp.png')
 
 
 
@@ -152,6 +154,7 @@ html
             p The dark red category refers to the 20% of authorities with the highest levels of youth homelessness.
             p The light pink category refers to the 20% of authorities with the lowest levels of youth homelessness.
             p The colours in between refer to three intervening fifths of local authorities.
+            p Grey means the local authority reported a count of fewer than five young homeless people in the last three months.
             p And white means there was no data available.
             button.backToMapButton(type='button', onclick="centrePoint.accordionViewChanged()") back to map
 

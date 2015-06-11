@@ -123,7 +123,7 @@ centrePoint.uiWelcomeView = {
   type: "clean",
   rows: [
     {
-      minHeight: 450,
+      //height: 450,
       template: "html->welcomeInfo"
     },
     {
@@ -134,7 +134,7 @@ centrePoint.uiWelcomeView = {
       on: { onItemClick: centrePoint.accordionViewChanged }
     },
     {
-      height: 200,
+      //height: 200,
       template: "html->welcomeOCDPInfo"
     },
     {
