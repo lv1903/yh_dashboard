@@ -178,8 +178,8 @@ function selectcolor(n, aBuckets, up){
 
 
 function addColors(aBuckets, up, aPath, obj){
-    console.log("add colors obj:")
-    console.log(obj["E07000240"])
+    //console.log("add colors obj:")
+    //console.log(obj["E07000240"])
     map.data.setStyle(function(feature) {
         var id = feature.getProperty('geo_code');
         //console.log(aPath[1])
@@ -188,8 +188,9 @@ function addColors(aBuckets, up, aPath, obj){
 
         //if(n == 0){n = "zero"} //to give white color
         var color = selectcolor(n, aBuckets, up);
+        if(n == "p1eLessThan5"){color = "hsla(10, 90%, 90%, 1)"}
 
-        if(id == "E06000057"){
+        if(id == "E07000167"){
             console.log(aBuckets)
             console.log(id + " n:");console.log(obj[id]); console.log(n); console.log(aPath); console.log(color)
         }

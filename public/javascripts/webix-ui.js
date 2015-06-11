@@ -36,6 +36,8 @@ centrePoint.uiHeader = {
   ]
 };
 
+
+
 //centrePoint.uiLegendButton = {
 //  view: "button",
 //  type: "iconButton",
@@ -117,7 +119,7 @@ centrePoint.uiWelcomeView = {
   type: "clean",
   rows: [
     {
-      height: 450,
+      //height: 450,
       template: "html->welcomeInfo"
     },
     {
@@ -128,7 +130,8 @@ centrePoint.uiWelcomeView = {
       on: { onItemClick: centrePoint.accordionViewChanged }
     },
     {
-    template: "html->welcomeOCDPInfo"
+      //height: 200,
+      template: "html->welcomeOCDPInfo"
     },
     {
       gravity: 0.01
@@ -321,7 +324,11 @@ centrePoint.uiMainLayout = {
               height: centrePoint.barHeight,
               elements: [
                 { view: "button", id: "mapButton",  type: "iconButton", icon: "chevron-left", label: "map", width: 80, on: { onItemClick: centrePoint.backToMap } },
+
                 { view: "label", id: "mapButtonRight", label: "|", width: 20},
+                { view: "button", id: "shareButton", type: "iconButton", icon: "share-alt", label: "share", width: 80, popup: "sharePopup", on: {onItemClick: centrePoint.buildShareLinks}},
+                { view: "label", id: "shareButtonRight", label: "|", width: 20},
+
                 //{ view: "button", id: "mailButton",  type: "iconButton", icon: "envelope-o", label: "mail", width: 80, on: { onItemClick: centrePoint.createMail } },
                 //{ view: "label", id: "mailButtonRight", label: "|", width: 20},
                 { view: "button", id: "pdfButton",  type: "iconButton", icon: "file-pdf-o", label: "pdf", width: 80, on: { onItemClick: centrePoint.createPdf } },
@@ -424,4 +431,15 @@ centrePoint.uiPageLayout = {
       height: 20
     }
   ]
+};
+
+centrePoint.uiSharePopup = {
+    view:"popup",
+    id:"sharePopup",
+    head:"Submenu",
+    width: 250,
+    body: {
+        height: 30,
+        id: "shareContainer"
+    }
 };

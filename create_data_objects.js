@@ -164,7 +164,8 @@ function getP1EData(oEntities, oNational, callback){
                         } else if(isNaN(p1eCount) == false){
                             p1ePercent = oEntities[id].homeless_data[Q].p1e.count / oEntities[id].population_16to24;
                         } else if(p1eCount == "-") {
-                            p1ePercent = 2.5 / oEntities[id].population_16to24;
+                            p1ePercent = "p1eLessThan5";
+                            //p1ePercent = 4 / oEntities[id].population_16to24;
                         } else {
                             p1ePercent = "NA"
                         }

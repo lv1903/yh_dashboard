@@ -118,17 +118,18 @@ html {
     width: 80px;
 }
 
-.noDataButton{
-    margin: 20px;
-    margin-left: 50px;
+.backToMapButton{
+    margin: 10px;
+    margin-left: 0;
     padding: 10px;
     font-size: 15px;
     border: none;
     background: #D04627;
     color: white;
-
 }
 
 .webix_view button{
     border-radius: 0;
 }
+
+

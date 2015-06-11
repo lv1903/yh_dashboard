@@ -141,10 +141,15 @@ function nextSet(page, index, arrSet, callback){
 
   app.get("/featurePdf/:id", function(req, res) {
 
+
       console.log("getting pdf")
 
       var id = req.params["id"];
-      var address = 'http://dev1.ubiapps.com:3004/local/' + id;
+
+      var address = req.protocol + '://' + req.get('host') + '/local/' + id;
+      console.log(address)
+
+      //var address = 'http://dev1.ubiapps.com:3004/local/' + id;
 
       var output = 'centrePoint_' + id + '.pdf';
 

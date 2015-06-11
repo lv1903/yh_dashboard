@@ -179,6 +179,30 @@ var lastActiveView; //= $$("homelessnessView");
       window.location = "mailto: ?subject=Youth homelessness in your area &body=" + "bodyText"
   }
 
+  centrePoint.buildShareLinks = function () {
+
+      var stArr = [
+          'st_twitter_large',
+          'st_email_large',
+          'st_linkedin_large',
+          'st_facebook_large',
+          'st_googleplus_large',
+          'st_sharethis_large'
+      ]
+
+      var st_title = 'Centrepoint youth homelessness in numbers'
+      var st_summary = 'Investigate your local area with Centrepoint`s new youthhomelessness app.'
+      console.log(st_title)
+
+      for(var index in stArr){
+          var ele = document.createElement("div");
+          ele.innerHTML = "<span class=" + stArr[index] + " st_title='" + st_title + "' st_summary='" + st_summary + "'></span>"
+          $$("shareContainer")._contentobj.appendChild(ele.firstChild);
+      }
+
+      stButtons.locateElements();
+  }
+
   centrePoint.onSourceClick = function() {
     $$("sourceDetailsButton").hide()
     showView("source");
@@ -205,7 +229,14 @@ var lastActiveView; //= $$("homelessnessView");
     } else {
       // On an non-touch screen device.
       webix.ui(centrePoint.uiPageLayout);
+      //var shareEle = document.getElementById("shareText");
+      //shareEle.style.display = "inline";
+      //shareEle.style.marginLeft = $$("$spacer1").$width + $$("$layout3").$width - 135 + "px";
+      //shareEle.style.top = "10px";
+
     }
+
+    webix.ui(centrePoint.uiSharePopup)
 
     // Add an overlay for the 'loading' icon.
     webix.extend($$("homelessnessMap"), webix.ProgressBar);
@@ -254,7 +285,7 @@ var lastActiveView; //= $$("homelessnessView");
         title = "Youth unemployment";
         break;
       case "riskFactors":
-        title = "Index of related factors";
+        title = "Related factors";
         break;
     }
     if($$("mapButton")._settings.hidden == true) {
@@ -291,6 +322,7 @@ var lastActiveView; //= $$("homelessnessView");
       var ele = document.createElement("div");
       ele.innerHTML = "<div class='ocdp_floating_logo'><a target='_blank', href='http://nquiringminds.com/'><img src='/images/ocdp.png' /></div>";
       $$("homelessnessMap")._contentobj.appendChild(ele.firstChild);
+
 
       //ele = document.createElement("div");
       //ele.innerHTML = "<div class='cp_floating_key' id='keyBox' />";
@@ -366,6 +398,8 @@ var lastActiveView; //= $$("homelessnessView");
   function showView(view) {
     $$("mapButton").show();
     $$("mapButtonRight").show();
+    $$("shareButton").show()
+    $$("shareButtonRight").show()
     //$$("mailButton").show();
     //$$("mailButtonRight").show();
     $$("pdfButton").show();
@@ -378,6 +412,7 @@ var lastActiveView; //= $$("homelessnessView");
       case "map":
         $$("mapButton").hide();
         $$("mapButtonRight").hide();
+        $$("shareButtonRight").hide()
         //$$("mailButton").hide();
         //$$("mailButtonRight").hide();
         $$("pdfButton").hide();
@@ -395,6 +430,8 @@ var lastActiveView; //= $$("homelessnessView");
         $$("mainPanelView").setValue("homelessnessFeatureView");
         break;
       case "source":
+        $$("mapButtonRight").hide();
+        $$("pdfButton").hide();
         $$("mainPanelView").setValue("sourceView");
         break;
       case "welcome":
@@ -413,7 +450,8 @@ var lastActiveView; //= $$("homelessnessView");
 
     //--Hack to over ride webix javascript coding of margin and height
     //var aBtns = [$$("mapButton"), $$("resetButton"), $$("mailButton"), $$("pdfButton")];
-    var aBtns = [$$("mapButton"), $$("resetButton"), $$("pdfButton")];
+    var aBtns = [$$("mapButton"), $$("resetButton"), $$("pdfButton"), $$("shareButton")];
+    //var aBtns = [$$("mapButton"), $$("resetButton"), $$("pdfButton")];
     for(var index in aBtns){
         var ele = aBtns[index];
         ele._contentobj.style["margin-top"] = "0px";

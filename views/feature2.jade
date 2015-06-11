@@ -1,2 +1,128 @@
-p test test
-p test test
+
+hr
+#risk
+    #otherFactorsText
+        #other.headParent
+            p.headTextSmall Other factors relating to youth homelessness
+        #riskDiv
+            img.bulletImg(src="/images/risk-red.png")
+            p.normText Homeless young people are affected by the following factors in a disproportionately negative way and are less likely to be able to access the positive opportunities available to other young people.
+    #social.headParent
+        p.headText Social care
+    - var risk = "care"
+    - var n = Number(oData.risks_data[risk].percent)
+    - var a = oNational.risks_data[risk].quintiles
+    - var color = "color:" + selectcolor(n, a, true);
+    - var nAvg = oNational.risks_data[risk].median;
+    p.normText
+        span.bigNumber #{n}
+        span.normText #{''} per 10,000 children are in care in #{''}
+        span.nameText #{oData.name}
+        span.normText , compared to the national average of #{''}
+        span.bigNumber #{nAvg}
+        span.normText .
+    //-------------------------------------------------
+    #enviroment.headParent
+        p.headText Environment
+    - var risk = "deprivation"
+    - var n = Number(oData.risks_data[risk].percent)
+    - var a = oNational.risks_data[risk].quintiles
+    - var color = "color:" + selectcolor(n, a, false);
+    - var nAvg = oNational.risks_data[risk].median;
+    #depDiv
+        img.bulletImg(src="/images/building-red.png")
+        p.normText
+            span.nameText #{oData.name}
+            span.normText #{''} has a deprivation rank of #{''}
+            span.bigNumber #{n}
+            span.normText #{''} out of #{''}
+            span.bigNumber 326
+            span.normText #{''} local authorities, where 1 indicates the highest level of deprivation.
+    hr
+    //-------------------------------------------------
+    #education.headParent
+        p.headText Education
+    - var risk = "education_level3";
+    - var n = Number(oData.risks_data[risk].percent);
+    - var a = oNational.risks_data[risk].quintiles;
+    - var color = "color:" + selectcolor(n, a, false);
+    - var nAvg = oNational.risks_data[risk].median;
+    p.normText
+        span.bigNumber #{n}%
+        span.normText #{''} of young people achieved 2 A levels or equivalent compared to the national average of #{''}
+        span.bigNumber #{nAvg}%
+        span.normText .
+    //-------------------------------------------------
+    - var risk = "education_attainment_gap";
+    - var n = Number(oData.risks_data[risk].percent);
+    - var a = oNational.risks_data[risk].quintiles;
+    - var color = "color:" + selectcolor(n, a, true);
+    - var nAvg = oNational.risks_data[risk].median;
+    #gapDec
+        img.bulletImg(src="/images/seesaw-red.png")
+        p.normText There is a #{''}
+            span.bigNumber #{n}%
+            span.normText #{''} achievement gap between children on free school meals or with special #{''}
+            span.normText educational needs and their peers, compared to the national average of #{''}
+            span.bigNumber #{nAvg}%
+            span.normText .
+    //------------------------------------------------
+    - var risk = "apprenticeship"
+    - var n = Math.round(Number(oData.risks_data[risk].percent) * 10); //
+    - var a = oNational.risks_data[risk].quintiles
+    - var color = "color:" + selectcolor(n, a, false);
+    - var nAvg = Math.round(oNational.risks_data[risk].median * 10); // want 1 decimal place;
+    p.normText
+        span.bigNumber #{n}
+        span.normText  #{''} young people per 10,000 have started an apprenticeship in the last year, #{''}
+        span.normText compared to the national average of #{''}
+        span.bigNumber #{nAvg}
+        span.normText #{''} per 10,000.
+    //------------------------------------------------
+    - var risk = "truancy"
+    - var n = Math.round(Number(oData.risks_data[risk].percent)* 10);
+    - var a = oNational.risks_data[risk].quintiles
+    - var color = "color:" + selectcolor(n, a, true);
+    - var nAvg = Math.round(oNational.risks_data[risk].median* 10);
+    p.normText
+        span.bigNumber #{n}
+        span.normText  #{''} secondary school pupils per 1,000 are persistent truants, #{''}
+        span compared to the national average of #{''}
+        span.bigNumber #{nAvg}
+        span.normText #{''} per 1,000.
+    hr
+    //-------------------------------------------------
+    #health.headParent
+        p.headText Health
+    - var risk = "hospital";
+    - var n = Math.round(Number(oData.risks_data[risk].percent));
+    - var a = oNational.risks_data[risk].quintiles
+    - var color = "color:" + selectcolor(n, a, true);
+    - var nAvg = Math.round(oNational.risks_data[risk].median);
+    #healthDiv
+        img.bulletImg(src="/images/healthbuilding-red.png")
+        p.normText There are #{''}
+            span.bigNumber #{n}
+            span.normText #{''} emergency hospital admissions for under 24s per 10,000 per year, #{''}
+            span.normText compared to the national average of #{''}
+            span.bigNumber #{nAvg}
+            span.normText #{''} per 10,000.
+    //-------------------------------------------------
+    - var risk = "mentalhealth";
+    - var n = Math.round(Number(oData.risks_data[risk].percent)* 10) / 10;
+    - var a = oNational.risks_data[risk].quintiles
+    - var color = "color:" + selectcolor(n, a, true);
+    - var nAvg = Math.round(oNational.risks_data[risk].median* 10) / 10;
+    p.normText
+        span.bigNumber #{n}%
+        span.normText #{''}  of people have serious mental health problems, compared to the national average of #{''}
+        span.bigNumber #{nAvg}%
+        span.normText .
+    hr
+    //------------------------------------------------------
+    #emailDiv
+        img.bulletImg(src="/images/mail-red.png")
+        p.normText If you would like to find out more about how Centrepoint supports homeless young #{''}
+            span people and how you can get involved, please contact the Policy and Public Affairs team: #{''}
+            span.nameText(onclick='window.location = "mailto:policy@centrepoint.org?subject=Youth homelessness your area"') policy@centrepoint.org
+            span.normText .
