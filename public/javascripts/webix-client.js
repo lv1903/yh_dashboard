@@ -5,9 +5,6 @@ if (typeof window.centrePoint === "undefined") {
   centrePoint = {};
 }
 
-// flag for returning to map view
-var lastActiveView; //= $$("homelessnessView");
-
 (function() {
   var activeMap = "";
   var activeFeatureId = "";
@@ -105,20 +102,9 @@ var lastActiveView; //= $$("homelessnessView");
     getUnemploymentData(selected);
   };
 
-  centrePoint.backToMap = function(){
-    console.log(lastActiveView)
-    if(typeof lastActiveView != "undefined") {
-        lastActiveView.expand()
-        $$("blankView").collapse()
-    }
-    centrePoint.accordionViewChanged()
-  }
-
-
-
   centrePoint.accordionViewChanged = function() {
 
-    $$("sourceDetailsButton").show()
+    $$("sourceDetailsButton").show();
 
     var newMapView;
     if (false === $$("homelessnessView").config.collapsed) {
@@ -161,11 +147,8 @@ var lastActiveView; //= $$("homelessnessView");
   };
 
   centrePoint.createPdf = function(){
-      //alert(activeFeatureId)
-      //webix.ajax().get("/featurePdf/" + activeFeatureId)
-      window.location.href = "/featurePdf/" + activeFeatureId
-
-  }
+        window.location.href = "/featurePdf/" + activeFeatureId;
+  };
 
   centrePoint.createMail = function(){
 
@@ -177,7 +160,7 @@ var lastActiveView; //= $$("homelessnessView");
       //    "<div>"
 
       window.location = "mailto: ?subject=Youth homelessness in your area &body=" + "bodyText"
-  }
+  };
 
   centrePoint.buildShareLinks = function () {
 
@@ -352,24 +335,6 @@ var lastActiveView; //= $$("homelessnessView");
   }
 
   function onFeatureClick(event){
-    //save active view name
-    if (false === $$("homelessnessView").config.collapsed) {
-      lastActiveView =  $$("homelessnessView");
-    } else if (false === $$("missingView").config.collapsed) {
-      lastActiveView = $$("missingView");
-    } else if (false === $$("unemploymentView").config.collapsed) {
-      lastActiveView = $$("unemploymentView");
-    } else {
-        lastActiveView = $$("riskFactorsView");
-    }
-
-    $$("homelessnessView").collapse();
-    $$("missingView").collapse();
-    $$("unemploymentView").collapse();
-    $$("riskFactorsView").collapse();
-    $$("blankView").expand(); // hide the date slider
-
-
     // Get feature details.
     activeFeatureId = event.feature.getProperty('geo_code');
     activeFeatureName = event.feature.getProperty('geo_label');
@@ -389,8 +354,6 @@ var lastActiveView; //= $$("homelessnessView");
     $$("pdfButton").show();
     $$("resetButton").hide();
     $$("viewAccordion").show();
-
-
 
     switch(view) {
       case "map":
@@ -412,6 +375,7 @@ var lastActiveView; //= $$("homelessnessView");
         // Make sure feature view is visible.
         $$("homelessnessFeatureView").scrollTo(0,0);
         $$("mainPanelView").setValue("homelessnessFeatureView");
+        $$("viewAccordion").hide();
         break;
       case "source":
         $$("mapButtonRight").hide();
@@ -445,13 +409,6 @@ var lastActiveView; //= $$("homelessnessView");
         ele._contentobj.style["height"] = "30px";
         ele._contentobj.childNodes[0].style["height"] = "30px";
     }
-
-
-
-    //
-    //$$("resetButton")._contentobj.style["margin-top"] = "0px";
-    //$$("resetButton")._contentobj.style["height"] = "30px";
-    //$$("resetButton")._contentobj.childNodes[0].style["height"] = "30px";
 
     setHeaderTitle();
   }
