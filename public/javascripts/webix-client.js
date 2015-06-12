@@ -248,13 +248,11 @@ if (typeof window.centrePoint === "undefined") {
   }
 
   function setHeaderTitle() {
-
-    //alert("here")
     var title = "";
     switch (activeMap) {
       case "homelessness":
-        var index = $$("homelessnessDateSlider").getValue();
-        title = "Official youth homelessness"; // + aDates[index][0] + "/" + aDates[index][1];
+        $$("homelessnessDateSlider").getValue();
+        title = "Official youth homelessness";
         break;
       case "missing":
         title = "How much data is missing";
@@ -271,9 +269,6 @@ if (typeof window.centrePoint === "undefined") {
     } else {
         title = "";
     }
-    //if (activeFeatureName.length > 0) {
-    //  title = title + "<span style='font-size:1em;'>" + activeFeatureName + "</span>";
-    //}
     $$("featureLabel").define("label", title);
     $$("featureLabel").refresh();
   }
@@ -339,8 +334,6 @@ if (typeof window.centrePoint === "undefined") {
     activeFeatureId = event.feature.getProperty('geo_code');
     activeFeatureName = event.feature.getProperty('geo_label');
 
-    window.history.pushState(null,null,"/feature/" + activeFeatureId);
-
     showView("feature");
   }
 
@@ -366,7 +359,7 @@ if (typeof window.centrePoint === "undefined") {
         $$("resetButton").show();
         $$("mainPanelView").setValue("homelessnessMap");
         loadMap();
-        window.history.pushState(null, null, "/");
+        window.history.replaceState(view, null, "/explore");
         break;
       case "feature":
         // Get feature view to render with new selection.
@@ -376,6 +369,7 @@ if (typeof window.centrePoint === "undefined") {
         $$("homelessnessFeatureView").scrollTo(0,0);
         $$("mainPanelView").setValue("homelessnessFeatureView");
         $$("viewAccordion").hide();
+        window.history.replaceState(null,null,"/feature/" + activeFeatureId)
         break;
       case "source":
         $$("mapButtonRight").hide();
@@ -387,7 +381,7 @@ if (typeof window.centrePoint === "undefined") {
         $$("pdfButton").hide();
         $$("viewAccordion").hide();
         $$("mainPanelView").setValue("welcomeView");
-        window.history.pushState(null,null,"/welcome");
+        window.history.replaceState(view,null,"/");
         break;
       case "legend":
         $$("mapButtonRight").hide();

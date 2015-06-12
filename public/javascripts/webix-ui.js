@@ -365,14 +365,14 @@ centrePoint.uiMainLayout = {
               minWidth: 360,
               fitBiggest: true,
               cells: [
+                centrePoint.uiWelcomeView,
                 centrePoint.uiHomelessnessMap,
                 centrePoint.uiHomelessnessFeatureView,
                 centrePoint.uiSourceView,
                 centrePoint.uiHomelessnessKeyView,
                 centrePoint.uiMissingKeyView,
                 centrePoint.uiUnemploymentKeyView,
-                centrePoint.uiRiskFactorsKeyView,
-                centrePoint.uiWelcomeView
+                centrePoint.uiRiskFactorsKeyView
               ]
             }
           ]
