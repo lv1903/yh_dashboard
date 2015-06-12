@@ -151,7 +151,7 @@ function nextSet(page, index, arrSet, callback){
 
       //var address = 'http://dev1.ubiapps.com:3004/local/' + id;
 
-      var output = 'centrePoint_' + id + '.pdf';
+      var output = 'centrePoint_' + id + '_' + Date.now() + '.pdf';
 
       var file = path.join(__dirname, "tmp/" + output);
 
