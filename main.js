@@ -1,18 +1,13 @@
 "use strict";
+
 var express = require("express");
 var jade = require("jade");
 var bodyParser = require("body-parser");
 var app = express();
 
-
-
 var phantom = require('phantom');
-//var phantom = require('phantom-render-stream');
 var fs = require('fs');
 var path = require('path');
-//var mime = require('mime');
-
-
 
 app.set("views", __dirname + "/views");
 app.set("view engine","jade");
@@ -28,43 +23,17 @@ var cdo = require("./create_data_objects.js");
 cdo.getDataObjects(function(oEntities, oNational) {
   console.log("got data objects");
 
-var dProblemBoundaries = {
-    "E07000242": "pb",
-    "E06000057": "pb",
-    "E07000240": "pb",
-    "E07000241": "pb",
-    "E07000243": "pb"
-}
-
-//--------pdf---------------
-var viewportSize = { width: 600, height: 600 };
-var paperSize = { format: "A4",
-    orientation: 'portrait',
-    margin: '1cm'
-}
-var zoomFactor = 1;
-
-var arrSet = [
-    ['paperSize', paperSize],
-    ['viewportSize', viewportSize],
-    ['zoomFactor', zoomFactor]
-]
-
-function nextSet(page, index, arrSet, callback){
-    if(index < arrSet.length){
-        page.set(arrSet[index][0], arrSet[index][1], function(res){
-            nextSet(page, index+1, arrSet, callback)
-        })
-    } else {
-        callback(page)
-    }
-}
-//----------------------------
-
-
+  var dProblemBoundaries = {
+      "E07000242": "pb",
+      "E06000057": "pb",
+      "E07000240": "pb",
+      "E07000241": "pb",
+      "E07000243": "pb"
+  };
 
   app.get("/", function(req,res) {
     res.render("webix", {
+      activeView: "welcome",
       quarter: sQuarter,
       mapStyle: mapStyle,
       topoLa: oLaTopo,
@@ -72,8 +41,6 @@ function nextSet(page, index, arrSet, callback){
       national: oNational
     });
   });
-
-  app.use('/pdf', express.static(__dirname + '/localAreaPdf'));
 
   app.get('/feature/:id', function(req, res) {
     var featureId = req.params["id"];
@@ -99,7 +66,6 @@ function nextSet(page, index, arrSet, callback){
       } else {
 
           var oData = oEntities[id];
-          var yhCount = oData.homeless_data["2014Q4"].p1e.count;
           res.render('feature', {
               oData: oData,
               oNational: oNational
@@ -122,15 +88,9 @@ function nextSet(page, index, arrSet, callback){
     })
   });
 
-  app.get('/related_factors', function(req, res){
-      res.render('source', {
-          activeFeature: "sources"
-      })
-  });
-
-  app.get("/welcome", function(req, res, next) {
+  app.get("/explore", function(req, res, next) {
     res.render('webix', {
-      activeView: "welcome",
+      activeView: "map",
       quarter: sQuarter,
       mapStyle: mapStyle,
       topoLa: oLaTopo,
@@ -140,46 +100,61 @@ function nextSet(page, index, arrSet, callback){
   });
 
   app.get("/featurePdf/:id", function(req, res) {
+    var viewportSize = { width: 600, height: 600 };
+    var paperSize = { format: "A4",
+      orientation: 'portrait',
+      margin: '1cm'
+    };
 
+    var zoomFactor = 1;
 
-      console.log("getting pdf")
+    var arrSet = [
+      ['paperSize', paperSize],
+      ['viewportSize', viewportSize],
+      ['zoomFactor', zoomFactor]
+    ];
 
-      var id = req.params["id"];
+    var nextSet = function(page, index, arrSet, callback){
+      if(index < arrSet.length){
+        page.set(arrSet[index][0], arrSet[index][1], function(res){
+          nextSet(page, index+1, arrSet, callback)
+        })
+      } else {
+        callback(page)
+      }
+    };
 
-      var address = req.protocol + '://' + req.get('host') + '/local/' + id;
-      console.log(address)
+    var id = req.params["id"];
 
-      //var address = 'http://dev1.ubiapps.com:3004/local/' + id;
+    var address = req.protocol + '://' + req.get('host') + '/local/' + id;
+    console.log(address);
 
-      var output = 'centrePoint_' + id + '_' + Date.now() + '.pdf';
+    var output = 'centrePoint_' + id + '_' + Date.now() + '.pdf';
 
-      var file = path.join(__dirname, "tmp/" + output);
+    var file = path.join(__dirname, "tmp/" + output);
 
-      phantom.create(function (ph) {
-          console.log("creating page")
-          ph.createPage(function (page) {
-              page.open(address, function (status) {
-                  nextSet(page, 0, arrSet, function(page){
-                      console.log("rendering page")
-                      page.render("tmp/" + output, function(result){
-                          console.log("pdf: " + file)
-                          res.download(file, output, function(err){
-                            if(err){console.log(err.message)}
-                            fs.unlink(file)
-                          })
-                      })
-                  });
-              });
-          })
-      }, {
-          dnodeOpts: { //only for MS
-              weak: false
-          }
-      });
-
+    phantom.create(function (ph) {
+        console.log("creating page")
+        ph.createPage(function (page) {
+            page.open(address, function (status) {
+                nextSet(page, 0, arrSet, function(page){
+                    console.log("rendering page")
+                    page.render("tmp/" + output, function(result){
+                        console.log("pdf: " + file)
+                        res.download(file, output, function(err){
+                          if(err){console.log(err.message)}
+                          fs.unlink(file)
+                        })
+                    })
+                });
+            });
+        })
+    }, {
+        dnodeOpts: { //only for MS
+            weak: false
+        }
+    });
   })
-
-
 });
 
 app.listen(3004);
