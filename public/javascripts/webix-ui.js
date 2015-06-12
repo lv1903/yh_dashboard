@@ -415,7 +415,8 @@ centrePoint.uiMainLayout = {
               headerHeight: centrePoint.barHeight,
               collapsed: true,
               body: centrePoint.uiRiskFactorsSideBar
-            }
+            },
+            { gravity: 0.01 }
           ]
         }
       ]
