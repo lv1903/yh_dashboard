@@ -60,7 +60,7 @@ function initialiseMap(gmap) {
       clearTimeout(pendingTimeout);
     }
 
-    setTimeout(function() {
+    pendingTimeout = setTimeout(function() {
         infobox.close();
         var contentString = event.feature.getProperty('geo_label');
         infobox.setContent(contentString);
@@ -97,7 +97,7 @@ function initialiseMap(gmap) {
         infobox.setPosition(bounds.getCenter());
         infobox.setOptions(myOptions);
         infobox.open(map);
-    }, 1000);
+    }, 250);
   });
 }
 
