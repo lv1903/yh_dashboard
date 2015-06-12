@@ -190,9 +190,9 @@ var lastActiveView; //= $$("homelessnessView");
           'st_sharethis_large'
       ]
 
-      var st_title = 'Centrepoint youth homelessness in numbers'
-      var st_summary = 'Investigate your local area with Centrepoint`s new youthhomelessness app.'
-      console.log(st_title)
+      var st_title = 'National youth homelessness';
+      var st_summary = 'Find out the scale of youth homelessness in your area';
+      var st_image = 'http://centrepoint.org.uk/img/logo.png'
 
       for(var index in stArr){
           var ele = document.createElement("div");

@@ -66,9 +66,9 @@
         - var a = oNational.homeless_data["2014Q4"].p1e.quintiles;
         - var color = "color:" + selectcolor(n, a, true);
         if (n == "-")
-            #p1eCount.normText Fewer than 5 homeless young people reported in #{oData.name} in the last 3 months.
+            #p1eCount.normText There have been fewer than 5 homeless young people reported in #{oData.name} in the last 3 months.
         else
-            #p1eCount.normText
+            #p1eCount.normText There have been #{''}
                 span.bigNumber #{n}
                 span.normText #{''} homeless young people reported in #{oData.name} in the last 3 months.
             #p1eRate.normText This is a rate of #{''}
@@ -76,7 +76,7 @@
                 span.bigNumber #{rate}
                 span.normText #{''} young people per 10,000 being reported as homeless every 3 months.
     #p1eNationalRate.normText Compared to a national average of #{''}
-        span.bigNumber #{Math.round(oNational.homeless_data["2014Q4"].p1e.median * 100)}
+        span.bigNumber #{Math.round(oNational.homeless_data["2014Q4"].p1e.median * 10000)}
         span.normText  #{''} per 10,000 16-24 year olds.
     hr
     //---------------------

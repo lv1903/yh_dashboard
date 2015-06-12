@@ -7,13 +7,18 @@ hr
         #riskDiv
             img.bulletImg(src="/images/risk-red.png")
             p.normText Homeless young people are affected by the following factors in a disproportionately negative way and are less likely to be able to access the positive opportunities available to other young people.
+
+    hr
+
     #social.headParent
         p.headText Social care
+
     - var risk = "care"
     - var n = Number(oData.risks_data[risk].percent)
     - var a = oNational.risks_data[risk].quintiles
     - var color = "color:" + selectcolor(n, a, true);
     - var nAvg = oNational.risks_data[risk].median;
+
     p.normText
         span.bigNumber #{n}
         span.normText #{''} per 10,000 children are in care in #{''}
@@ -21,14 +26,23 @@ hr
         span.normText , compared to the national average of #{''}
         span.bigNumber #{nAvg}
         span.normText .
+
+    hr
+
     //-------------------------------------------------
     #enviroment.headParent
         p.headText Environment
+
     - var risk = "deprivation"
     - var n = Number(oData.risks_data[risk].percent)
     - var a = oNational.risks_data[risk].quintiles
     - var color = "color:" + selectcolor(n, a, false);
     - var nAvg = oNational.risks_data[risk].median;
+
+
+
+    //-------------------------------------------------
+
     #depDiv
         img.bulletImg(src="/images/building-red.png")
         p.normText
@@ -124,5 +138,5 @@ hr
         img.bulletImg(src="/images/mail-red.png")
         p.normText If you would like to find out more about how Centrepoint supports homeless young #{''}
             span people and how you can get involved, please contact the Policy and Public Affairs team: #{''}
-            span.nameText(onclick='window.location = "mailto:policy@centrepoint.org?subject=Youth homelessness your area"') policy@centrepoint.org
+            span.nameText(onclick='window.location = "mailto:policy@centrepoint.org?subject=Youth homelessness in your area"') policy@centrepoint.org
             span.normText .

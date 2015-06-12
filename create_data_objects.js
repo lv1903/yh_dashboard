@@ -159,6 +159,7 @@ function getP1EData(oEntities, oNational, callback){
                         oEntities[id].homeless_data[Q].p1e.count = p1eCount;
 
                         var p1ePercent;
+
                         if(p1eCount == 0){
                             p1ePercent = 0;
                         } else if(isNaN(p1eCount) == false){
@@ -171,10 +172,22 @@ function getP1EData(oEntities, oNational, callback){
                         }
 
                         oEntities[id].homeless_data[Q].p1e.percent = p1ePercent;
+
                     }
                 }
             }
         }
+
+        var count = 0
+        var count0 = 0
+        var countLess = 0
+        for(id in oEntities){
+            count += 1
+            if (oEntities[id].homeless_data["2014Q4"].p1e.percent == 0){count0 += 1}
+            if (oEntities[id].homeless_data["2014Q4"].p1e.percent == "p1eLessThan5"){countLess += 1}
+
+        }
+        //console.log(count + " " + count0 + " " + countLess)
 
         //calc National data
         for(var indexQ in aQ){
@@ -190,6 +203,9 @@ function getP1EData(oEntities, oNational, callback){
 
                 }
             }
+
+            //console.log(aX)
+
             if(!(oNational.homeless_data.hasOwnProperty(Q))) {
                 oNational.homeless_data[Q] = {};
             }
@@ -199,9 +215,7 @@ function getP1EData(oEntities, oNational, callback){
             oNational.homeless_data[Q].p1e.median = getMedian(aX);
             oNational.homeless_data[Q].p1e.quintiles = getQuintiles(aX);
 
-            //console.log(count)
-            //console.log(aX.length)
-            //console.log(aX.length/ count)
+            //console.log( oNational.homeless_data[Q].p1e)
 
             oNational.homeless_data[Q].p1e.reported_percent = aX.length / count;
             //console.log(oNational.homeless_data[Q].p1e)
