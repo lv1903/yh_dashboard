@@ -17,6 +17,7 @@ html
             var oNational = !{JSON.stringify(national)};
         script(type="text/javascript", src="/javascripts/add_data.js")
         script(type="text/javascript", src="/javascripts/search_address.js")
+        script(type="text/javascript", src="/javascripts/add_modal.js")
         script(type="text/javascript", src="/javascripts/main_map.js")
         script(type="text/javascript", src="/javascripts/webix-client.js")
         script(type="text/javascript", src="/javascripts/webix-ui.js")
@@ -24,6 +25,11 @@ html
             var preLoadView = '#{ activeView ? activeView : "map" }';
             var preLoadFeature = '#{ activeFeature ? activeFeature : "" }';
 
+        script.
+            console.log(oEntities)
+
+        script).
+            var switchTo5x = true;
         script(type='text/javascript', src='http://w.sharethis.com/button/buttons.js')
         script.
             stLight.options({
@@ -121,21 +127,21 @@ html
             button.backToMapButton(type='button', onclick="centrePoint.accordionViewChanged()") back to map
 
         div.cp_hidden(id="welcomeInfo")
-            p.titleText Welcome to the CentrePoint Youth Homelessness visualisation
-            p.cp_welcomeMap
-                a(href="#", onclick="centrePoint.accordionViewChanged();")
-                    img(src="/images/welcomeMap.png", alt="welcome map")
+            h2 Centrepoint youth homelessness app
+            p See the national picture
             p Use the side-bar on the right to select and filter the data that is shown.
             p Click on the map to see more details for the local area.
-
+            p.cp_welcomeMap
+                a(href="#", onclick="centrePoint.accordionViewChanged();")
+                    img(src="/images/welcomeImg.png", alt="welcome map")
             br
 
         div.cp_hidden(id="welcomeOCDPInfo")
-            p This visualisation was built using the <a href='//nquiringminds.com/nquiringminds-selected-as-data-integration-platform-for-uk-future-cities-program/'>Open City Data Platform (OCDP)</a>.
+            p This app was built on the <a href='//nquiringminds.com/nquiringminds-selected-as-data-integration-platform-for-uk-future-cities-program/'>Open City Data Platform</a>.
                 //, developed by <a href='//nqminds.com'>NQuiringMinds</a>. The OCDP is a data integration platform that connects data sets and data sources. It is built using open, non-proprietary application programming interfaces and data formats in order to maximise the interoperability between data and services.
-            p
-                a(href='//nquiringminds.com/nquiringminds-selected-as-data-integration-platform-for-uk-future-cities-program/')
-                    img.ocdp_welcome_logo(src='/images/ocdp.png')
+                span
+                    a(href='//nquiringminds.com/nquiringminds-selected-as-data-integration-platform-for-uk-future-cities-program/')
+                        img.ocdp_welcome_logo(src='/images/ocdp.png')
 
 
 

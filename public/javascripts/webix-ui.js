@@ -123,7 +123,7 @@ centrePoint.uiWelcomeView = {
   type: "clean",
   rows: [
     {
-      minHeight: 450,
+      //minHeight: 450,
       template: "html->welcomeInfo"
     },
     {
