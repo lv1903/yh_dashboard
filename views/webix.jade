@@ -17,7 +17,6 @@ html
             var oNational = !{JSON.stringify(national)};
         script(type="text/javascript", src="/javascripts/add_data.js")
         script(type="text/javascript", src="/javascripts/search_address.js")
-        script(type="text/javascript", src="/javascripts/add_modal.js")
         script(type="text/javascript", src="/javascripts/main_map.js")
         script(type="text/javascript", src="/javascripts/webix-client.js")
         script(type="text/javascript", src="/javascripts/webix-ui.js")
@@ -25,11 +24,6 @@ html
             var preLoadView = '#{ activeView ? activeView : "map" }';
             var preLoadFeature = '#{ activeFeature ? activeFeature : "" }';
 
-        script.
-            console.log(oEntities)
-
-        script).
-            var switchTo5x = true;
         script(type='text/javascript', src='http://w.sharethis.com/button/buttons.js')
         script.
             stLight.options({
