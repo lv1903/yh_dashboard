@@ -123,7 +123,6 @@ centrePoint.uiWelcomeView = {
   type: "clean",
   rows: [
     {
-      minHeight: 450,
       template: "html->welcomeInfo"
     },
     {
@@ -322,7 +321,7 @@ centrePoint.buttonElementsNonTouch = [
 ]
 
 centrePoint.buttonElementsTouch = [
-    { view: "button", id: "mapButton",  type: "iconButton", icon: "chevron-left", label: "map", width: 75, on: { onItemClick: centrePoint.backToMap } },
+    { view: "button", id: "mapButton",  type: "iconButton", icon: "chevron-left", label: "map", width: 75, on: { onItemClick: centrePoint.accordionViewChanged } },
     { view: "label", id: "mapButtonRight", label: "|", width: 20},
     { view: "button", id: "pdfButton",  type: "iconButton", icon: "file-pdf-o", label: "pdf", width: 75, on: { onItemClick: centrePoint.createPdf } },
     { view: "label", id: "pdfButtonRight", label: "|", width: 20},

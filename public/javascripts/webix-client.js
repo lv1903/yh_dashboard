@@ -181,7 +181,7 @@ if (typeof window.centrePoint === "undefined") {
       for(var index in stArr){
           var ele = document.createElement("div");
           ele.innerHTML = "<span class=" + stArr[index] + " st_title='" + st_title + "' st_summary='" + st_summary + "'></span>"
-          $$("shareContainer")._contentobj.appendChild(ele.firstChild);
+          $$("shareContainer").$view.appendChild(ele.firstChild);
       }
 
       stButtons.locateElements();
@@ -265,7 +265,7 @@ if (typeof window.centrePoint === "undefined") {
         title = "Related factors";
         break;
     }
-    if($$("mapButton")._settings.hidden == true) {
+    if(!$$("mapButton").isVisible()) {
         title = "<span style='float:right;font-size: 1em;margin-right:20px'>" + title + "</span>";
     } else {
         title = "";
@@ -281,12 +281,12 @@ if (typeof window.centrePoint === "undefined") {
         // to optimise space.
         var ele = document.createElement("div");
         ele.innerHTML = "<div class='cp_floating_logo'><img src='/images/logo.png' /></div>";
-        $$("homelessnessMap")._contentobj.appendChild(ele.firstChild);
+        $$("homelessnessMap").$view.appendChild(ele.firstChild);
 
         // Create a container for the search ui.
         ele = document.createElement("div");
         ele.innerHTML = "<div class='cp_floating_search' id='searchBox' />";
-        $$("homelessnessMap")._contentobj.appendChild(ele.firstChild);
+        $$("homelessnessMap").$view.appendChild(ele.firstChild);
 
         // Create the search ui.
         webix.ui(centrePoint.uiFloatingSearch);
@@ -295,7 +295,7 @@ if (typeof window.centrePoint === "undefined") {
       //add ocdp logo
       var ele = document.createElement("div");
       ele.innerHTML = "<div class='ocdp_floating_logo'><a target='_blank', href='http://nquiringminds.com/'><img src='/images/ocdp.png' /></div>";
-      $$("homelessnessMap")._contentobj.appendChild(ele.firstChild);
+      $$("homelessnessMap").$view.appendChild(ele.firstChild);
 
 
       // Add listeners for click, hover and idle events.
@@ -399,10 +399,10 @@ if (typeof window.centrePoint === "undefined") {
     }
 
     for(var index in aBtns){
-        var ele = aBtns[index];
-        ele._contentobj.style["margin-top"] = "0px";
-        ele._contentobj.style["height"] = "30px";
-        ele._contentobj.childNodes[0].style["height"] = "30px";
+      var ele = aBtns[index];
+      ele.$view.style["margin-top"] = "0px";
+      ele.$view.style["height"] = "30px";
+      ele.$view.childNodes[0].style["height"] = "30px";
     }
 
     setHeaderTitle();
