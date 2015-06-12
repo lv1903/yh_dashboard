@@ -9,6 +9,7 @@ if (typeof window.centrePoint === "undefined") {
   var activeMap = "";
   var activeFeatureId = "";
   var activeFeatureName = "";
+  var pdfFeatureId = "";
   centrePoint.mapInitialised = false;
   centrePoint.useTouch = webix.env.touch;
 
@@ -147,7 +148,7 @@ if (typeof window.centrePoint === "undefined") {
   };
 
   centrePoint.createPdf = function(){
-        window.location.href = "/featurePdf/" + activeFeatureId;
+        window.location.href = "/featurePdf/" + pdfFeatureId;
   };
 
   centrePoint.createMail = function(){
@@ -331,7 +332,7 @@ if (typeof window.centrePoint === "undefined") {
 
   function onFeatureClick(event){
     // Get feature details.
-    activeFeatureId = event.feature.getProperty('geo_code');
+    pdfFeatureId = activeFeatureId = event.feature.getProperty('geo_code');
     activeFeatureName = event.feature.getProperty('geo_label');
 
     showView("feature");

@@ -97,7 +97,7 @@ function initialiseMap(gmap) {
         infobox.setPosition(bounds.getCenter());
         infobox.setOptions(myOptions);
         infobox.open(map);
-    }, 100);
+    }, 1000);
   });
 }
 
