@@ -15,9 +15,7 @@
     "serve-favicon": "~2.2.0",
     "d3": "*",
     "cradle": "*",
-    "phantom": "*"
-
-
-
+    "phantom": "*",
+    "phantomjs": "~1.9.17"
   }
 }

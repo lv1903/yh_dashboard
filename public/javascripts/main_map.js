@@ -49,53 +49,56 @@ function initialiseMap(gmap) {
   map.data.addGeoJson(oGeoLa);
 
   var infobox =  new InfoBox();
+  var pendingTimeout = 0;
+
+  map.data.addListener('mouseout', function() {
+    infobox.close();
+  });
 
   map.data.addListener('mouseover', function(event) {
-      setTimeout(function() {
-          infobox.close()
-          contentString = event.feature.getProperty('geo_label');// + " : " + event.feature.getProperty('geo_code')
-          infobox.setContent(contentString)
-          var w = contentString.length * 10 + "px"
-          myOptions = {
-              disableAutoPan: true,
-              pixelOffset: new google.maps.Size(-50, -50),
-              zIndex: null,
+    if (pendingTimeout !== 0) {
+      clearTimeout(pendingTimeout);
+    }
 
-              boxStyle: {
-                  border: "1px solid grey",
-                  boxShadow: '0 5px 5px rgba(0,0,0,.3)',
-                  textAlign: "center",
-                  fontSize: "12pt",
-                  color: "black",
-                  font: "Arial",
-                  background: "white",
-                  opacity: 0.80,
-                  width: w
-              },
-              closeBoxURL: ""
-          }
+    pendingTimeout = setTimeout(function() {
+        infobox.close();
+        var contentString = event.feature.getProperty('geo_label');
+        infobox.setContent(contentString);
+        var w = contentString.length * 10 + "px";
+        var myOptions = {
+            disableAutoPan: true,
+            pixelOffset: new google.maps.Size(-50, -50),
+            zIndex: null,
+            boxStyle: {
+                border: "1px solid grey",
+                boxShadow: '0 5px 5px rgba(0,0,0,.3)',
+                textAlign: "center",
+                fontSize: "12pt",
+                color: "black",
+                font: "Arial",
+                background: "white",
+                opacity: 0.80,
+                width: w
+            },
+            closeBoxURL: ""
+        };
 
-          var bounds = new google.maps.LatLngBounds();
+        var bounds = new google.maps.LatLngBounds();
 
-          if (event.feature.getGeometry().getType() === 'MultiPolygon') {
-              for (i in event.feature.getGeometry().getArray()) {
-                  bounds = extend_bounds(bounds, event.feature.getGeometry().getArray()[i].getArray())
-              }
-          }
-          if (event.feature.getGeometry().getType() === 'Polygon') {
-              bounds = extend_bounds(bounds, event.feature.getGeometry().getArray())
-          }
+        if (event.feature.getGeometry().getType() === 'MultiPolygon') {
+            for (var i in event.feature.getGeometry().getArray()) {
+                bounds = extend_bounds(bounds, event.feature.getGeometry().getArray()[i].getArray())
+            }
+        }
+        if (event.feature.getGeometry().getType() === 'Polygon') {
+            bounds = extend_bounds(bounds, event.feature.getGeometry().getArray())
+        }
 
-          var latlng = new google.maps.LatLng(bounds.getCenter().lat(), bounds.getCenter().lng());
-          infobox.setPosition(bounds.getCenter())
-          infobox.setOptions(myOptions)
-          infobox.open(map)
-          setTimeout(function () {
-              infobox.close();
-              }, 7000);
-      }, 100);
-  })
-
+        infobox.setPosition(bounds.getCenter());
+        infobox.setOptions(myOptions);
+        infobox.open(map);
+    }, 250);
+  });
 }
 
 function resetMap() {
