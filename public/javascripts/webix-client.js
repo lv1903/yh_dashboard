@@ -114,8 +114,10 @@ if (typeof window.centrePoint === "undefined") {
       newMapView = "missing";
     } else if (false === $$("unemploymentView").config.collapsed) {
       newMapView = "unemployment";
-    } else {
+    } else if (false === $$("riskFactorsView").config.collapsed) {
       newMapView = "riskFactors";
+    } else {
+      newMapView = activeMap;
     }
 
     activeMap = newMapView;
@@ -360,6 +362,9 @@ if (typeof window.centrePoint === "undefined") {
         $$("resetButton").show();
         $$("mainPanelView").setValue("homelessnessMap");
         loadMap();
+        if (activeMap.length > 0) {
+          $$(activeMap + "View").config.collapsed = false;
+        }
         window.history.replaceState(view, null, "/explore");
         break;
       case "feature":
@@ -369,7 +374,9 @@ if (typeof window.centrePoint === "undefined") {
         // Make sure feature view is visible.
         $$("homelessnessFeatureView").scrollTo(0,0);
         $$("mainPanelView").setValue("homelessnessFeatureView");
-        $$("viewAccordion").hide();
+        if (activeMap.length > 0) {
+          $$(activeMap + "View").config.collapsed = true;
+        }
         window.history.replaceState(null,null,"/feature/" + activeFeatureId)
         break;
       case "source":
