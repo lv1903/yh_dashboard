@@ -28,7 +28,7 @@ html
         script.
             console.log(oEntities)
 
-        script).
+        script.
             var switchTo5x = true;
         script(type='text/javascript', src='http://w.sharethis.com/button/buttons.js')
         script.
@@ -127,19 +127,17 @@ html
             button.backToMapButton(type='button', onclick="centrePoint.accordionViewChanged()") back to map
 
         div.cp_hidden(id="welcomeInfo")
-            h2 Centrepoint youth homelessness app
-            p See the national picture
-            p Use the side-bar on the right to select and filter the data that is shown.
-            p Click on the map to see more details for the local area.
+            h3#welcomeHeader Welcome to the youth homelessness app
             p.cp_welcomeMap
                 a(href="#", onclick="centrePoint.accordionViewChanged();")
                     img(src="/images/welcomeImg.png", alt="welcome map")
             br
+            button.backToMapButton(id='welcomeButton' type='button', onclick="centrePoint.accordionViewChanged()") got it!
 
-        div.cp_hidden(id="welcomeOCDPInfo")
-            p This app was built on the <a href='//nquiringminds.com/nquiringminds-selected-as-data-integration-platform-for-uk-future-cities-program/'>Open City Data Platform</a>.
+                //div.cp_hidden(id="welcomeOCDPInfo")
+            p#welcomeOcdpText This app was built on the <a href='//nquiringminds.com/nquiringminds-selected-as-data-integration-platform-for-uk-future-cities-program/'>Open City Data Platform</a>.
                 //, developed by <a href='//nqminds.com'>NQuiringMinds</a>. The OCDP is a data integration platform that connects data sets and data sources. It is built using open, non-proprietary application programming interfaces and data formats in order to maximise the interoperability between data and services.
-                span
+                //span
                     a(href='//nquiringminds.com/nquiringminds-selected-as-data-integration-platform-for-uk-future-cities-program/')
                         img.ocdp_welcome_logo(src='/images/ocdp.png')
 

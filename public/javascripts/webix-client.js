@@ -386,7 +386,9 @@ if (typeof window.centrePoint === "undefined") {
         break;
       case "welcome":
         $$("mapButtonRight").hide();
+        $$("shareButton").hide()
         $$("pdfButton").hide();
+        $$("pdfButtonRight").hide();
         $$("viewAccordion").hide();
         $$("mainPanelView").setValue("welcomeView");
         window.history.replaceState(view,null,"/");
@@ -400,10 +402,12 @@ if (typeof window.centrePoint === "undefined") {
 
     //--Hack to over ride webix javascript coding of margin and height
     if(centrePoint.useTouch) {
-        var aBtns = [$$("mapButton"), $$("resetButton"), $$("pdfButton")];
+        console.log("Touch")
+        //var aBtns = [$$("mapButton"), $$("resetButton"), $$("pdfButton")];
     } else {
-        var aBtns = [$$("mapButton"), $$("resetButton"), $$("pdfButton"), $$("shareButton")];
+        //var aBtns = [$$("mapButton"), $$("resetButton"), $$("pdfButton"), $$("shareButton")];
     }
+    var aBtns = [$$("mapButton"), $$("resetButton"), $$("pdfButton"), $$("shareButton")];
 
     for(var index in aBtns){
       var ele = aBtns[index];

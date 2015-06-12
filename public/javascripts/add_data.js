@@ -69,7 +69,7 @@ function addKey(aKeyValues, aLightnessValues){
         .attr("height", h - heightpadding)
         .attr("fill", function(d, i){
             if(aKeyValues[i] == "p1eLessThan5"){
-                return "#E8EEF2"
+                return "#dcd6da"
             } else {
                 return "hsla(10, 90%, " + aLightnessValues[i] + "%, 1)"
             }
@@ -120,14 +120,14 @@ function addLegendKey(aKeyValues, aLightnessValues, parentNode){
         .attr("height", h - heightpadding)
         .attr("fill", function(d, i){
             if(aKeyValues[i] == "p1eLessThan5"){
-                return "#E8EEF2"
+                return "#dcd6da"
             } else {
                 return "hsla(10, 90%, " + aLightnessValues[i] + "%, 1)"
             }
         })
         .attr("stroke", "black");
 
-    parentNode._contentobj.appendChild(ele.firstChild);
+    parentNode.$view.appendChild(ele.firstChild);
 }
 
 
@@ -160,7 +160,7 @@ function selectcolor(n, aBuckets, up){
     //console.log(n)
     //console.log(aBuckets)
     if(n == "p1eLessThan5"){
-        return "#E8EEF2";
+        return "#dcd6da";
     }else if(isNaN(n)){
         return "white";
     }else{

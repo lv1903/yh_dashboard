@@ -92,6 +92,7 @@ centrePoint.uiHomelessnessSideBar = {
 // Contains the info-graphic when a feature is clicked.
 centrePoint.uiHomelessnessFeatureView = {
   id: "homelessnessFeatureView",
+  minHeight: 400,
   view: "scrollview",
   scroll: "y",
   body: {
@@ -120,28 +121,11 @@ centrePoint.uiSourceView = {
 
 centrePoint.uiWelcomeView = {
   id: "welcomeView",
+  minHeight: 450,
   type: "clean",
   rows: [
     {
-<<<<<<< HEAD
-      //minHeight: 450,
-=======
->>>>>>> 26d4076a48e02217a345a06062e6cab85ba7bf0d
       template: "html->welcomeInfo"
-    },
-    {
-      view: "button",
-      label: "got it!",
-      width: 400,
-      align: "left",
-      on: { onItemClick: centrePoint.accordionViewChanged }
-    },
-    {
-      height: 200,
-      template: "html->welcomeOCDPInfo"
-    },
-    {
-      gravity: 0.01
     }
   ]
 
@@ -366,7 +350,8 @@ centrePoint.uiMainLayout = {
               id: "mainPanelView",
               view: "multiview",
               minWidth: 360,
-              fitBiggest: true,
+              //fitBiggest: true,
+              fitActive: true,
               cells: [
                 centrePoint.uiWelcomeView,
                 centrePoint.uiHomelessnessMap,
