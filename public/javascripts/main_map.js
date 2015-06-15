@@ -28,9 +28,11 @@ function extend_bounds(bounds, arr){
 function initialiseMap(gmap) {
   map = gmap;
 
-  if ($$("homelessnessMap").$height < 330) {
+  if($$("homelessnessMap").$height < 330){
+    console.log($$("homelessnessMap").$height + "<")
     initialZoom = 5;
   } else {
+      console.log($$("homelessnessMap").$height + ">")
     initialZoom = 6;
   }
 
@@ -39,6 +41,7 @@ function initialiseMap(gmap) {
     zoom: initialZoom,
     styles: mapStyle,
     disableDefaultUI: true,
+    disableDoubleClickZoom: true,
     zoomControl: true,
     zoomControlOptions: {
       style: google.maps.ZoomControlStyle.SMALL,

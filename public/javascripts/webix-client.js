@@ -199,7 +199,7 @@ if (typeof window.centrePoint === "undefined") {
   };
 
   // Enable webix debugging.
-  webix.debug = true;
+  //webix.debug = true;
 
   // Include ui elements.
 //  webix.require("../javascripts/webix-ui.js");
@@ -229,6 +229,8 @@ if (typeof window.centrePoint === "undefined") {
 
 
     showView(preLoadView);
+
+
   });
 
   function getHomelessnessData(type, index) {
@@ -304,14 +306,15 @@ if (typeof window.centrePoint === "undefined") {
       var gmap = $$("homelessnessMap").map;
       gmap.data.addListener('mouseover', onMouseOverMap);
       gmap.data.addListener('mouseout', onMouseOffMap);
-      gmap.data.addListener('click', onFeatureClick);
+      gmap.data.addListener('dblclick', onFeatureClick);
       gmap.addListener('idle', clearMapBusy);
 
       // Initialise the map data.
       initialiseMap(gmap);
       centrePoint.mapInitialised = true;
-
       centrePoint.accordionViewChanged();
+      resetMap()
+
     }
   }
 
@@ -401,12 +404,12 @@ if (typeof window.centrePoint === "undefined") {
     }
 
     //--Hack to over ride webix javascript coding of margin and height
-    if(centrePoint.useTouch) {
-        console.log("Touch")
-        //var aBtns = [$$("mapButton"), $$("resetButton"), $$("pdfButton")];
-    } else {
-        //var aBtns = [$$("mapButton"), $$("resetButton"), $$("pdfButton"), $$("shareButton")];
-    }
+    //if(centrePoint.useTouch) {
+    //    console.log("Touch")
+    //    //var aBtns = [$$("mapButton"), $$("resetButton"), $$("pdfButton")];
+    //} else {
+    //    //var aBtns = [$$("mapButton"), $$("resetButton"), $$("pdfButton"), $$("shareButton")];
+    //}
     var aBtns = [$$("mapButton"), $$("resetButton"), $$("pdfButton"), $$("shareButton")];
 
     for(var index in aBtns){

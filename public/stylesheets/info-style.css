@@ -1,53 +1,120 @@
+/*----------Header------------------*/
+.headerBlock1 {
+    /*margin-top: 25px;*/
+    padding: 0 0 0 100px;
+    position: relative;
+    height: 20px;
+    max-width: 650px;
+}
+
+.headerTitle {
+    font-family: Arial;
+    font-size: 22px;
+    color: #BFBFBF;
+    font-weight: bold;
+    padding: 4px;
+
+}
+
+.cp_feature_logo{
+    position: absolute;
+    left: 5px;
+    height: 30px;
+    vertical-align: -10px;
+}
+
+.headerBlock2 {
+    max-width: 650px;
+    padding: 0 0 0 50px;
+    position: relative;
+    /*text-align: center;*/
+}
+
+.headerName {
+    font-family: Arial;
+    position: absolute;
+    right: 0;
+    color: #D04627;
+}
+
+/*----------Footer------------------*/
+
+
+.ocdpText{
+    /*text-align: center;*/
+    text-align: left;
+    /*margin-left: 50px;*/
+    color: dodgerblue;
+    font-size: 12px;
+    /*font-weight: bold;*/
+    margin-bottom: 10px;
+    max-width: 680px;
+}
+
+.ocdpLogo{
+    margin-left: 5px;
+    /*left: 5px;*/
+    /*position: absolute;*/
+    /*top: -9px;*/
+
+}
+
+.ocdpLogo img{
+    height: 30px;
+    vertical-align: -8px;
+}
+
+/*----------Body------------------*/
+
+body{
+    font-family: Arial;
+    font-size: 15px;
+}
+
 #infoCanvas{
-    /*max-width: 500px;*/
     margin-right: 10px;
 }
 
-.titleText {
-    font-family: Arial;
-    font-size: 20px;
-    font-weight: bold;
-    /*color: #D04627;
-    color: white;
-    background-color: black;*/
-    background-image: url(http://centrepoint.org.uk/img/cp_underline2.png);
-    background-repeat: no-repeat;
-    background-position: bottom;
-    background-origin: padding-box;
-    background-size: 100% 5px;
-    padding: 0 5px 0 5px;
-    padding-bottom: 5px;
-
+hr{
+    /*margin: 30px 0 30px 0;*/
+    /*color: #D04627;*/
+    color: #D04627;;
+    background-color: #D04627;
+    border: 0;
+    height: 2px;
+    max-width: 770px;
+    margin: 0;
 }
 
-.headParent{
-    display: inline-block;
+/*----------Titles------------------*/
+
+.headBlock{
+    margin-top: 25px;
+    padding: 0 0 0 50px;
+    position: relative;
+    max-width: 630px;
+    background-color: white;
 }
 
-.headText, .headTextSmall{
+.headText{
     font-family: Arial;
-    font-size: 20px;
-    /*color: grey;*/
-    /*color: #D04627;
-    color: white;
-    background-color: black;*/
-    background-image: url(http://centrepoint.org.uk/img/cp_underline2.png);
-    background-repeat: no-repeat;
-    background-position: bottom;
-    background-origin: padding-box;
-    background-size: 100% 5px;
-    margin: 30px 0 0 0;
+    font-size: 18px;
+    color: #666666;
     font-weight: bold;
-    padding: 0 5px 0 5px;
-    padding-bottom: 5px;
-    /*width: auto;*/
-
+}
+/*----------Text------------------*/
+.textBlock{
+    margin-top: 20px;
+    padding: 0 0 0 50px;
+    position: relative;
+    max-width: 630px;
+    background-color: white;
 }
 
 
 .normText{
-    font-family: Arial;
-    font-size: 15px;
+    right: 40px;
+    /*font-size: 12px;*/
     color: #666666;
     margin: 15px 0px 15px 0;
     line-height: 18px;
@@ -55,22 +122,15 @@
 }
 
 .nameText{
-    font-family: Arial;
-    font-size: 15px;
+    /*font-size: 12px;*/
     color: #D04627;
     font-weight: bold;
     margin: 10px 0 10px 0;
 }
 
-.smallText{
-    font-family: Arial;
-    font-size: 12px;
-    color: grey;
-}
-
 .bigNumber{
     font-family: Arial Black;
-    font-size: 15px;
+    /*font-size: 15px;*/
     font-weight: bold;
     color: #D04627;
     /*color: grey;*/
@@ -80,9 +140,19 @@
 
 }
 
-hr{
-    margin: 30px 0 30px 0;
+/*----------Images------------------*/
+
+.bulletImgLeft {
+    width: 30px;
+    /*float: left;*/
+    /*margin-right: 10px;*/
+    left: 5px;
+    position: absolute;
+    top: -5px;
 }
+
+
+
 
 #popImg{
     margin-bottom: 20px;
@@ -90,65 +160,9 @@ hr{
     height: 100px;
 }
 
-#otherFactorsText {
-    font-family: Arial;
-    font-size: 25px;
-    /*font-weight: bold;*/
-    /*color: #D04627;*/
-    color: grey;
-}
-
-.bulletImg{
-    width: 40px;
-    float: left;
-    margin-right: 10px;
-}
-
-.ocdpText{
-    text-align: center;
-    color: dodgerblue;
-    font-size: 15px;
-    font-weight: bold;
-    margin-bottom: 10px;
-
-}
-
-.ocdpLogo img{
-    height: 30px;
-    margin-left: 10px;
-    vertical-align: -10px;
-
-}
-
-/*#houseImg{*/
-    /*width: 100px;*/
-    /*float: left;*/
-/*}*/
-
-/*#houseText{*/
-    /*height: 100px*/
-/*}*/
-
-/*#notAll{*/
-    /*padding: 30px 0 0 120px;*/
-    /*margin: 20px 0 30px 20px;*/
-/*}*/
-
-/*#mostAre{*/
-    /*margin-top: 30px;*/
-/*}*/
 
 
 
 
-/*#fallingText{*/
-    /*height: 100px*/
-/*}*/
 
-/*#overThe{*/
-    /*padding: 30px 0 0 120px;*/
-/*}*/
 
-/*#deprivationExtraText{*/
-    /*margin-top: -20px;*/
-/*}*/

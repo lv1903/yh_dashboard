@@ -8,6 +8,7 @@ if (typeof window.centrePoint === "undefined") {
   centrePoint = {};
 }
 centrePoint.barHeight = 30;
+centrePoint.touchMinHeight = 400;
 
 // Search form used in non-touch scenarios.
 centrePoint.uiSearchForm = {
@@ -92,7 +93,7 @@ centrePoint.uiHomelessnessSideBar = {
 // Contains the info-graphic when a feature is clicked.
 centrePoint.uiHomelessnessFeatureView = {
   id: "homelessnessFeatureView",
-  minHeight: 400,
+  minHeight: centrePoint.touchMinHeight,
   view: "scrollview",
   scroll: "y",
   body: {
@@ -133,6 +134,7 @@ centrePoint.uiWelcomeView = {
 
 centrePoint.uiHomelessnessKeyView = {
   id: "homelessnessKeyView",
+  //view: "scrollview",
   scroll: "y",
   type: "clean",
   rows: [
