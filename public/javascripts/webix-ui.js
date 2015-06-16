@@ -134,47 +134,58 @@ centrePoint.uiWelcomeView = {
 
 centrePoint.uiHomelessnessKeyView = {
   id: "homelessnessKeyView",
-  //view: "scrollview",
+  view: "scrollview",
   scroll: "y",
   type: "clean",
-  rows: [
-      {template: "html->legendKeyText", height: 60},
-      {id: "homelessnessKeyContainer", height: 50},
-      {template: "html->homelessnessKeyText"}
-  ]
+  body: {
+      rows: [
+          {template: "html->legendKeyText", height: 60},
+          {id: "homelessnessKeyContainer", height: 50},
+          {template: "html->homelessnessKeyText"}
+      ]
+  }
 };
 
 centrePoint.uiMissingKeyView = {
   id: "missingKeyView",
+  view: "scrollview",
   scroll: "y",
-    type: "clean",
-    rows: [
-      {template: "html->legendKeyText", height: 60},
-      {id: "missingKeyContainer", height: 50},
-      {template: "html->missingKeyText"}
-    ]
+  type: "clean",
+  body: {
+      rows: [
+          {template: "html->legendKeyText", height: 60},
+          {id: "missingKeyContainer", height: 50},
+          {template: "html->missingKeyText"}
+      ]
+  }
 };
 
 centrePoint.uiUnemploymentKeyView = {
   id: "unemploymentKeyView",
+  view: "scrollview",
   scroll: "y",
   type: "clean",
-  rows: [
-    {template: "html->legendKeyText", height: 60},
-    {id: "unemploymentKeyContainer", height: 50},
-    {template: "html->unemploymentKeyText"}
-  ]
+  body: {
+      rows: [
+          {template: "html->legendKeyText", height: 60},
+          {id: "unemploymentKeyContainer", height: 50},
+          {template: "html->unemploymentKeyText"}
+      ]
+  }
 };
 
 centrePoint.uiRiskFactorsKeyView = {
   id: "riskFactorsKeyView",
+  view: "scrollview",
   scroll: "y",
   type: "clean",
-  rows: [
-    {template: "html->legendKeyText", height: 60},
-    {id: "riskFactorsKeyContainer", height: 50},
-    {template: "html->riskFactorsKeyText"}
-  ]
+  body: {
+      rows: [
+          {template: "html->legendKeyText", height: 60},
+          {id: "riskFactorsKeyContainer", height: 50},
+          {template: "html->riskFactorsKeyText"}
+      ]
+  }
 };
 
 //************************************************************************
@@ -351,7 +362,7 @@ centrePoint.uiMainLayout = {
             {
               id: "mainPanelView",
               view: "multiview",
-              minWidth: 360,
+              minWidth: 310,
               //fitBiggest: true,
               fitActive: true,
               cells: [

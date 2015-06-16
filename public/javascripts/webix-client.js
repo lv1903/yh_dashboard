@@ -150,6 +150,7 @@ if (typeof window.centrePoint === "undefined") {
   };
 
   centrePoint.createPdf = function(){
+        console.log("id: " + pdfFeatureId)
         window.location.href = "/featurePdf/" + pdfFeatureId;
   };
 
@@ -404,12 +405,6 @@ if (typeof window.centrePoint === "undefined") {
     }
 
     //--Hack to over ride webix javascript coding of margin and height
-    //if(centrePoint.useTouch) {
-    //    console.log("Touch")
-    //    //var aBtns = [$$("mapButton"), $$("resetButton"), $$("pdfButton")];
-    //} else {
-    //    //var aBtns = [$$("mapButton"), $$("resetButton"), $$("pdfButton"), $$("shareButton")];
-    //}
     var aBtns = [$$("mapButton"), $$("resetButton"), $$("pdfButton"), $$("shareButton")];
 
     for(var index in aBtns){

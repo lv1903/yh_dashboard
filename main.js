@@ -130,6 +130,7 @@ cdo.getDataObjects(function(oEntities, oNational) {
     console.log(address);
 
     var output = 'centrePoint_' + id + '_' + Date.now() + '.pdf';
+    var download_output = 'centrePoint_' + id  + '.pdf'
 
     var file = path.join(__dirname, "tmp/" + output);
 
@@ -141,7 +142,7 @@ cdo.getDataObjects(function(oEntities, oNational) {
                     console.log("rendering page")
                     page.render("tmp/" + output, function(result){
                         console.log("pdf: " + file)
-                        res.download(file, output, function(err){
+                        res.download(file, download_output, function(err){
                           if(err){console.log(err.message)}
                           fs.unlink(file)
                         })

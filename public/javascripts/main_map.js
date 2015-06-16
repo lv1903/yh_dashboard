@@ -100,6 +100,10 @@ function initialiseMap(gmap) {
         infobox.setPosition(bounds.getCenter());
         infobox.setOptions(myOptions);
         infobox.open(map);
+        setTimeout(function () {
+            infobox.close();
+        }, 10000);
+
     }, 250);
   });
 }
@@ -115,8 +119,11 @@ function resetMap() {
     var zoom;
     if($$("homelessnessMap").$height < 330){
         zoom = 5;
-    } else {
+    } else if($$("homelessnessMap").$height < 790){
         zoom = 6;
+    } else {
+        zoom = 7;
     }
+    console.log("homelessmap height: " + $$("homelessnessMap").$height);
     map.setZoom(zoom);
 }
