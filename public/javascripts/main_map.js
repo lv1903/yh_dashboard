@@ -2,7 +2,7 @@
 
 var map;
 var oGeoLa = topojson.feature(oLaTopo, oLaTopo.objects.collection);
-var initialCenter = new google.maps.LatLng(53,-2.5);
+var initialCenter = new google.maps.LatLng(53,-2);
 var initialZoom;
 
 var marker = "no marker";
