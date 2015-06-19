@@ -107,6 +107,7 @@ html {
 #welcomeButton{
     width: 30vw;
     min-width: 310px;
+    margin-top: 0;
 
 }
 
@@ -119,6 +120,7 @@ html {
 
     min-width: 360px;
     text-align: center;
+    margin-top: 10px;
     /*margin-left: 5vw;*/
  }
 
