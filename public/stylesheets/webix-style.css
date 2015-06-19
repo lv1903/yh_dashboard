@@ -162,6 +162,7 @@ html {
     border: none;
     background: #D04627;
     color: white;
+    cursor: pointer;
 }
 
 .webix_view button{
