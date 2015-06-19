@@ -104,7 +104,8 @@ hr{
 /*----------Titles------------------*/
 
 .headBlock{
-    margin-top: 25px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     padding: 0 0 0 50px;
     position: relative;
     max-width: 630px;
