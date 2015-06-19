@@ -94,7 +94,9 @@
         if (n == "-")
             div.textBlock
                 //img.bulletImgLeft(src="/images/red-house.png")
-                p.normText There have been fewer than 5 homeless young people reported in #{oData.name} in the last 3 months.
+                p.normText There have been fewer than #{''}
+                    span.bigNumber 5
+                    span.normText #{''} homeless young people reported in #{oData.name} in the last 3 months.
 
             div.textBlock
                 //img.bulletImgLeft(src="/images/red-house.png")
