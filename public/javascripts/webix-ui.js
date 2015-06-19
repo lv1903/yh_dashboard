@@ -89,6 +89,7 @@ centrePoint.uiHomelessnessSideBar = {
           {
             view: "slider",
             id: "homelessnessDateSlider",
+            height: 40,
             step: 1,
             min: 0,
             max: aDates.length - 1,
