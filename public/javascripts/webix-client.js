@@ -377,7 +377,7 @@ if (typeof window.centrePoint === "undefined") {
       var gmap = $$("homelessnessMap").map;
       gmap.data.addListener('mouseover', onMouseOverMap);
       gmap.data.addListener('mouseout', onMouseOffMap);
-      gmap.data.addListener('dblclick', onFeatureClick);
+      gmap.data.addListener('click', onFeatureClick);
       gmap.addListener('idle', clearMapBusy);
 
       // Initialise the map data.
