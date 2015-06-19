@@ -5,13 +5,21 @@ if (typeof window.centrePoint === "undefined") {
   centrePoint = {};
 }
 
+
+
 (function() {
-  var activeMap = "";
+  var activeMap = "homelessness";
   var activeFeatureId = "";
   var activeFeatureName = "";
   var pdfFeatureId = "";
   centrePoint.mapInitialised = false;
   centrePoint.useTouch = webix.env.touch;
+
+
+  //var appUrl = window.location.protocol + "//"  +  window.location.host
+  //var encoded_appUrl = encodeURIComponent(appUrl)
+  //console.log(appUrl)
+  //console.log(encoded_appUrl)
 
   // Renders the information for the currently active feature.
   centrePoint.renderFeatureInfo = function() {
@@ -58,6 +66,7 @@ if (typeof window.centrePoint === "undefined") {
     }
     centrePoint.riskFactorSelection();
   };
+
 
   // Re-loads the risk factor data based on the checkbox values.
   centrePoint.riskFactorSelection = function() {
@@ -154,41 +163,98 @@ if (typeof window.centrePoint === "undefined") {
         window.location.href = "/featurePdf/" + pdfFeatureId;
   };
 
-  centrePoint.createMail = function(){
+  //centrePoint.createMail = function(){
+  //
+  //    var pdfUrl = document.location.origin + "/featurePdf/" + activeFeatureId;
+  //    var appUrl = document.location.origin
+  //
+  //    window.location = "mailto: ?subject=Youth homelessness in your area &body=" + "bodyText"
+  //};
 
-      var pdfUrl = document.location.origin + "/featurePdf/" + activeFeatureId;
-      var appUrl = document.location.origin
 
-      //var bodyText = Please have a look at Centerpoint's <a href=" + pdfUrl + ">fact sheet</a> about youth homelessness in your area.</p>" +
-      //    "<p>And visit the <a href=" + appUrl + ">full app</a>.</p>"
-      //    "<div>"
+  centrePoint.getShareButtonHtml = function(cat){
 
-      window.location = "mailto: ?subject=Youth homelessness in your area &body=" + "bodyText"
-  };
-
-  centrePoint.buildShareLinks = function () {
-
-      var stArr = [
-          'st_twitter_large',
-          'st_email_large',
-          'st_linkedin_large',
-          'st_facebook_large',
-          'st_googleplus_large',
-          'st_sharethis_large'
-      ]
-
-      var st_title = 'National youth homelessness';
-      var st_summary = 'Find out the scale of youth homelessness in your area';
-      var st_image = 'http://centrepoint.org.uk/img/logo.png'
-
-      for(var index in stArr){
-          var ele = document.createElement("div");
-          ele.innerHTML = "<span class=" + stArr[index] + " st_title='" + st_title + "' st_summary='" + st_summary + "'></span>"
-          $$("shareContainer").$view.appendChild(ele.firstChild);
+    if(cat == "report"){
+      var pathArr = String(window.location).split("/");
+      var id = "";
+      if(pathArr[pathArr.length - 2] == "feature") {
+        id = pathArr[pathArr.length -1];
       }
+      var name = oEntities[id].name;
+      var appUrl = window.location.protocol + "//"  +  window.location.host + "/feature/" + id;
+      var summaryText = "Find out the scale of youth homelessness in " + name;
+      var titleText = "Youth homelessness in " + name;
+      var body = "Find out the scale of youth homelessness in " + name + " with Centrepoint's new app: " + appUrl
+    } else {
+      var appUrl = window.location.protocol + "//"  +  window.location.host + "/";
+      var summaryText = "Find out the scale of youth homelessness in your area";
+      var titleText = "National youth homelessness";
+      var body = "Find out the scale of youth homelessness in your area with Centrepoint's new app: " + appUrl
+    }
 
-      stButtons.locateElements();
+    var encoded_appUrl =  encodeURIComponent(appUrl);
+    var encoded_summaryText = encodeURIComponent(summaryText);
+    var encoded_titleText = encodeURIComponent(titleText);
+
+    divId = "share_" + cat;
+
+    var html =  '<div id=divId>'
+        + '<span><a href="https://twitter.com/intent/tweet?url=' + encoded_appUrl + '&text=' + encoded_summaryText + '&via=centrepointuk" title="twitter" target="_blank"><img class="shareImg" src="/images/twitter_button.png"></a></span>'
+        + '<span><a href="https://www.facebook.com/sharer/sharer.php?u=' + encoded_appUrl + '" title="facebook" target="_blank"><img class="shareImg" src="/images/facebook_button.png"></a></span>'
+        + '<span><a href="https://www.linkedin.com/shareArticle?mini=true&url=' + encoded_appUrl + ' &title='  + encoded_titleText + '&source=centrepointuk" title="linkedin" target="_blank"><img class="shareImg" src="/images/linkedin_button.png"></a></span>'
+        + '<span><a href="https://plus.google.com/share?url=' + encoded_appUrl + '" title="google+" target="_blank"><img class="shareImg" src="/images/googleplus_button.png"></a></span>'
+        //+ '</p>'
+        //+ '<p>'
+        + '<span><a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&su=' +  titleText + '&body=' + body +'" title="gmail" target="_blank"><img class="shareImg" src="/images/gmail_button.png"></a></span>'
+        + '<span><a href="http://compose.mail.yahoo.com/?subject=' +  titleText + '&body=' + body +'" title="yahoo mail" target="_blank"><img class="shareImg" src="/images/yahoomail_button.png"></a></span>'
+        + '<span><a href="http://mail.live.com/mail/EditMessageLight.aspx?n=&subject=' +  titleText + '&body=' + body +'" title="hotmail" target="_blank"><img class="shareImg" src="/images/hotmail_button.png"></a></span>'
+        + '<span><a href="mailto: ?subject=' + titleText + '&body=' + body + '" title="default mail" target="_blank"><img class="shareImg" src="/images/mail_button.png"></a></span>'
+        //+ '</p>'
+        + "</div>"
+
+    return html
   }
+
+  centrePoint.deleteElement = function(id){
+     if($$(id)) {
+      $$("shareTabs").removeOption(id);
+      //$$("shareViews").removeView(id);
+    }
+  }
+
+
+  centrePoint.buildShareButtons = function(){
+
+    centrePoint.deleteElement("shareApp");
+    centrePoint.deleteElement("shareReport");
+
+    var pathArr = String(window.location).split("/");
+    var id = "";
+    if(pathArr[pathArr.length - 2] == "feature")  {
+      id = pathArr[pathArr.length -1]
+    }
+    console.log(id)
+
+    var html;
+
+    //app tab
+    html = centrePoint.getShareButtonHtml("app");
+    $$("shareViews").addView({ view:"template", id:"shareApp", template: html });
+    $$("shareTabs").addOption("shareApp", "share the app", true);
+
+
+    //report tab
+    if(id.length > 0) {
+      html = centrePoint.getShareButtonHtml("report");
+      $$("shareViews").addView({ view:"template", id:"shareReport", template: html });
+      $$("shareTabs").addOption("shareReport", "share the report", true);
+    }
+
+
+  }
+
+
+
 
   centrePoint.onSourceClick = function() {
     $$("sourceDetailsButton").hide()
@@ -413,7 +479,7 @@ if (typeof window.centrePoint === "undefined") {
       ele.$view.style["height"] = "30px";
       ele.$view.childNodes[0].style["height"] = "30px";
     }
-
+    console.log("Touch: " + webix.env.touch)
     setHeaderTitle();
   }
 }());

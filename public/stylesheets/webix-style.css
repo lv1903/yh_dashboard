@@ -156,3 +156,31 @@ html {
 }
 
 
+.shareImg{
+    height: 30px;
+    padding: 2px;
+
+}
+
+.webix_item_tab {
+    background-color: white;
+    color: grey;
+    border: white
+}
+
+.webix_item_tab {
+    background-color: white;
+    color: lightgrey;
+    border: white;
+    border-radius: 0;
+}
+
+.webix_item_tab .webix_selected {
+    background-color: #D04627;
+}
+
+#shareDiv {
+    /*border: solid;*/
+    /*border-color: black;*/
+    /*border-width: 2px;*/
+}

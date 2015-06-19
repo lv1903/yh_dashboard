@@ -46,10 +46,29 @@ centrePoint.uiSharePopup = {
     view:"popup",
     id:"sharePopup",
     head:"Submenu",
-    width: 244,
+    width: 300,
+    height: 84,
     body: {
-        height: 32,
-        id: "shareContainer"
+        type: "clean",
+        rows: [
+            {
+                id: "shareTabs",
+                view: "tabbar",
+                multiview: true,
+                options: [],
+                height: 30
+            },
+            {
+                id: "shareViews",
+                cells: [
+                    {
+                        view: "template",
+                        id: "tpl",
+                        template: ""
+                    }
+                ]
+            }
+        ]
     }
 };
 
@@ -141,7 +160,7 @@ centrePoint.uiHomelessnessKeyView = {
       rows: [
           {template: "html->legendKeyText", height: 60},
           {id: "homelessnessKeyContainer", height: 50},
-          {template: "html->homelessnessKeyText"}
+          {template: "html->homelessnessKeyText", autoheight: true}
       ]
   }
 };
@@ -155,7 +174,7 @@ centrePoint.uiMissingKeyView = {
       rows: [
           {template: "html->legendKeyText", height: 60},
           {id: "missingKeyContainer", height: 50},
-          {template: "html->missingKeyText"}
+          {template: "html->missingKeyText", autoheight: true}
       ]
   }
 };
@@ -169,7 +188,7 @@ centrePoint.uiUnemploymentKeyView = {
       rows: [
           {template: "html->legendKeyText", height: 60},
           {id: "unemploymentKeyContainer", height: 50},
-          {template: "html->unemploymentKeyText"}
+          {template: "html->unemploymentKeyText", autoheight: true}
       ]
   }
 };
@@ -183,7 +202,7 @@ centrePoint.uiRiskFactorsKeyView = {
       rows: [
           {template: "html->legendKeyText", height: 60},
           {id: "riskFactorsKeyContainer", height: 50},
-          {template: "html->riskFactorsKeyText"}
+          {template: "html->riskFactorsKeyText", autoheight: true}
       ]
   }
 };
@@ -316,7 +335,7 @@ centrePoint.buttonElementsNonTouch = [
     { view: "label", id: "mapButtonRight", label: "|", width: 20},
     { view: "button", id: "pdfButton",  type: "iconButton", icon: "file-pdf-o", label: "pdf", width: 75, on: { onItemClick: centrePoint.createPdf } },
     { view: "label", id: "pdfButtonRight", label: "|", width: 20},
-    { view: "button", id: "shareButton", type: "iconButton", icon: "share-alt", label: "share", width: 75, popup: "sharePopup", on: {onItemClick: centrePoint.buildShareLinks}},
+    { view: "button", id: "shareButton", type: "iconButton", icon: "share-alt", label: "share", width: 80, popup: "sharePopup", on: { onItemClick: centrePoint.buildShareButtons}},
     { view: "label", id: "featureLabel", label: "Official youth homelessness"},
     { view: "button", id: "resetButton", type: "iconButton", icon: "refresh", label: "reset map", width: 110, on: { onItemClick: resetMap } }
 ]
@@ -326,10 +345,11 @@ centrePoint.buttonElementsTouch = [
     { view: "label", id: "mapButtonRight", label: "|", width: 20},
     { view: "button", id: "pdfButton",  type: "iconButton", icon: "file-pdf-o", label: "pdf", width: 75, on: { onItemClick: centrePoint.createPdf } },
     { view: "label", id: "pdfButtonRight", label: "|", width: 20},
-    { view: "button", id: "shareButton", type: "iconButton", icon: "share-alt", label: "", width: 30, popup: "sharePopup", on: {onItemClick: centrePoint.buildShareLinks}},
+    { view: "button", id: "shareButton", type: "iconButton", icon: "share-alt", label: "", width: 30, popup: "sharePopup", on: { onItemClick: centrePoint.buildShareButtons}},
     { view: "label", id: "featureLabel", label: "Official youth homelessness"},
     { view: "button", id: "resetButton", type: "iconButton", icon: "refresh", label: "", width: 30, on: { onItemClick: resetMap } }
 ]
+
 
 if(centrePoint.useTouch){
     centrePoint.buttonElements = centrePoint.buttonElementsTouch
@@ -362,7 +382,7 @@ centrePoint.uiMainLayout = {
             {
               id: "mainPanelView",
               view: "multiview",
-              minWidth: 310,
+              minWidth: 350,
               //fitBiggest: true,
               fitActive: true,
               cells: [

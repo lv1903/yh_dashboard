@@ -25,19 +25,6 @@ html
             var preLoadView = '#{ activeView ? activeView : "map" }';
             var preLoadFeature = '#{ activeFeature ? activeFeature : "" }';
 
-        script.
-            console.log(oEntities)
-
-        script.
-            var switchTo5x = true;
-        //script(type='text/javascript', src='http://w.sharethis.com/button/buttons.js')
-        script.
-            stLight.options({
-                publisher: "3289525b-89be-45b0-bc7f-fc5d336f5c81",
-                doNotHash: false,
-                doNotCopy: false,
-                hashAddressBar: false
-            });
 
     body
 
@@ -87,41 +74,41 @@ html
             h3 Index of deprivation
             p The concentration of deprivation relative to other local authorities.
             p Calculated by comparing most deprived areas in each authority, according to their relative rankings on a number of different measures of deprivation.
-            a(href='https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/6884/1871689.xls') Source
+            a(target='_blank', href='https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/6884/1871689.xls') Source
             hr
             h2 Education
             h3 2 or more A levels or equivalent
             p Percentage of 19 year olds educated to level 3 in the local authority. Level 3 education equates to achievement of 2 or more A-levels or equivalent size vocational qualifications.
             p Non Metropolitan Districts record their County's value.
-            a(href='https://www.gov.uk/government/statistics/level-2-and-3-attainment-by-young-people-aged-19-in-2014') Source
+            a(target='_blank', href='https://www.gov.uk/government/statistics/level-2-and-3-attainment-by-young-people-aged-19-in-2014') Source
             br
             br
             h3 Achievement gap
             p The percentage of children eligible for free school meals (FSM) or with special educational needs (SEN) attaining level 3 compared to children not eligible for FSM or SEN attaining level 3.
             p Non Metropolitan Districts record their County's value.
-            a(href='https://www.gov.uk/government/statistics/level-2-and-3-attainment-by-young-people-aged-19-in-2014') Source
+            a(target='_blank', href='https://www.gov.uk/government/statistics/level-2-and-3-attainment-by-young-people-aged-19-in-2014') Source
             br
             br
             h3 Apprenticeship starts
             p All apprenticeship starts for ages up to 24 in the local authority.
-            a(href='https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/382956/apprenticeships-starts-by-geography-level-and-age.xls') Source
+            a(target='_blank', href='https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/382956/apprenticeships-starts-by-geography-level-and-age.xls') Source
             br
             br
             h3 Persistent truancy
             p Percentage of persistent absentees in state funded secondary schools.
-            a(href='https://www.gov.uk/government/statistics/pupil-absence-in-schools-in-england-2013-to-2014') Source
+            a(target='_blank', href='https://www.gov.uk/government/statistics/pupil-absence-in-schools-in-england-2013-to-2014') Source
             hr
             h2 Health
             h3 Hospital Admissions (under 24s)
             p The number of emergency admissions caused by unintentional and deliberate injuries in young people aged 0 to 24.
             p Local authority (LA) rates are calculated as an average of all clinical commissioning groups (CCGs) that are wholly or partially inside the LA boundary with equal weight given to all CCGs.
-            a(href='http://fingertips.phe.org.uk/profile-group/mental-health/profile/cmhp/data') Source
+            a(target='_blank', href='http://fingertips.phe.org.uk/profile-group/mental-health/profile/cmhp/data') Source
             br
             br
             h3 Mental health problems (all ages)
             p The percentage of patients (of all ages) with schizophrenia, bipolar affective disorder and other psychoses as recorded on practice disease registers.
             p Local authority (LA) rates are calculated as an average of all clinical commissioning groups (CCGs) that are wholly or partially inside the LA boundary with equal weight given to all CCGs.
-            a(href='http://fingertips.phe.org.uk/profile-group/mental-health/profile/cmhp/data') Source
+            a(target='_blank', href='http://fingertips.phe.org.uk/profile-group/mental-health/profile/cmhp/data') Source
             hr
             br
             button.backToMapButton(type='button', onclick="centrePoint.accordionViewChanged()") back to map
@@ -138,7 +125,7 @@ html
             p#welcomeOcdpText This app was built on the <a href='//nquiringminds.com/nquiringminds-selected-as-data-integration-platform-for-uk-future-cities-program/'>Open City Data Platform</a>.
                 //, developed by <a href='//nqminds.com'>NQuiringMinds</a>. The OCDP is a data integration platform that connects data sets and data sources. It is built using open, non-proprietary application programming interfaces and data formats in order to maximise the interoperability between data and services.
                 //span
-                    a(href='//nquiringminds.com/nquiringminds-selected-as-data-integration-platform-for-uk-future-cities-program/')
+                    a(target='_blank', href='//nquiringminds.com/nquiringminds-selected-as-data-integration-platform-for-uk-future-cities-program/')
                         img.ocdp_welcome_logo(src='/images/ocdp.png')
 
 
@@ -183,4 +170,18 @@ html
             p And white means there was no data available.
             button.backToMapButton(type='button', onclick="centrePoint.accordionViewChanged()") back to map
 
+
+
+
+        -var a = "a"
+        -var id = activeFeatureId
+        //-var appUrl = "window.location.protocol" //+ "//"  +  window.location.host
+        //- var encoded_appUrl = encodeURIComponent(appUrl)
+        //-var twiterUrl =
+
+        div.cp_hidden(id="shareButtons")
+            p share the app
+            //
+            //a(target='_blank', href='//nquiringminds.com/nquiringminds-selected-as-data-integration-platform-for-uk-future-cities-program/')
+            //  img.shareImg(src='/images/twitter_button.png')
 
