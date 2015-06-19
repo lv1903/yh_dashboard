@@ -86,6 +86,7 @@
     position: relative;
     max-width: 630px;
     background-color: white;
+    overflow: hidden;
 }
 
 /*----------Body------------------*/
