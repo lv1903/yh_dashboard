@@ -159,8 +159,8 @@ if (typeof window.centrePoint === "undefined") {
   };
 
   centrePoint.createPdf = function(){
-        console.log("id: " + pdfFeatureId)
-        window.location.href = "/featurePdf/" + pdfFeatureId;
+        console.log("id: " + activeFeatureId)
+        window.location.href = "/featurePdf/" + activeFeatureId;
   };
 
   //centrePoint.createMail = function(){
