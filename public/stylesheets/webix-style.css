@@ -17,6 +17,7 @@ html {
 
 .ocdp_welcome_logo{
     height: 30px;
+    vertical-align: -8px;
 }
 
 .key_image {
@@ -81,13 +82,18 @@ html {
     display: none;
 }
 
+#welcomeDiv {
+    width: 30vw;
+    mid-width: 310px;
+}
+
 .cp_welcomeMap {
-    margin-left: 20px;
+    /*margin-left: 20px;*/
     /*float: right;*/
 }
 
 #welcomeHeader {
-    width: 30vw;
+    /*width: 30vw;*/
     min-width: 310px;
     text-align: center;
     /*font-size: 1.5vw;*/
@@ -101,12 +107,19 @@ html {
 #welcomeButton{
     width: 30vw;
     min-width: 310px;
+
+}
+
+#testwt{
+    width: 30vw;
 }
 
 #welcomeOcdpText{
-    width: 30vw;
+    /*width: 20vw;*/
+
     min-width: 360px;
     text-align: center;
+    /*margin-left: 5vw;*/
  }
 
 .webix_accordionitem {

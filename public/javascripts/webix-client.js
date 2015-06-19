@@ -159,6 +159,7 @@ if (typeof window.centrePoint === "undefined") {
   };
 
   centrePoint.createPdf = function(){
+        activeFeatureId = centrePoint.getFeatureId();
         console.log("id: " + activeFeatureId)
         window.location.href = "/featurePdf/" + activeFeatureId;
   };
@@ -175,11 +176,7 @@ if (typeof window.centrePoint === "undefined") {
   centrePoint.getShareButtonHtml = function(cat){
 
     if(cat == "report"){
-      var pathArr = String(window.location).split("/");
-      var id = "";
-      if(pathArr[pathArr.length - 2] == "feature") {
-        id = pathArr[pathArr.length -1];
-      }
+      var id = centrePoint.getFeatureId();
       var name = oEntities[id].name;
       var appUrl = window.location.protocol + "//"  +  window.location.host + "/feature/" + id;
       var summaryText = "Find out the scale of youth homelessness in " + name;
@@ -222,18 +219,25 @@ if (typeof window.centrePoint === "undefined") {
     }
   }
 
-
-  centrePoint.buildShareButtons = function(){
-
-    centrePoint.deleteElement("shareApp");
-    centrePoint.deleteElement("shareReport");
-
+  centrePoint.getFeatureId = function(){
     var pathArr = String(window.location).split("/");
     var id = "";
     if(pathArr[pathArr.length - 2] == "feature")  {
       id = pathArr[pathArr.length -1]
     }
     console.log(id)
+    return id
+
+
+  }
+
+
+  centrePoint.buildShareButtons = function(){
+
+    centrePoint.deleteElement("shareApp");
+    centrePoint.deleteElement("shareReport");
+
+    var id = centrePoint.getFeatureId();
 
     var html;
 
@@ -351,7 +355,7 @@ if (typeof window.centrePoint === "undefined") {
         // In touch mode, add the logo and search box as overlays on the map view
         // to optimise space.
         var ele = document.createElement("div");
-        ele.innerHTML = "<div class='cp_floating_logo'><img src='/images/logo.png' /></div>";
+        ele.innerHTML = "<div class='cp_floating_logo'><a target='_blank' href='http://centrepoint.org.uk/'><img src='/images/logo.png' /></a></div>";
         $$("homelessnessMap").$view.appendChild(ele.firstChild);
 
         // Create a container for the search ui.
@@ -471,15 +475,22 @@ if (typeof window.centrePoint === "undefined") {
     }
 
     //--Hack to over ride webix javascript coding of margin and height
-    var aBtns = [$$("mapButton"), $$("resetButton"), $$("pdfButton"), $$("shareButton")];
+    if(centrePoint.useTouch){
+      var aBtns = [$$("mapButton"), $$("resetButton"), $$("pdfButton")];
+    }else{
+      var aBtns = [$$("mapButton"), $$("resetButton"), $$("pdfButton"), $$("shareButton")];
+    }
+
+
 
     for(var index in aBtns){
+      console.log(index)
       var ele = aBtns[index];
       ele.$view.style["margin-top"] = "0px";
       ele.$view.style["height"] = "30px";
       ele.$view.childNodes[0].style["height"] = "30px";
     }
-    console.log("Touch: " + webix.env.touch)
+    //console.log("Touch: " + webix.env.touch)
     setHeaderTitle();
   }
 }());

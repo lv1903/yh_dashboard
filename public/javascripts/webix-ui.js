@@ -146,6 +146,7 @@ centrePoint.uiWelcomeView = {
   rows: [
     {
       template: "html->welcomeInfo"
+      //align: "center"
     }
   ]
 
@@ -335,7 +336,7 @@ centrePoint.buttonElementsNonTouch = [
     { view: "label", id: "mapButtonRight", label: "|", width: 20},
     { view: "button", id: "pdfButton",  type: "iconButton", icon: "file-pdf-o", label: "pdf", width: 75, on: { onItemClick: centrePoint.createPdf } },
     { view: "label", id: "pdfButtonRight", label: "|", width: 20},
-    { view: "button", id: "shareButton", type: "iconButton", icon: "share-alt", label: "share", width: 80, popup: "sharePopup", on: { onItemClick: centrePoint.buildShareButtons}},
+    { view: "button", id: "shareButton", type: "iconButton", icon: "share-alt", label: "share", width: 76, popup: "sharePopup", on: { onItemClick: centrePoint.buildShareButtons}},
     { view: "label", id: "featureLabel", label: "Official youth homelessness"},
     { view: "button", id: "resetButton", type: "iconButton", icon: "refresh", label: "reset map", width: 110, on: { onItemClick: resetMap } }
 ]
@@ -382,7 +383,7 @@ centrePoint.uiMainLayout = {
             {
               id: "mainPanelView",
               view: "multiview",
-              minWidth: 350,
+              minWidth: 320,
               //fitBiggest: true,
               fitActive: true,
               cells: [
