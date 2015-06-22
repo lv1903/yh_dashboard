@@ -46,7 +46,7 @@ centrePoint.uiSharePopup = {
     view:"popup",
     id:"sharePopup",
     head:"Submenu",
-    width: 300,
+    width: 310,
     height: 84,
     body: {
         type: "clean",
