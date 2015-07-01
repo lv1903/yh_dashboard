@@ -140,19 +140,6 @@ centrePoint.uiSourceView = {
   }
 };
 
-centrePoint.uiWelcomeView = {
-  id: "welcomeView",
-  minHeight: 450,
-  type: "clean",
-  rows: [
-    {
-      template: "html->welcomeInfo"
-      //align: "center"
-    }
-  ]
-
-};
-
 centrePoint.uiHomelessnessKeyView = {
   id: "homelessnessKeyView",
   view: "scrollview",
@@ -388,7 +375,6 @@ centrePoint.uiMainLayout = {
               //fitBiggest: true,
               fitActive: true,
               cells: [
-                centrePoint.uiWelcomeView,
                 centrePoint.uiHomelessnessMap,
                 centrePoint.uiHomelessnessFeatureView,
                 centrePoint.uiSourceView,

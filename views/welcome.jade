@@ -1,0 +1,20 @@
+doctype html
+html
+    head
+        link(rel="stylesheet", href="/stylesheets/webix-style.css", type="text/css")
+    body
+      div.cp_welcomePage
+         div.cp_welcomeHeader.cp_logo
+            a(href="http://centrepoint.org.uk")
+               img(src="/images/logo.png")
+         div.cp_welcomeDiv
+            h3#welcomeHeader Welcome to the Centrepoint Youth Homelessness App
+            p.cp_welcomeMap
+               a(href="/explore")
+                  img(src="/images/welcomeImg.png", width="600", height="400", alt="welcome map")
+            br
+            button.backToMapButton(id='welcomeButton' type='button', onclick="window.location=\"/explore\"") got it!
+            p#welcomeOcdpText Open City Data Platform  #{' '}#{''}
+               span
+                  a(target='_blank', title="open city data platform" href='//nquiringminds.com/nquiringminds-selected-as-data-integration-platform-for-uk-future-cities-program/')
+                     img.ocdp_welcome_logo(src='/images/ocdp.png')

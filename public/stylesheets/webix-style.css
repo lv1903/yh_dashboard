@@ -82,14 +82,19 @@ html {
     display: none;
 }
 
-#welcomeDiv {
-    width: 30vw;
-    mid-width: 310px;
+.cp_welcomeHeader {
+    padding-bottom: 10px;
+    border-bottom: 30px solid black;
 }
 
-.cp_welcomeMap {
-    /*margin-left: 20px;*/
-    /*float: right;*/
+.cp_welcomePage {
+    width: 66%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cp_welcomeDiv {
+    text-align: center;
 }
 
 #welcomeHeader {
@@ -100,15 +105,12 @@ html {
 }
 
 .cp_welcomeMap img {
-    width: 30vw;
-    min-width: 310px;
+    max-width: 100%;
+    height: auto;
 }
 
 #welcomeButton{
-    width: 30vw;
-    min-width: 310px;
-    margin-top: 0;
-
+    width: 220px;
 }
 
 #testwt{

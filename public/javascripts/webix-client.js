@@ -458,15 +458,6 @@ if (typeof window.centrePoint === "undefined") {
         $$("pdfButton").hide();
         $$("mainPanelView").setValue("sourceView");
         break;
-      case "welcome":
-        $$("mapButtonRight").hide();
-        $$("shareButton").hide()
-        $$("pdfButton").hide();
-        $$("pdfButtonRight").hide();
-        $$("viewAccordion").hide();
-        $$("mainPanelView").setValue("welcomeView");
-        window.history.replaceState(view,null,"/");
-        break;
       case "legend":
         $$("mapButtonRight").hide();
         $$("pdfButton").hide();
