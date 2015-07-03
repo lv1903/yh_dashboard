@@ -164,14 +164,6 @@ if (typeof window.centrePoint === "undefined") {
         window.location.href = "/featurePdf/" + activeFeatureId;
   };
 
-  //centrePoint.createMail = function(){
-  //
-  //    var pdfUrl = document.location.origin + "/featurePdf/" + activeFeatureId;
-  //    var appUrl = document.location.origin
-  //
-  //    window.location = "mailto: ?subject=Youth homelessness in your area &body=" + "bodyText"
-  //};
-
 
   centrePoint.getShareButtonHtml = function(cat){
 
@@ -200,13 +192,10 @@ if (typeof window.centrePoint === "undefined") {
         + '<span><a href="https://www.facebook.com/sharer/sharer.php?u=' + encoded_appUrl + '" title="facebook" target="_blank"><img class="shareImg" src="/images/facebook_button.png"></a></span>'
         + '<span><a href="https://www.linkedin.com/shareArticle?mini=true&url=' + encoded_appUrl + ' &title='  + encoded_titleText + '&source=centrepointuk" title="linkedin" target="_blank"><img class="shareImg" src="/images/linkedin_button.png"></a></span>'
         + '<span><a href="https://plus.google.com/share?url=' + encoded_appUrl + '" title="google+" target="_blank"><img class="shareImg" src="/images/googleplus_button.png"></a></span>'
-        //+ '</p>'
-        //+ '<p>'
         + '<span><a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&su=' +  titleText + '&body=' + body +'" title="gmail" target="_blank"><img class="shareImg" src="/images/gmail_button.png"></a></span>'
         + '<span><a href="http://compose.mail.yahoo.com/?subject=' +  titleText + '&body=' + body +'" title="yahoo mail" target="_blank"><img class="shareImg" src="/images/yahoomail_button.png"></a></span>'
         + '<span><a href="http://mail.live.com/mail/EditMessageLight.aspx?n=&subject=' +  titleText + '&body=' + body +'" title="hotmail" target="_blank"><img class="shareImg" src="/images/hotmail_button.png"></a></span>'
         + '<span><a href="mailto: ?subject=' + titleText + '&body=' + body + '" title="default mail" target="_blank"><img class="shareImg" src="/images/mail_button.png"></a></span>'
-        //+ '</p>'
         + "</div>"
 
     return html
@@ -215,7 +204,6 @@ if (typeof window.centrePoint === "undefined") {
   centrePoint.deleteElement = function(id){
      if($$(id)) {
       $$("shareTabs").removeOption(id);
-      //$$("shareViews").removeView(id);
     }
   }
 
@@ -269,11 +257,6 @@ if (typeof window.centrePoint === "undefined") {
     showView("legend");
   };
 
-  // Enable webix debugging.
-  //webix.debug = true;
-
-  // Include ui elements.
-//  webix.require("../javascripts/webix-ui.js");
 
   webix.ready(function() {
     if (centrePoint.useTouch) {
@@ -430,8 +413,6 @@ if (typeof window.centrePoint === "undefined") {
         $$("mapButton").hide();
         $$("mapButtonRight").hide();
         $$("pdfButtonRight").hide()
-        //$$("mailButton").hide();
-        //$$("mailButtonRight").hide();
         $$("pdfButton").hide();
         $$("resetButton").show();
         $$("mainPanelView").setValue("homelessnessMap");
@@ -443,7 +424,6 @@ if (typeof window.centrePoint === "undefined") {
         break;
       case "feature":
         // Get feature view to render with new selection.
-        //$$("mailButton").show();
         $$("homelessnessFeatures").refresh();
         // Make sure feature view is visible.
         $$("homelessnessFeatureView").scrollTo(0,0);

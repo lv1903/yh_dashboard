@@ -143,23 +143,17 @@ function jsonPath(index, aPath, parent_obj){
 }
 
 var aP1eKey = ["worst 20%", "", "", "", "best 20%", "p1eLessThan5", "no data"]
-//var aStandardKey = [ "worst", "", "", "", "best", "no data" ];
 var aP1eKeyLightness = [30, 40, 50, 60, 90, "p1eLessThan5", 100];
 
 var aStandardKey = ["worst 20%", "", "", "", "best 20%", "no data"]
-//var aStandardKey = [ "worst", "", "", "", "best", "no data" ];
 var aKeyLightness = [30, 40, 50, 60, 90, 100];
 
 var aMissingDataKey = ["12m", " 9m", "6m", "3m", "0m"]
 var aMissingLightness = [30, 40, 50, 60, 100]
-//var aCoreKey = ["highest rate", "below average", "above average", "lowest rate", "no data"]
-
 
 
 function selectcolor(n, aBuckets, up){
 
-    //console.log(n)
-    //console.log(aBuckets)
     if(n == "p1eLessThan5"){
         return "#dcd6da";
     }else if(isNaN(n)){
@@ -181,26 +175,16 @@ function selectcolor(n, aBuckets, up){
             else { console.log("error n = " + n)}
         }
 
-        //console.log("n: " + n)
-        //console.log(aBuckets)
-        //console.log("lightness: " + lightness)
-        //console.log("---------")
-
         return "hsla(10, 90%, "+ lightness +"%, 1)"
     }
 }
 
 
 function addColors(aBuckets, up, aPath, obj){
-    //console.log("add colors obj:")
-    //console.log(obj["E07000240"])
+
     map.data.setStyle(function(feature) {
         var id = feature.getProperty('geo_code');
-        //console.log(aPath[1])
-        //console.log(oEntities[id][aPath[0]])
         var n = jsonPath(0, aPath, obj[id]);
-
-        //if(n == 0){n = "zero"} //to give white color
         var color = selectcolor(n, aBuckets, up);
 
         if(id == "E07000167"){
@@ -233,7 +217,6 @@ function getData(sActive, dateIndex){
   }
 
   if (sActive === "P1E_Missing"){
-      //console.log(oNational.homeless_data.p1e_missing_count.quintiles)
       aBuckets = oNational.homeless_data.p1e_missing_count.quintiles;
       var up = true; //good is low
       var aPath = ["homeless_data", "p1e_missing_count"];
@@ -307,8 +290,6 @@ function getRiskFactorData(aSelected){
         aBuckets[i] = (((n - 0) * (max - min)) / (1 - 0)) + min
     }
 
-    //console.log(oRiskIndex)
-    //console.log(min + " : " + max + " : " + aBuckets)
 
     var up = true;
     aPath = ["average"];
@@ -316,8 +297,6 @@ function getRiskFactorData(aSelected){
     addColors(aBuckets, up, aPath, oRiskIndex)
     addKey(aStandardKey, aKeyLightness);
     addLegendKey(aStandardKey, aKeyLightness, $$("riskFactorsKeyContainer"));
-    //$(".riskFactorsModal").modal("hide");
-
 }
 
 //---unemployment data
@@ -374,7 +353,6 @@ function getUnemploymentData(aSelected){
                 var val = oEntities[id].risks_data[aSelected[index]].percent;
                 var x = Number(val)
                 if (isNaN(x) == false) {
-                    //console.log(aSelected[index] + "-->" + x)
                     if(sumPercent == "NA"){sumPercent = 0} //if there is data start at 0
                     sumPercent += x;
                 }
@@ -401,11 +379,6 @@ function getUnemploymentData(aSelected){
         oUnemployment[id].rank = rank
     }
 
-    //console.log("oUnemployment*****************")
-    //console.log(oUnemployment)
-    //
-    //console.log("aObj***********")
-    //console.log(aObj)
 
     //get buckets
     if(aSelected.length > 0) {
@@ -413,8 +386,7 @@ function getUnemploymentData(aSelected){
     } else {
         var aBuckets = []
     }
-    //console.log("buckets*************")
-    //console.log(aBuckets)
+
 
     var aPath = ["rank"];
     var up = true;
