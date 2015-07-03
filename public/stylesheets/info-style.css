@@ -53,6 +53,9 @@
     margin-bottom: 10px;
     max-width: 680px;
     margin: 0;
+    text-decoration: none;
+    cursor: pointer;
+
 }
 
 .ocdpLogo{
