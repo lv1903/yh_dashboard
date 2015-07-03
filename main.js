@@ -32,14 +32,7 @@ cdo.getDataObjects(function(oEntities, oNational) {
   };
 
   app.get("/", function(req,res) {
-    res.render("webix", {
-      activeView: "welcome",
-      quarter: sQuarter,
-      mapStyle: mapStyle,
-      topoLa: oLaTopo,
-      entities: oEntities,
-      national: oNational
-    });
+    res.render("welcome");
   });
 
   app.get('/feature/:id', function(req, res) {
