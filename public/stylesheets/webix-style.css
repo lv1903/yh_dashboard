@@ -99,10 +99,8 @@ html {
 }
 
 #welcomeHeader {
-    /*width: 30vw;*/
     min-width: 310px;
     text-align: center;
-    /*font-size: 1.5vw;*/
 }
 
 .cp_welcomeMap img {
@@ -119,12 +117,9 @@ html {
 }
 
 #welcomeOcdpText{
-    /*width: 20vw;*/
-
-    min-width: 360px;
+     min-width: 360px;
     text-align: center;
     margin-top: 10px;
-    /*margin-left: 5vw;*/
  }
 
 .webix_accordionitem {
@@ -198,11 +193,6 @@ html {
     background-color: #D04627;
 }
 
-#shareDiv {
-    /*border: solid;*/
-    /*border-color: black;*/
-    /*border-width: 2px;*/
-}
 
 .sourceHr {
     margin-top: 20px;
