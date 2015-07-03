@@ -197,3 +197,10 @@ html {
 .sourceHr {
     margin-top: 20px;
 }
+
+.emailText{
+    color: #D04627;
+    font-weight: bold;
+    margin: 10px 0 10px 0;
+    cursor: pointer;
+}

@@ -46,6 +46,7 @@
 
 
 .ocdpText{
+    font-family: Arial;
     text-align: left;
     color: dodgerblue;
     font-size: 12px;
@@ -111,6 +112,7 @@ hr{
 }
 /*----------Text------------------*/
 .textBlock{
+
     margin-top: 20px;
     padding: 0 0 0 50px;
     position: relative;
@@ -120,6 +122,7 @@ hr{
 
 
 .normText{
+    font-family: Arial;
     right: 40px;
     color: #666666;
     margin: 15px 0px 15px 0;
@@ -128,13 +131,22 @@ hr{
 }
 
 .nameText{
+    font-family: Arial;
     color: #D04627;
     font-weight: bold;
     margin: 10px 0 10px 0;
 }
 
+.emailText{
+    font-family: Arial;
+    color: #D04627;
+    font-weight: bold;
+    margin: 10px 0 10px 0;
+    cursor: pointer;
+}
+
 .bigNumber{
-    font-family: Arial Black;
+    font-family: Arial;
     font-weight: bold;
     color: #D04627;
     margin-top: -15px;
