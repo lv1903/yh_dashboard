@@ -123,7 +123,6 @@ function getPopulationData(oEntities, oNational, callback){
             }
         }
         getP1EData(oEntities, oNational, callback)
-        //callback(oEntities, oNational)
     })
 }
 
@@ -166,7 +165,6 @@ function getP1EData(oEntities, oNational, callback){
                             p1ePercent = oEntities[id].homeless_data[Q].p1e.count / oEntities[id].population_16to24;
                         } else if(p1eCount == "-") {
                             p1ePercent = "p1eLessThan5";
-                            //p1ePercent = 4 / oEntities[id].population_16to24;
                         } else {
                             p1ePercent = "NA"
                         }
@@ -188,7 +186,6 @@ function getP1EData(oEntities, oNational, callback){
             if (oEntities[id].homeless_data["2015Q1"].p1e.percent == "p1eLessThan5"){countLess += 1}
 
         }
-        //console.log(count + " " + count0 + " " + countLess)
 
         //calc National data
         for(var indexQ in aQ){
@@ -205,8 +202,6 @@ function getP1EData(oEntities, oNational, callback){
                 }
             }
 
-            //console.log(aX)
-
             if(!(oNational.homeless_data.hasOwnProperty(Q))) {
                 oNational.homeless_data[Q] = {};
             }
@@ -215,11 +210,7 @@ function getP1EData(oEntities, oNational, callback){
             aX.sort(sortNumber);
             oNational.homeless_data[Q].p1e.median = getMedian(aX);
             oNational.homeless_data[Q].p1e.quintiles = getQuintiles(aX);
-
-            //console.log( oNational.homeless_data[Q].p1e)
-
             oNational.homeless_data[Q].p1e.reported_percent = aX.length / count;
-            //console.log(oNational.homeless_data[Q].p1e)
         }
 
         //calc unreported data
@@ -230,7 +221,7 @@ function getP1EData(oEntities, oNational, callback){
                 aVals.push(Q + "|" + oEntities[id].homeless_data[Q].p1e.count)
             }
             aVals.sort().reverse();
-            //console.log(aVals)
+
             var index = countMissing(0, aVals);
             if(index == 0){
                 oEntities[id].homeless_data.p1e_missing_count = "up to date"
