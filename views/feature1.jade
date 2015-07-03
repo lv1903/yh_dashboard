@@ -25,6 +25,10 @@
 - var numberWithCommas = function(x) {
 -   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 - }
+
+  //to do update lastQ dynamically
+- var lastQ = "2015Q1"
+
 #infoCanvas
     //#title.headParent
     div.headBlock
@@ -63,7 +67,7 @@
         - if(n != "-"){
         -   rate = Math.round(n / oData.population_16to24 * 10000);
         - }
-        - var a = oNational.homeless_data["2014Q4"].p1e.quintiles;
+        - var a = oNational.homeless_data[lastQ].p1e.quintiles;
         - var color = "color:" + selectcolor(n, a, true);
         if(n == "-")
             div.textBlock
@@ -83,13 +87,13 @@
         div.textBlock
             //img.bulletImgLeft(src="/images/red-house.png")
             p.normText Compared to a national average of #{''}
-                span.bigNumber #{Math.round(oNational.homeless_data["2014Q4"].p1e.median * 10000)}
+                span.bigNumber #{Math.round(oNational.homeless_data[lastQ].p1e.median * 10000)}
                 span.normText  #{''} per 10,000 16-24 year olds.
 
     else
-        - var n = oData.homeless_data["2014Q4"].p1e.count;
+        - var n = oData.homeless_data[lastQ].p1e.count;
         - var rate = Math.round(n / oData.population_16to24 * 10000)
-        - var a = oNational.homeless_data["2014Q4"].p1e.quintiles;
+        - var a = oNational.homeless_data[lastQ].p1e.quintiles;
         - var color = "color:" + selectcolor(n, a, true);f
         if (n == "-")
             div.textBlock
@@ -101,7 +105,7 @@
             div.textBlock
                 //img.bulletImgLeft(src="/images/red-house.png")
                 p.normText Compared to a national average of #{''}
-                    span.bigNumber #{Math.round(oNational.homeless_data["2014Q4"].p1e.median * 10000)}
+                    span.bigNumber #{Math.round(oNational.homeless_data[lastQ].p1e.median * 10000)}
                     span.normText  #{''} per 10,000 16-24 year olds.
         else
             div.textBlock
@@ -112,13 +116,13 @@
             div.textBlock
                 //img.bulletImgLeft(src="/images/red-house.png")
                 p.normText This is a rate of #{''}
-                    //span.bigNumber #{Math.round(oData.homeless_data["2014Q4"].p1e.percent * 100)}
+                    //span.bigNumber #{Math.round(oData.homeless_data[lastQ].p1e.percent * 100)}
                     span.bigNumber #{rate}
                     span.normText #{''} young people per 10,000 being reported as homeless every 3 months.
             div.textBlock
                 //img.bulletImgLeft(src="/images/red-house.png")
                 p.normText Compared to a national average of #{''}
-                    span.bigNumber #{Math.round(oNational.homeless_data["2014Q4"].p1e.median * 10000)}
+                    span.bigNumber #{Math.round(oNational.homeless_data[lastQ].p1e.median * 10000)}
                     span.normText  #{''} per 10,000 16-24 year olds.
     hr
     //---------------------
@@ -171,8 +175,8 @@
         p.normText From #{''}
             span.bigNumber 97%
             span.normText #{''} of authorities reporting in  2012, to below #{''}
-            span.bigNumber 70%
-            span.normText #{''} reporting in 2014. So lots of data are missing.
+            span.bigNumber 65%
+            span.normText #{''} reporting in 2015. So lots of data are missing.
     hr
     //---------------------------------
     #youthUnemployment

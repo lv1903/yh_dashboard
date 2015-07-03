@@ -16,7 +16,7 @@ app.use(bodyParser.json({limit: (5*1024*1000) }));
 
 var mapStyle = require("./data/styledmap.json");
 var oLaTopo = require("./data/yhLaTopo.json");
-var sQuarter = "2014Q4";
+var sQuarter = "2015Q1";
 
 var cdo = require("./create_data_objects.js");
 
@@ -59,6 +59,7 @@ cdo.getDataObjects(function(oEntities, oNational) {
       } else {
 
           var oData = oEntities[id];
+          //console.log(oEntities[id])
           res.render('feature', {
               oData: oData,
               oNational: oNational
@@ -70,7 +71,7 @@ cdo.getDataObjects(function(oEntities, oNational) {
     var id = req.params["id"];
     var oData = oEntities[id];
 
-    var yhCount = oData.homeless_data["2014Q4"].p1e.count;
+    var yhCount = oData.homeless_data["2015Q1"].p1e.count;
     console.log(yhCount);
     console.log("local");
 

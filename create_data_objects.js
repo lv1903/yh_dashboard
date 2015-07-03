@@ -183,8 +183,9 @@ function getP1EData(oEntities, oNational, callback){
         var countLess = 0
         for(id in oEntities){
             count += 1
-            if (oEntities[id].homeless_data["2014Q4"].p1e.percent == 0){count0 += 1}
-            if (oEntities[id].homeless_data["2014Q4"].p1e.percent == "p1eLessThan5"){countLess += 1}
+            //Change last date here - to do add dynamic calc for most recent quarter
+            if (oEntities[id].homeless_data["2015Q1"].p1e.percent == 0){count0 += 1}
+            if (oEntities[id].homeless_data["2015Q1"].p1e.percent == "p1eLessThan5"){countLess += 1}
 
         }
         //console.log(count + " " + count0 + " " + countLess)

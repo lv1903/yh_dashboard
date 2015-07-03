@@ -111,7 +111,7 @@ html {
 }
 
 #welcomeButton{
-    width: 220px;
+    width: 280px;
 }
 
 #testwt{
@@ -202,4 +202,8 @@ html {
     /*border: solid;*/
     /*border-color: black;*/
     /*border-width: 2px;*/
+}
+
+.sourceHr {
+    margin-top: 20px;
 }

@@ -97,7 +97,7 @@ centrePoint.uiHomelessnessSideBar = {
             title: centrePoint.getDataDateTitle,
             on: { onChange: centrePoint.onDataDateChange }
           },
-          {view: "label", label: "2014", width: 40, align: "left" }
+          {view: "label", label: "2015", width: 40, align: "left" }
         ]
       },
       {
