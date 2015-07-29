@@ -53,18 +53,17 @@ cdo.getDataObjects(function(oEntities, oNational) {
 
       var id = req.params["id"];
 
-      if(dProblemBoundaries.hasOwnProperty(id)) {
-          res.render('feature_error')
+      // if(dProblemBoundaries.hasOwnProperty(id)) {
+          // res.render('feature_error')
 
-      } else {
+      // } else {
 
           var oData = oEntities[id];
-          //console.log(oEntities[id])
           res.render('feature', {
               oData: oData,
               oNational: oNational
           })
-      }
+      // }
   });
 
   app.get('/local/:id', function(req, res){

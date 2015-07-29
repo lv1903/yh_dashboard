@@ -1,0 +1,220 @@
+- var aKeyLightness = [30, 40, 50, 60, 90, 100];
+- var selectcolor = function (n, aBuckets, up){
+-   if(isNaN(n)){
+-       return 'white';
+-   } else {
+-       if(up == true){
+-           if(n <= aBuckets[0]){lightness = aKeyLightness[4]}
+-           else if(n > aBuckets[0] && n <= aBuckets[1]){lightness = aKeyLightness[3]}
+-           else if(n > aBuckets[1] && n <= aBuckets[2]){lightness = aKeyLightness[2]}
+-           else if(n > aBuckets[2] && n <= aBuckets[3]){lightness = aKeyLightness[1]}
+-           else if(n > aBuckets[3]){lightness = aKeyLightness[0]}
+-           else{return "grey"}
+-       } else {
+-           if(n >= aBuckets[3]){lightness = aKeyLightness[4]}
+-           else if(n < aBuckets[3] && n >= aBuckets[2]){lightness = aKeyLightness[3]}
+-           else if(n < aBuckets[2] && n >= aBuckets[1]){lightness = aKeyLightness[2]}
+-           else if(n < aBuckets[1] && n >= aBuckets[0]){lightness = aKeyLightness[1]}
+-           else if(n < aBuckets[0]){lightness = aKeyLightness[0]}
+-           else{return "grey"}
+-       }
+-   }
+-   return "hsla(10, 90%, "+ lightness +"%, 1)"
+- }
+- var avgColor = "color:hsla(10, 90%, 50%, 1)"
+- var numberWithCommas = function(x) {
+-   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+- }
+
+  //to do update lastQ dynamically
+- var lastQ = "2015Q1"
+
+#infoCanvas
+    //#title.headParent
+    div.headBlock
+        img.bulletImgLeft(src="/images/clipboard-red.png")
+        p.headText Offical youth homelessness in your area
+        //---------------------------------
+    div.textBlock
+        p.normText There are #{''}
+            span.bigNumber #{numberWithCommas(oData.population_16to24)}
+            span.normText #{''} 16-24 year olds in #{''}
+            span.nameText #{oData.name}
+            span.normText .
+        //img#popImg(src="/images/persons.png")
+    //hr
+    //-----------------------
+    //.headText Youth Homelessness
+
+
+    //#reportedRate
+    //div.headBlock
+    //    img.bulletImgLeft(src="/images/red-house.png")
+    //    p.headText Offical reported numbers
+
+    #p1e
+    if oData.homeless_data.p1e_missing_count > 0
+        div.textBlock
+            //*img.bulletImgLeft(src="/images/red-house.png")
+            p.normText It's been #{''}
+                span.bigNumber #{oData.homeless_data.p1e_missing_count} #{''}
+                span.normText months since #{''}
+                span.nameText #{oData.name} #{''}
+                span.normText last reported the number of young people accepted as homeless.
+
+        - var n = oData.homeless_data.p1e_last_count;
+        - var rate;
+        - if(n != "-"){
+        -   rate = Math.round(n / oData.population_16to24 * 10000);
+        - }
+        - var a = oNational.homeless_data[lastQ].p1e.quintiles;
+        - var color = "color:" + selectcolor(n, a, true);
+        if(n == "-")
+            div.textBlock
+                //img.bulletImgLeft(src="/images/red-house.png")
+                #lastP1eCount.normText The last reported count was fewer than #{''}
+                span.bigNumber 5
+                span.normText #{''} young people over a 3 month period.
+        else
+            div.textBlock
+                //img.bulletImgLeft(src="/images/red-house.png")
+                p.normText The last reported count was #{''}
+                    span.bigNumber #{n}
+                    span.normText #{''} young people over a 3 month period. This was a rate of #{''}
+                    span.bigNumber #{rate} #{''}
+                    span.normText young people per 10,000 16-24 year olds every 3 months.
+
+        div.textBlock
+            //img.bulletImgLeft(src="/images/red-house.png")
+            p.normText Compared to a national average of #{''}
+                span.bigNumber #{Math.round(oNational.homeless_data[lastQ].p1e.median * 10000)}
+                span.normText  #{''} per 10,000 16-24 year olds.
+
+    else
+        - var n = oData.homeless_data[lastQ].p1e.count;
+        - var rate = Math.round(n / oData.population_16to24 * 10000)
+        - var a = oNational.homeless_data[lastQ].p1e.quintiles;
+        - var color = "color:" + selectcolor(n, a, true);f
+        if (n == "-")
+            div.textBlock
+                //img.bulletImgLeft(src="/images/red-house.png")
+                p.normText There have been fewer than #{''}
+                    span.bigNumber 5
+                    span.normText #{''} homeless young people reported in #{oData.name} in the last 3 months.
+
+            div.textBlock
+                //img.bulletImgLeft(src="/images/red-house.png")
+                p.normText Compared to a national average of #{''}
+                    span.bigNumber #{Math.round(oNational.homeless_data[lastQ].p1e.median * 10000)}
+                    span.normText  #{''} per 10,000 16-24 year olds.
+        else
+            div.textBlock
+                //img.bulletImgLeft(src="/images/red-house.png")
+                p.normText There have been #{''}
+                    span.bigNumber #{n}
+                    span.normText #{''} homeless young people reported in #{oData.name} in the last 3 months.
+            div.textBlock
+                //img.bulletImgLeft(src="/images/red-house.png")
+                p.normText This is a rate of #{''}
+                    //span.bigNumber #{Math.round(oData.homeless_data[lastQ].p1e.percent * 100)}
+                    span.bigNumber #{rate}
+                    span.normText #{''} young people per 10,000 being reported as homeless every 3 months.
+            div.textBlock
+                //img.bulletImgLeft(src="/images/red-house.png")
+                p.normText Compared to a national average of #{''}
+                    span.bigNumber #{Math.round(oNational.homeless_data[lastQ].p1e.median * 10000)}
+                    span.normText  #{''} per 10,000 16-24 year olds.
+    hr
+    //---------------------
+
+    div.headBlock
+        img.bulletImgLeft(src="/images/red-calculator.png")
+        p.headText Actual numbers
+
+
+    div.textBlock
+        //img.bulletImgLeft(src="/images/red-house.png")
+        p.normText That is the number of young people accepted as homeless by the local authority.#{''}
+
+    div.textBlock
+        //img.bulletImgLeft(src="/images/red-house.png")
+        p.normText It only includes those in ‘priority need’ such as care leavers and people with children, #{''}
+            span.normText and so will not include most single homeless young people.
+            //div.textBlock
+            //img.bulletImgLeft(src="/images/red-house.png")
+            span.normText The actual real number of homeless young people is likely to be much higher. #{''}
+
+        - var core_priority = oData.homeless_data["2014Q1"].core_priority.count;
+        - var core_non_priority = oData.homeless_data["2014Q1"].core_non_priority.count;
+
+    div.textBlock
+        //img.bulletImgLeft(src="/images/red-house.png")
+        p.normText For example #{''}
+            span.bigNumber #{core_priority + core_non_priority}
+            span.normText #{''} young people were housed in the
+            span.nameText #{''} #{oData.region} #{''}
+            span.normText region in the first three months of 2014 by housing associations because they were homeless.
+        p.normText Only #{''}
+            span.bigNumber #{Math.round(core_priority / (core_priority + core_non_priority) * 100)}%
+            span.normText #{''} of these young people met official criteria and were included in the official homelessness statistics.
+    hr
+    //---------------------------------
+    //#fallingReporting
+    div.headBlock
+        img.bulletImgLeft(src="/images/bardown-red.png")
+        p.headText Falling reporting
+        //#fallingLine
+        //    img#fallingImg(src="/images/falling-arrow-red.png")
+        //    #fallingText
+        //        p#overThe.normText Over the last couple of years reporting of homeless youths has been falling.
+    div.textBlock
+        //img.bulletImgLeft(src="/images/bardown-red.png")
+        p.normText Over the last couple of years reporting of youth homelessness by local authorities #{''}
+            span.normText has been falling.
+
+        p.normText From #{''}
+            span.bigNumber 97%
+            span.normText #{''} of authorities reporting in  2012, to below #{''}
+            span.bigNumber 65%
+            span.normText #{''} reporting in 2015. So lots of data are missing.
+    hr
+    //---------------------------------
+    #youthUnemployment
+        //#unemployment.headParent
+        div.headBlock
+            img.bulletImgLeft(src="/images/signpost-red.png")
+            p.headText Youth unemployment
+        //----Total unemployment
+        - var risk = "unemployment_total"
+        - var n = Math.round(Number(oData.risks_data[risk].percent)* 10) / 10; // want 1 decimal place
+        - var a = oNational.risks_data[risk].quintiles
+        - var color = "color:" + selectcolor(n, a, true);
+        - var nAvg = Math.round(oNational.risks_data[risk].median* 10) / 10; // want 1 decimal place;
+
+        div.textBlock
+            //img.bulletImgLeft(src="/images/risk-red.png")
+            p.normText
+                span.bigNumber #{n}%
+                span.normText  #{''} of 16 to 24 year olds are claiming Jobseeker’s Allowance in #{''}
+                span.nameText #{oData.name}
+                span.normText . This compares to #{''}
+                span.bigNumber #{nAvg}%
+                span.normText #{''} nationally.
+
+        //-----Over 12 months unemployemnt
+        - var risk = "unemployment_over12m"
+        - var n = Math.round(Number(oData.risks_data[risk].percent)* 10) / 10; // want 1 decimal place
+        - var a = oNational.risks_data[risk].quintiles
+        - var color = "color:" + selectcolor(n, a, true);
+        - var nAvg = Math.round(oNational.risks_data[risk].median* 10) / 10; // want 1 decimal place;
+
+        div.textBlock
+            //img.bulletImgLeft(src="/images/risk-red.png")
+            p.normText
+                span.bigNumber #{n}%
+                span.normText  #{''} of 16 to 24 year olds are claiming Jobseeker’s Allowance for more than 12 months. This compared to #{''}
+                span.bigNumber #{nAvg}%
+                span.normText #{''} nationally.
+
+
+        hr

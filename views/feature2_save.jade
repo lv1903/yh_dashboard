@@ -1,0 +1,179 @@
+
+#risk
+    //#otherFactorsText
+    div.headBlock
+        //#other.headParent
+        img.bulletImgLeft(src="/images/red-house.png")
+        p.headText Other factors relating to youth homelessness
+
+    //#riskDiv
+    div.textBlock
+            //img.bulletImgLeft(src="/images/risk-red.png")
+            p.normText Homeless young people are affected by the following factors in a disproportionately negative way.
+            p.normText As such they less likely to be able to access the positive opportunities available to other young people.
+
+    hr
+
+    //#social.headParent
+    div.headBlock
+        img.bulletImgLeft(src="/images/building-red.png")
+        p.headText Social care and enviroment
+
+    - var risk = "care"
+    - var n = Number(oData.risks_data[risk].percent)
+    - var a = oNational.risks_data[risk].quintiles
+    - var color = "color:" + selectcolor(n, a, true);
+    - var nAvg = oNational.risks_data[risk].median;
+
+    div.textBlock
+        //img.bulletImgLeft(src="/images/risk-red.png")
+        p.normText
+            span.bigNumber #{n}
+            span.normText #{''} per 10,000 children are in care in #{''}
+            span.nameText #{oData.name}
+            span.normText , compared to the national average of #{''}
+            span.bigNumber #{nAvg}
+            span.normText .
+
+    //hr
+
+    //-------------------------------------------------
+    ////#enviroment.headParent
+    //div.textBlock
+    //    img.bulletImgLeft(src="/images/building-red.png")
+    //    p.headText Environment
+
+    - var risk = "deprivation"
+    - var n = Number(oData.risks_data[risk].percent)
+    - var a = oNational.risks_data[risk].quintiles
+    - var color = "color:" + selectcolor(n, a, false);
+    - var nAvg = oNational.risks_data[risk].median;
+
+
+
+    //-------------------------------------------------
+
+    #depDiv.textBlock
+        //img.bulletImgLeft(src="/images/building-red.png")
+        p.normText
+            span.nameText #{oData.name}
+            span.normText #{''} has a deprivation rank of #{''}
+            span.bigNumber #{n}
+            span.normText #{''} out of #{''}
+            span.bigNumber 326
+            span.normText #{''} local authorities, where 1 indicates the highest level of deprivation.
+    hr
+    //-------------------------------------------------
+    //#education.headParent
+    div.headBlock
+       img.bulletImgLeft(src="/images/education-red.png")
+       p.headText Education
+
+    - var risk = "education_level3";
+    - var n = Number(oData.risks_data[risk].percent);
+    - var a = oNational.risks_data[risk].quintiles;
+    - var color = "color:" + selectcolor(n, a, false);
+    - var nAvg = oNational.risks_data[risk].median;
+
+    div.textBlock
+        //img.bulletImgLeft(src="/images/seesaw-red.png")
+        p.normText
+            span.bigNumber #{n}%
+            span.normText #{''} of young people achieved 2 A levels or equivalent compared to the national average of #{''}
+            span.bigNumber #{nAvg}%
+            span.normText .
+    //-------------------------------------------------
+    - var risk = "education_attainment_gap";
+    - var n = Number(oData.risks_data[risk].percent);
+    - var a = oNational.risks_data[risk].quintiles;
+    - var color = "color:" + selectcolor(n, a, true);
+    - var nAvg = oNational.risks_data[risk].median;
+
+        //#gapDec
+    div.textBlock
+        //img.bulletImgLeft(src="/images/seesaw-red.png")
+        p.normText There is a #{''}
+            span.bigNumber #{n}%
+            span.normText #{''} achievement gap between children on free school meals or with special #{''}
+            span.normText educational needs and their peers, compared to the national average of #{''}
+            span.bigNumber #{nAvg}%
+            span.normText .
+        //------------------------------------------------
+        - var risk = "apprenticeship"
+        - var n = Math.round(Number(oData.risks_data[risk].percent) * 10); //
+        - var a = oNational.risks_data[risk].quintiles
+        - var color = "color:" + selectcolor(n, a, false);
+        - var nAvg = Math.round(oNational.risks_data[risk].median * 10); // want 1 decimal place;
+
+    div.textBlock
+        //img.bulletImgLeft(src="/images/seesaw-red.png")
+        p.normText
+            span.bigNumber #{n}
+            span.normText  #{''} young people per 1,000 have started an apprenticeship in the last year, #{''}
+            span.normText compared to the national average of #{''}
+            span.bigNumber #{nAvg}
+            span.normText #{''} per 1,000.
+        //------------------------------------------------
+        - var risk = "truancy"
+        - var n = Math.round(Number(oData.risks_data[risk].percent)* 10);
+        - var a = oNational.risks_data[risk].quintiles
+        - var color = "color:" + selectcolor(n, a, true);
+        - var nAvg = Math.round(oNational.risks_data[risk].median* 10);
+
+    div.textBlock
+        //img.bulletImgLeft(src="/images/seesaw-red.png")
+        p.normText
+            span.bigNumber #{n}
+            span.normText  #{''} secondary school pupils per 1,000 are persistent truants, #{''}
+            span compared to the national average of #{''}
+            span.bigNumber #{nAvg}
+            span.normText #{''} per 1,000.
+    hr
+    //-------------------------------------------------
+    //#health.headParent
+    div.headBlock
+        img.bulletImgLeft(src="/images/healthbuilding-red.png")
+        p.headText Health
+
+
+    - var risk = "hospital";
+    - var n = Math.round(Number(oData.risks_data[risk].percent));
+    - var a = oNational.risks_data[risk].quintiles
+    - var color = "color:" + selectcolor(n, a, true);
+    - var nAvg = Math.round(oNational.risks_data[risk].median);
+
+    div.textBlock
+        //img.bulletImgLeft(src="/images/healthbuilding-red.png")
+        p.normText There are #{''}
+            span.bigNumber #{n}
+            span.normText #{''} emergency hospital admissions for under 24s per 10,000 per year, #{''}
+            span.normText compared to the national average of #{''}
+            span.bigNumber #{nAvg}
+            span.normText #{''} per 10,000.
+    //-------------------------------------------------
+    - var risk = "mentalhealth";
+    - var n = Math.round(Number(oData.risks_data[risk].percent)* 10) / 10;
+    - var a = oNational.risks_data[risk].quintiles
+    - var color = "color:" + selectcolor(n, a, true);
+    - var nAvg = Math.round(oNational.risks_data[risk].median* 10) / 10;
+
+    div.textBlock
+        //img.bulletImgLeft(src="/images/healthbuilding-red.png")
+        p.normText
+            span.bigNumber #{n}%
+            span.normText #{''}  of people have serious mental health problems, compared to the national average of #{''}
+            span.bigNumber #{nAvg}%
+            span.normText .
+    hr
+    //------------------------------------------------------
+    //#emailDiv
+    //div.headBlock
+    //    img.bulletImgLeft(src="/images/mail-red.png")
+    //    p.headText Contact us
+
+    div.textBlock
+        //img.bulletImgLeft(src="/images/mail-red.png")
+        p.normText If you would like to find out more about how Centrepoint supports homeless young #{''}
+            span people and how you can get involved, please contact the Policy and Public Affairs team: #{''}
+            span.emailText(onclick='window.location = "mailto:policy@centrepoint.org?subject=Youth homelessness in your area"') policy@centrepoint.org
+            span.normText .
