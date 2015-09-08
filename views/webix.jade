@@ -44,17 +44,14 @@ html
             p This data will not include most single homeless people as they are not classed as in priority need.
             p White means the data has not been reported.
             p Grey means the local authority reported a count of fewer than five young homeless people in the last three months.
-            p The Department for Communities and Local Government has suppressed some data reported as fewer than 5 because the number of "under five" #{""}
-                span entries recorded was incompatible with the total reported figure (e.g. all 6 age categories are reported as <5 but the total number #{""}
-                span recorded is far great than 30). This data is recorded here as missing.
+            p The Department for Communities and Local Government has suppressed some data reported as fewer than 5 to prevent the value from being calculated. This data is recorded here as missing.
             p
                 a(target="_blank" href='https://www.gov.uk/government/statistical-data-sets/live-tables-on-homelessness#detailed-local-authority-level-responses') Source
 
         //info text for the missing data.
         div.cp_hidden(id="missingDataInfoText")
             p How many months the local authority has not submitted data on statutory youth homelessness.
-            p This includes where the Department for Communities and Local Government has suppressed some data reported as fewer than 5 because the number of "under five" #{""}
-                span entries recorded was incompatible with the total reported figure (e.g. all 6 age categories are reported as <5 but the total number recorded is far great than 30).
+            p This includes where the Department for Communities and Local Government has suppressed some data reported as fewer than 5 to prevent the value from being calculated.
             p
                 a(target="_blank" href='https://www.gov.uk/government/statistical-data-sets/live-tables-on-homelessness#detailed-local-authority-level-responses') Source
 
@@ -143,8 +140,7 @@ html
             p The light pink category refers to the 20% of authorities with the lowest levels of youth homelessness.
             p The colours in between refer to three intervening fifths of local authorities.
             p Grey means the local authority reported a count of fewer than five young homeless people in the last three months.
-            p And white means no data available (this includes data suppressed by DCLG because the number of "under five" #{""}
-                span entries recorded was incompatible with the total reported figure (e.g. all 6 age categories are reported as <5 but the total number recorded is far great than 30).
+            p And white means no data available (this includes data suppressed by DCLG to prevent the value from being calculated.
             button.backToMapButton(type='button', onclick="centrePoint.accordionViewChanged()") back to map
 
         div.cp_hidden(id="missingKeyText")
