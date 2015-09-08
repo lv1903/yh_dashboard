@@ -396,14 +396,14 @@ centrePoint.uiMainLayout = {
           multi: false,
           rows: [
             {
-              header: "Official youth homelessness",
+              header: "Official Youth Homelessness",
               id: "homelessnessView",
               headerAltHeight: centrePoint.barHeight,
               headerHeight: centrePoint.barHeight,
               body: centrePoint.uiHomelessnessSideBar
             },
             {
-              header: "How much data is missing",
+              header: "How Much Data is Missing",
               id: "missingView",
               headerAltHeight: centrePoint.barHeight,
               headerHeight: centrePoint.barHeight,
@@ -411,7 +411,7 @@ centrePoint.uiMainLayout = {
               body: centrePoint.uiMissingSideBar
             },
             {
-              header: "Youth unemployment",
+              header: "Youth Unemployment",
               id: "unemploymentView",
               headerAltHeight: centrePoint.barHeight,
               headerHeight: centrePoint.barHeight,
@@ -419,7 +419,7 @@ centrePoint.uiMainLayout = {
               body: centrePoint.uiUnemploymentSideBar
             },
             {
-              header: "Related factors",
+              header: "Related Factors",
               id: "riskFactorsView",
               headerAltHeight: centrePoint.barHeight,
               headerHeight: centrePoint.barHeight,

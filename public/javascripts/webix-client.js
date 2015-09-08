@@ -314,16 +314,19 @@ if (typeof window.centrePoint === "undefined") {
     switch (activeMap) {
       case "homelessness":
         $$("homelessnessDateSlider").getValue();
-        title = "Official youth homelessness";
+        title = "Official Youth Homelessness of England";
+        if(centrePoint.useTouch == true){
+          title = "Official Youth Homelessness"
+        }
         break;
       case "missing":
-        title = "How much data is missing";
+        title = "How Much Data is Missing";
         break;
       case "unemployment":
-        title = "Youth unemployment";
+        title = "Youth Unemployment";
         break;
       case "riskFactors":
-        title = "Related factors";
+        title = "Related Factors";
         break;
     }
     if(!$$("mapButton").isVisible()) {
